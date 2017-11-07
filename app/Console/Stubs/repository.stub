@@ -1,0 +1,22 @@
+<?php
+
+namespace DummyNamespace;
+
+
+use App\DummyModel;
+use App\Repositories\Mapper\DummyMapper;
+
+class DummyClass extends Repositorio
+{
+    public function __construct()
+    {
+        $this->gateway = new DummyModel();
+        $this->mapper = new DummyMapper();
+    }
+
+    function model()
+    {
+        return 'App\Repositories\DummyClass';
+    }
+
+}
