@@ -19,16 +19,16 @@ class Solicitud extends Model
 
     public function climed()
     {
-        return $this->belongsTo('App\Climed', 'IDCLIMED', 'IDS');
+        return $this->belongsTo('App\Climed', 'IDCLIMED', 'IDCLI');
     }
 
     public function especialidad()
     {
-        return $this->belongsTo('App\Especialidad', 'ESPECIALIDAD', 'IDS');
+        return $this->belongsTo('App\Especialidad', 'ESPECIALIDAD', 'IDESPECIALIDAD');
     }
 
     public function afiliado()
     {
-        return $this->belongsTo('App\Afiliado', '', 'IDS');
+        return $this->belongsTo('App\Afiliado', 'IDAFILIADO', 'ID');
     }
 }

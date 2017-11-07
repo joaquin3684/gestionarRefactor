@@ -22,12 +22,14 @@ class Solicitud
     private $asignado;
     private $equivalencia;
     private $motivo;
-    private $especialidad;
     private $tipo;
     private $foto;
     private $revisado;
     private $obs;
     private $turnos;
+    private $afiliado;
+    private $climed;
+    private $especialidad;
 
     /**
      * Solicitud constructor.
@@ -43,7 +45,7 @@ class Solicitud
      * @param $revisado
      * @param $obs
      */
-    public function __construct($id, $medico, $fecha, $estado, $asignado, $equivalencia, $motivo, $especialidad, $tipo, $foto, $revisado, $obs)
+    public function __construct($id, $medico, $fecha, $estado, $asignado, $equivalencia, $motivo, $tipo, $foto, $revisado, $obs)
     {
         $this->id = $id;
         $this->medico = $medico;
@@ -52,11 +54,42 @@ class Solicitud
         $this->asignado = $asignado;
         $this->equivalencia = $equivalencia;
         $this->motivo = $motivo;
-        $this->especialidad = $especialidad;
         $this->tipo = $tipo;
         $this->foto = $foto;
         $this->revisado = $revisado;
         $this->obs = $obs;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAfiliado()
+    {
+        return $this->afiliado;
+    }
+
+    /**
+     * @param mixed $afiliado
+     */
+    public function setAfiliado($afiliado)
+    {
+        $this->afiliado = $afiliado;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getClimed()
+    {
+        return $this->climed;
+    }
+
+    /**
+     * @param mixed $climed
+     */
+    public function setClimed($climed)
+    {
+        $this->climed = $climed;
     }
 
 
