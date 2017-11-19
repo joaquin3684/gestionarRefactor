@@ -52,12 +52,7 @@ class SolicitudController extends Controller
         $this->repo->update($request->all(), $id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $this->repo->destroy($id);
@@ -65,13 +60,17 @@ class SolicitudController extends Controller
 
     public function all()
     {
-        return $this->repo->all();
+        $solicitudes = $this->repo->all();
+        return $solicitudes->map(function ($solicitud) {
+            return $solicitud->toArray($solicitud);
+        });
     }
 
     public function turnos(Request $request)
     {
         $id = $request['id'];
-        $clinica =  $this->repo->findTurnos($id);
-        return $clinica->toArray($clinica);
+        $solicitud =  $this->repo->findTurnos($id);
+        return $solicitud->toArray($solicitud);
+
     }
 }
