@@ -48,7 +48,6 @@ class SolicitudMapper
                 return $this->turnosMapper->map($turno);
             });
             $solicitudMappeada->setTurnos($turnos);
-            return $solicitudMappeada;
         }
         if($solicitud->relationLoaded('afiliado'))
         {
@@ -65,5 +64,7 @@ class SolicitudMapper
             $especialidad = $this->especialidadMapper->map($solicitud->especialidad);
             $solicitudMappeada->setEspecialidad($especialidad);
         }
+        return $solicitudMappeada;
+
     }
 }

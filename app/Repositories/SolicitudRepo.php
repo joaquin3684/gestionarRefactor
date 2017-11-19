@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-
 use App\Solicitud;
 use App\Repositories\Mapper\SolicitudMapper;
 
