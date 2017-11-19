@@ -8,6 +8,7 @@ class Solicitud extends Model
 {
     protected $primaryKey = 'IDS';
     protected $table = 'Solicitudes';
+    public $timestamps = false;
     protected $fillable = [
         'IDSOLICITANTE', 'MEDICO', 'FECHAS', 'ESTADO', 'ASIGNADO', 'IDAFILIADO', 'EQUIVALENCIA', 'IDCLIMED', 'MOTIVO', 'ESPECIALIDAD', 'TIPO', 'FOTO', 'REVISADO', 'OBS'
     ];
