@@ -30,4 +30,10 @@ class SolicitudRepo extends Repositorio
         return $this->mapper->map($obj);
     }
 
+    public function find($id)
+    {
+        $obj = $this->gateway->with('turnos', 'climed', 'afiliado', 'especialidad')->find($id);
+        return $this->mapper->map($obj);
+    }
+
 }

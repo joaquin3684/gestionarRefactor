@@ -35,8 +35,8 @@ class SolicitudController extends Controller
      */
     public function show($id)
     {
-        $clinica =  $this->repo->find($id);
-        return $clinica->toArray($clinica);
+        $solicitud =  $this->repo->find($id);
+        return $solicitud->toArray($solicitud);
     }
 
 
