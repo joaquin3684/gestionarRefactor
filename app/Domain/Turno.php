@@ -21,6 +21,8 @@ class Turno
     private $confirmacion;
     private $medicoAsignado;
     private $motivo;
+    private $climed;
+
 
     /**
      * Turno constructor.
@@ -138,6 +140,21 @@ class Turno
     }
 
 
+    /**
+     * @return mixed
+     */
+    public function getClimed()
+    {
+        return $this->climed;
+    }
+
+    /**
+     * @param mixed $climed
+     */
+    public function setClimed($climed)
+    {
+        $this->climed = $climed;
+    }
 
 
 }
