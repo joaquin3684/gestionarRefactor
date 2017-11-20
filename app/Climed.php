@@ -8,6 +8,8 @@ class Climed extends Model
 {
     protected $primaryKey = 'IDCLI';
     protected $table = 'Climed';
+    public $timestamps = false;
+
     protected $fillable = [
         'NOMBRE', 'DIRECCION', 'LOCALIDAD', 'ZONA', 'PARTICULAR', 'latitude', 'longitude', 'TELEFONO'
     ];
