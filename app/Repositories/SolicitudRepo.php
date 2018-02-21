@@ -20,7 +20,7 @@ class SolicitudRepo extends Repositorio
 
     public function all()
     {
-        $obj = $this->gateway->with('turnos.climed', 'climed', 'afiliado', 'especialidad')->where('ESTADO', '<>','Confirmado')->get();
+        $obj = $this->gateway->with('turnos.climed', 'climed', 'afiliado.obraSocial', 'especialidad')->where('ESTADO', '<>','Confirmado')->get();
         return $this->mapper->map($obj);
     }
 
@@ -32,7 +32,7 @@ class SolicitudRepo extends Repositorio
 
     public function find($id)
     {
-        $obj = $this->gateway->with('turnos.climed', 'climed', 'afiliado', 'especialidad')->find($id);
+        $obj = $this->gateway->with('turnos.climed', 'climed', 'afiliado.obraSocial', 'especialidad')->find($id);
         return $this->mapper->map($obj);
     }
 
