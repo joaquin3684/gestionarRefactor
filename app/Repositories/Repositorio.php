@@ -33,7 +33,9 @@ abstract class Repositorio implements abmInterface
 
     public function update(array $data, $id)
     {
-        $obj = $this->gateway->update($data, $id);
+        $obj = $this->gateway->find($id);
+        $obj->fill($data);
+        $obj->save();
         return $this->mapper->map($obj);
     }
 

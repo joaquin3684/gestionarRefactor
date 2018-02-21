@@ -28,8 +28,8 @@ class AfiliadoRepo extends Repositorio
     public function all()
     {
         $obj = $this->gateway->with('obraSocial')->get();
-        return $obj->map(function($obj){
-            return $this->mapper->map($obj);
+        return $obj->map(function($ob){
+            return $this->mapper->map($ob);
         });
     }
 }
