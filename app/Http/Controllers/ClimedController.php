@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\ClimedRepo;
+use App\Repositories\EspecialidadRepo;
 use Illuminate\Http\Request;
 
 class ClimedController extends Controller
@@ -10,9 +11,10 @@ class ClimedController extends Controller
 
     private $repo;
 
-    public function __construct(ClimedRepo $repo)
+    public function __construct(ClimedRepo $repo, EspecialidadRepo $repoEspecialidades)
     {
         $this->repo = $repo;
+        $this->especialidadesRepo = $repoEspecialidades;
     }
 
 
@@ -26,6 +28,7 @@ class ClimedController extends Controller
     {
         $clinica = $this->repo->create($request->all());
         $this->repo->attach($request['obrasSociales'], 'obrasSociales', $clinica->getId());
+        $this->repo->attach($request['especialidades'], 'especialidades', $clinica->getId());
     }
 
     /**
