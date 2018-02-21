@@ -30,6 +30,23 @@ class Afiliado
     private $obs;
     private $grupof;
     private $nafiliado;
+    private $obra_social;
+
+    /**
+     * @return mixed
+     */
+    public function getObraSocial()
+    {
+        return $this->obra_social;
+    }
+
+    /**
+     * @param mixed $obra_social
+     */
+    public function setObraSocial($obra_social)
+    {
+        $this->obra_social = $obra_social;
+    }
 
     /**
      * Afiliado constructor.

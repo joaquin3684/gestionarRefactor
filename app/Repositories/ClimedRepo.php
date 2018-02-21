@@ -30,4 +30,10 @@ class ClimedRepo extends Repositorio
         $obj = $this->gateway->with('especialidades')->get();
         return $this->mapper->map($obj);
     }
+
+    public function findWithObrasSociales($id)
+    {
+        $obj = $this->gateway->with('obrasSociales')->find($id);
+        return $this->mapper->map($obj);
+    }
 }

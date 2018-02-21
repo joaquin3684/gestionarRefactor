@@ -20,7 +20,7 @@ class SolicitudRepo extends Repositorio
 
     public function all()
     {
-        $obj = $this->gateway->with('turnos.climed', 'climed', 'afiliado', 'especialidad')->get();
+        $obj = $this->gateway->with('turnos.climed', 'climed', 'afiliado', 'especialidad')->where('ESTADO', '<>','Confirmado')->get();
         return $this->mapper->map($obj);
     }
 

@@ -11,7 +11,12 @@ class Afiliado extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'NOMBRE', 'APELLIDO', 'DNI', 'EMAIL', 'TELEFONO', 'CELULAR', 'DIRECCION', 'PISO', 'DEPARTAMENTO', 'NACIMIENTO', 'CUIL', 'OBS', 'GRUPOF', 'NAFILIADO'
+        'NOMBRE', 'APELLIDO', 'DNI', 'EMAIL', 'TELEFONO', 'CELULAR', 'DIRECCION', 'PISO', 'DEPARTAMENTO', 'NACIMIENTO', 'CUIL', 'OBS', 'GRUPOF', 'NAFILIADO', 'ID_OBRA_SOCIAL'
     ];
 
+
+    public function obraSocial()
+    {
+        return $this->belongsTo('App\ObraSocial', 'IDOBRASOCIAL', 'ID');
+    }
 }

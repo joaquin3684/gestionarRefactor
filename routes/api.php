@@ -42,3 +42,8 @@ Route::resource('turno', 'TurnoController');
 
 Route::get('especialidad/traerElementos', 'EspecialidadController@all');
 Route::resource('especialidad', 'EspecialidadController');
+
+//-------------------- OBRA SOCIAL ----------------------
+
+Route::get('obraSocial/traerElementos', 'ObraSocialController@all');
+Route::resource('obraSocial', 'ObraSocialController');

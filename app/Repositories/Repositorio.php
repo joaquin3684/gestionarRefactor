@@ -15,6 +15,8 @@ abstract class Repositorio implements abmInterface
 {
     private $app;
     protected $model;
+    private $modeloEloquent;
+
 
     public function __construct() {
         $this->app = new App();
@@ -25,8 +27,8 @@ abstract class Repositorio implements abmInterface
 
     public function create(array $data)
     {
-        $obj = $this->gateway->create($data);
-        return $this->mapper->map($obj);
+        $this->modeloEloquent = $this->gateway->create($data);
+        return $this->mapper->map($this->modeloEloquent);
     }
 
     public function update(array $data, $id)
@@ -66,6 +68,19 @@ abstract class Repositorio implements abmInterface
         $reserva = $this->gateway->find($id);
         $reserva->$attach()->attach($ids);
         return $this->mapper->map($reserva);
+    }
+
+    public function detach($detach, $id, $ids = null)
+    {
+        $obj = $this->gateway->find($id);
+        if($ids == null)
+        {
+            $obj->$detach()->detach();
+        }
+        else
+        {
+            $obj->$detach()->detach($ids);
+        }
     }
 
     public function makeModel() {

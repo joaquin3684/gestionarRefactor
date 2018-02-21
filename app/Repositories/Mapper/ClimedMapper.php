@@ -8,9 +8,11 @@ class ClimedMapper
 {
 
     private $especialidadesMapper;
+    private $obrasSocialesMapper;
     public function __construct()
     {
         $this->especialidadesMapper = new EspecialidadMapper();
+        $this->obrasSocialesMapper = new ObraSocialMapper();
     }
 
     public function map($objeto)
@@ -25,8 +27,16 @@ class ClimedMapper
                         return $this->especialidadesMapper->map($especialidad);
                     });
                     $clinica->setEspecilidades($especialidades);
-                    return $clinica;
+
                 }
+                if($objeto->relationLoaded('obrasSociales'))
+                {
+                    $obrasSociales = $objeto->obrasSociales->map(function($obraSocial){
+                        return $this->obrasSocialesMapper->map($obraSocial);
+                    });
+                    $clinica->setObrasSociales($obrasSociales);
+                }
+                return $clinica;
             });
 
             return $clinicas;
@@ -40,6 +50,13 @@ class ClimedMapper
                     return $this->especialidadesMapper->map($especialidad);
                 });
                 $clinica->setEspecilidades($especialidades);
+            }
+            if($objeto->relationLoaded('obrasSociales'))
+            {
+                $obrasSociales = $objeto->obrasSociales->map(function($obraSocial){
+                    return $this->obrasSocialesMapper->map($obraSocial);
+                });
+                $clinica->setObrasSociales($obrasSociales);
             }
             return $clinica;
         }

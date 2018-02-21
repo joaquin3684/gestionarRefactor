@@ -24,7 +24,8 @@ class ClimedController extends Controller
      */
     public function store(Request $request)
     {
-        $this->repo->create($request->all());
+        $clinica = $this->repo->create($request->all());
+        $this->repo->attach($request['obrasSociales'], 'obrasSociales', $clinica->getId());
     }
 
     /**
@@ -35,7 +36,7 @@ class ClimedController extends Controller
      */
     public function show($id)
     {
-        $clinica =  $this->repo->find($id);
+        $clinica =  $this->repo->findWithObrasSociales($id);
         return $clinica->toArray($clinica);
     }
 
@@ -49,7 +50,10 @@ class ClimedController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->repo->update($request->all(), $id);
+        $clinica = $this->repo->update($request->all(), $id);
+        $this->repo->detach('obrasSociales', $id);
+        $this->repo->attach($request['obrasSociales'], 'obrasSociales', $clinica->getId());
+
     }
 
     /**

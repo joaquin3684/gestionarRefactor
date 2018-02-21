@@ -24,6 +24,7 @@ class Climed
     private $longitud;
     private $telefono;
     private $especilidades;
+    private $obrasSociales;
 
     /**
      * Climed constructor.
@@ -48,6 +49,22 @@ class Climed
         $this->latitud = $latitud;
         $this->longitud = $longitud;
         $this->telefono = $telefono;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getObrasSociales()
+    {
+        return $this->obrasSociales;
+    }
+
+    /**
+     * @param mixed $obrasSociales
+     */
+    public function setObrasSociales($obrasSociales)
+    {
+        $this->obrasSociales = $obrasSociales;
     }
 
     /**

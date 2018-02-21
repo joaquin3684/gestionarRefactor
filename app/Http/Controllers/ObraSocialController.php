@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\EspecialidadRepo;
+use App\Repositories\ObraSocialRepo;
 use Illuminate\Http\Request;
 
-class EspecialidadController extends Controller
+class ObraSocialController extends Controller
 {
     private $repo;
 
-    public function __construct(EspecialidadRepo $repo)
+    public function __construct(ObraSocialRepo $repo)
     {
         $this->repo = $repo;
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -23,7 +22,7 @@ class EspecialidadController extends Controller
      */
     public function store(Request $request)
     {
-        $clinica = $this->repo->create($request->all());
+        $this->repo->create($request->all());
     }
 
     /**
@@ -34,8 +33,8 @@ class EspecialidadController extends Controller
      */
     public function show($id)
     {
-        $clinica =  $this->repo->find($id);
-        return $clinica->toArray($clinica);
+        $obraSocial =  $this->repo->find($id);
+        return $obraSocial->toArray($obraSocial);
     }
 
 
@@ -68,5 +67,4 @@ class EspecialidadController extends Controller
             return $elem->toArray($elem);
         });
     }
-
 }

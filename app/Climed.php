@@ -19,4 +19,9 @@ class Climed extends Model
         return $this->belongsToMany('App\Especialidad', 'ClimedEsp', 'IDCLIMED', 'IDESP');
     }
 
+    public function obrasSociales()
+    {
+        return $this->belongsToMany('App\ObraSocial', 'Climed_obra_social', 'IDOBRASOCIAL', 'IDCLIMED');
+    }
+
 }

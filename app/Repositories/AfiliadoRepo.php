@@ -19,4 +19,5 @@ class AfiliadoRepo extends Repositorio
         return 'App\Repositories\AfiliadoRepo';
     }
 
+
 }
