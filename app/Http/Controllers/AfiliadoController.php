@@ -34,7 +34,7 @@ class AfiliadoController extends Controller
      */
     public function show($id)
     {
-        $clinica =  $this->repo->find($id);
+        $clinica =  $this->repo->findWithObraSocial($id);
         return $clinica->toArray($clinica);
     }
 
