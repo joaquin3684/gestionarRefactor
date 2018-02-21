@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\FarmaciaRepo;
 use Illuminate\Http\Request;
 
 class FarmaciaController extends Controller
 {
     private $repo;
 
-    public function __construct(AfiliadoRepo $repo)
+    public function __construct(FarmaciaRepo $repo)
     {
         $this->repo = $repo;
     }
