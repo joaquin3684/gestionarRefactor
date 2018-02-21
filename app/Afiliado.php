@@ -11,7 +11,7 @@ class Afiliado extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'NOMBRE', 'APELLIDO', 'DNI', 'EMAIL', 'TELEFONO', 'CELULAR', 'DIRECCION', 'PISO', 'DEPARTAMENTO', 'NACIMIENTO', 'CUIL', 'OBS', 'GRUPOF', 'NAFILIADO', 'ID_OBRA_SOCIAL'
+        'NOMBRE', 'APELLIDO', 'DNI', 'EMAIL', 'TELEFONO', 'CELULAR', 'DIRECCION', 'PISO', 'DEPARTAMENTO', 'NACIMIENTO', 'CUIL', 'OBS', 'GRUPOF', 'NAFILIADO', 'IDOBRASOCIAL'
     ];
 
 
