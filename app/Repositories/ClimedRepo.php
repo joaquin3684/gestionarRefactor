@@ -36,4 +36,17 @@ class ClimedRepo extends Repositorio
         $obj = $this->gateway->with('obrasSociales', 'especialidades')->find($id);
         return $this->mapper->map($obj);
     }
+
+    public function findClinicasByEspecialidad($id)
+    {
+        $obj = $this->gateway->whereHas('especialidades', function($query) use ($id){
+            $query->where('IDESPECIALIDAD', $id);
+        })->with('especialidades')->orderBy('LOCALIDAD', 'asc')->get();//TODO ordenar por localidad
+        return $this->mapper->map($obj);
+    }
+
+    public function findClinicasByEspecialidadAndLocalidad()
+    {
+
+    }
 }

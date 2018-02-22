@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RecomendacionValidator;
 use App\Repositories\RecomendacionRepo;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,7 @@ class RecomendacionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RecomendacionValidator $request)
     {
         $this->repo->create($request->all());
     }

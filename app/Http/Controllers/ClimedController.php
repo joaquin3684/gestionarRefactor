@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ClimedValidator;
 use App\Repositories\ClimedRepo;
 use App\Repositories\EspecialidadRepo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClimedController extends Controller
 {
@@ -17,14 +19,13 @@ class ClimedController extends Controller
         $this->especialidadesRepo = $repoEspecialidades;
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClimedValidator $request)
     {
         $clinica = $this->repo->create($request->all());
         $this->repo->attach($request['obrasSociales'], 'obrasSociales', $clinica->getId());
@@ -39,10 +40,9 @@ class ClimedController extends Controller
      */
     public function show($id)
     {
-        $clinica =  $this->repo->findWithObrasSociales($id);
+        $clinica =  $this->repo->find($id);
         return $clinica->toArray($clinica);
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -82,5 +82,26 @@ class ClimedController extends Controller
         $id = $request['id'];
         $clinica =  $this->repo->findEspecialidades($id);
         return $clinica->toArray($clinica);
+    }
+
+    public function findClinicasByEspecialidad($id)
+    {
+        $clinicas = $this->repo->findClinicasByEspecialidad($id);
+        return $clinicas->map(function($clinica) {
+            return $clinica->toArray($clinica);
+        });
+
+    }
+
+    public function findClinicasByEspecialidadAndLocalidad(Request $request)
+    {
+        $especialidad = $request['especialidad'];
+        $localidad = $request['localidad'];
+        return DB::select(DB::raw("SELECT Climed.IDCLI,Climed.NOMBRE,Climed.DIRECCION,Climed.LOCALIDAD,Climed.latitude,Climed.longitude, Especialidad.NOMBRE AS ESPECIALIDAD FROM Climed 
+	                    INNER JOIN ClimedEsp ON Climed.IDCLI = ClimedEsp.IDCLIMED
+	                    INNER JOIN Especialidad ON ClimedEsp.IDESP = Especialidad.IDESPECIALIDAD
+	                    WHERE Especialidad.IDESPECIALIDAD = '$especialidad' AND Climed.LOCALIDAD = '$localidad'
+	                    GROUP BY Climed.IDCLI ORDER BY Climed.NOMBRE ASC"));
+
     }
 }
