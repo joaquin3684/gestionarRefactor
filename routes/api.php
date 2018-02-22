@@ -25,17 +25,13 @@ Route::resource('recomendacion', 'RecomendacionController');
 //--------------------- CLIMED ------------------------
 
 Route::get('climed/traerElementos', 'ClimedController@all');
-Route::get('climed/clinicasPorEspecialidad/{id}', 'ClimedController@findClinicasByEspecialidad');
-Route::post('climed/clinicasPorEspecialidadYLocalidad', 'ClimedController@findClinicasByEspecialidad');
+
 Route::resource('climed', 'ClimedController');
 
 //--------------------- SOLICITUD --------------------
 
 Route::get('solicitud/traerElementos', 'SolicitudController@all');
-Route::post('solicitud/pendientesyabiertas', 'SolicitudController@pendientesOAbiertas');
-Route::get('solicitud/solicitudApp/{id}', 'SolicitudController@findApp');
-Route::post('solicitud/confirmar', 'SolicitudController@confirmarSolicitud');
-Route::post('solicitud/rechazar', 'SolicitudController@confirmarSolicitud');
+
 Route::resource('solicitud', 'SolicitudController');
 
 //---------------------- TURNO ------------------------
@@ -53,3 +49,17 @@ Route::resource('especialidad', 'EspecialidadController');
 Route::get('obraSocial/traerElementos', 'ObraSocialController@all');
 Route::resource('obraSocial', 'ObraSocialController');
 
+//----------------------- APLICACION CELULAR -------------------------
+
+// SOLICITUDES
+
+Route::post('solicitud/pendientesyabiertas', 'Aplicacion\AppSolicitudController@pendientesOAbiertas');
+Route::get('solicitud/solicitudApp/{id}', 'Aplicacion\AppSolicitudController@findApp');
+Route::post('solicitud/confirmar', 'Aplicacion\AppSolicitudController@confirmarSolicitud');
+Route::post('solicitud/rechazar', 'Aplicacion\AppSolicitudController@confirmarSolicitud');
+
+
+// CLIMED
+
+Route::get('climed/clinicasPorEspecialidad/{id}', 'Aplicacion\AppClimedController@findClinicasByEspecialidad');
+Route::post('climed/clinicasPorEspecialidadYLocalidad', 'Aplicacion\AppClimedController@findClinicasByEspecialidad');

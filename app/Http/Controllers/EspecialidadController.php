@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EspecialidadValidator;
 use App\Repositories\EspecialidadRepo;
 use Illuminate\Http\Request;
 
@@ -21,9 +22,9 @@ class EspecialidadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EspecialidadValidator $request)
     {
-        $clinica = $this->repo->create($request->all());
+        $this->repo->create($request->all());
     }
 
     /**
@@ -46,7 +47,7 @@ class EspecialidadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EspecialidadValidator $request, $id)
     {
         $this->repo->update($request->all(), $id);
     }

@@ -51,7 +51,7 @@ class ClimedController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ClimedValidator $request, $id)
     {
         $clinica = $this->repo->update($request->all(), $id);
         $this->repo->detach('obrasSociales', $id);
@@ -84,24 +84,5 @@ class ClimedController extends Controller
         return $clinica->toArray($clinica);
     }
 
-    public function findClinicasByEspecialidad($id)
-    {
-        $clinicas = $this->repo->findClinicasByEspecialidad($id);
-        return $clinicas->map(function($clinica) {
-            return $clinica->toArray($clinica);
-        });
 
-    }
-
-    public function findClinicasByEspecialidadAndLocalidad(Request $request)
-    {
-        $especialidad = $request['especialidad'];
-        $localidad = $request['localidad'];
-        return DB::select(DB::raw("SELECT Climed.IDCLI,Climed.NOMBRE,Climed.DIRECCION,Climed.LOCALIDAD,Climed.latitude,Climed.longitude, Especialidad.NOMBRE AS ESPECIALIDAD FROM Climed 
-	                    INNER JOIN ClimedEsp ON Climed.IDCLI = ClimedEsp.IDCLIMED
-	                    INNER JOIN Especialidad ON ClimedEsp.IDESP = Especialidad.IDESPECIALIDAD
-	                    WHERE Especialidad.IDESPECIALIDAD = '$especialidad' AND Climed.LOCALIDAD = '$localidad'
-	                    GROUP BY Climed.IDCLI ORDER BY Climed.NOMBRE ASC"));
-
-    }
 }

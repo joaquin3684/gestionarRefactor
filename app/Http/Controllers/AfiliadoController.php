@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AfiliadoValidator;
 use App\Repositories\AfiliadoRepo;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class AfiliadoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AfiliadoValidator $request)
     {
         $this->repo->create($request->all());
     }
@@ -46,7 +47,7 @@ class AfiliadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AfiliadoValidator $request, $id)
     {
         $this->repo->update($request->all(), $id);
     }
