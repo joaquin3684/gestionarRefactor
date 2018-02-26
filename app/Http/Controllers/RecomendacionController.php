@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RecomendacionValidator;
 use App\Repositories\RecomendacionRepo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RecomendacionController extends Controller
 {
@@ -66,8 +67,11 @@ class RecomendacionController extends Controller
 
     public function all()
     {
-        return $this->repo->all()->map(function($elem){
-            return $elem->toArray($elem);
+        DB::transaction(function() {
+
+            return $this->repo->all()->map(function ($elem) {
+                return $elem->toArray($elem);
+            });
         });
     }
 

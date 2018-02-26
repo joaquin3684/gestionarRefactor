@@ -56,6 +56,18 @@ class SolicitudController extends Controller
     }
 
 
+    public function autorizar(Request $request)
+    {
+        $this->repo->update(['ESTADO' => 'Pendiente', 'REVISADO' => 1], $request['id']);
+    }
+
+    public function rechazar(Request $request)
+    {
+        $this->repo->update(['ESTADO' => 'Rechazado', 'REVISADO' => 1], $request['id']);
+    }
+
+
+
     public function destroy($id)
     {
         $this->repo->destroy($id);
@@ -63,9 +75,12 @@ class SolicitudController extends Controller
 
     public function all()
     {
-        $solicitudes = $this->repo->all();
-        return $solicitudes->map(function ($solicitud) {
-            return $solicitud->toArray($solicitud);
+        DB::transaction(function() {
+
+            $solicitudes = $this->repo->all();
+            return $solicitudes->map(function ($solicitud) {
+                return $solicitud->toArray($solicitud);
+            });
         });
     }
 

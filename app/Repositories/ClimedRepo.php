@@ -21,7 +21,7 @@ class ClimedRepo extends Repositorio
 
     public function findEspecialidades($id)
     {
-        $obj = $this->gateway->with('especialidades')->find($id);
+        $obj = $this->gateway->with('especialidades')->findOrFail($id);
         return $this->mapper->map($obj);
     }
 
@@ -33,7 +33,7 @@ class ClimedRepo extends Repositorio
 
     public function find($id)
     {
-        $obj = $this->gateway->with('obrasSociales', 'especialidades')->find($id);
+        $obj = $this->gateway->with('obrasSociales', 'especialidades')->findOrFail($id);
         return $this->mapper->map($obj);
     }
 
@@ -45,8 +45,5 @@ class ClimedRepo extends Repositorio
         return $this->mapper->map($obj);
     }
 
-    public function findClinicasByEspecialidadAndLocalidad()
-    {
 
-    }
 }

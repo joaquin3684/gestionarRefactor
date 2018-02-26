@@ -18,14 +18,14 @@ class AppSolicitudController extends Controller
         $this->repo = $repo;
         $this->turnosRepo  = $turnosRepo;
     }
-    public function confirmarSolicitud(Request $request)
+    public function confirmarTurno(Request $request)
     {
         $this->repo->update(['ESTADO' => 'Confirmado'], $request['idsolicitud']);
         $turno = $this->turnosRepo->findBySolicitud($request['idsolicitud']);
         $this->turnosRepo->update(['CONFIRMACION' => 2], $turno->getId());
     }
 
-    public function rechazarSolicitud(Request $request)
+    public function rechazarTurno(Request $request)
     {
         $this->repo->update(['ESTADO' => 'Pendiente'], $request['idsolicitud']);
         $turno = $this->turnosRepo->findBySolicitud($request['idsolicitud']);

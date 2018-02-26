@@ -33,7 +33,7 @@ abstract class Repositorio implements abmInterface
 
     public function update(array $data, $id)
     {
-        $obj = $this->gateway->find($id);
+        $obj = $this->gateway->findOrFail($id);
         $obj->fill($data);
         $obj->save();
         return $this->mapper->map($obj);
@@ -55,7 +55,7 @@ abstract class Repositorio implements abmInterface
 
     public function find($id)
     {
-        $obj = $this->gateway->find($id);
+        $obj = $this->gateway->findOrFail($id);
         return $this->mapper->map($obj);
     }
 
@@ -67,14 +67,14 @@ abstract class Repositorio implements abmInterface
 
     public function attach($ids, $attach, $id)
     {
-        $reserva = $this->gateway->find($id);
+        $reserva = $this->gateway->findOrFail($id);
         $reserva->$attach()->attach($ids);
         return $this->mapper->map($reserva);
     }
 
     public function detach($detach, $id, $ids = null)
     {
-        $obj = $this->gateway->find($id);
+        $obj = $this->gateway->findOrFail($id);
         if($ids == null)
         {
             $obj->$detach()->detach();

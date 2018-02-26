@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FarmaciaValidator;
 use App\Repositories\FarmaciaRepo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FarmaciaController extends Controller
 {
@@ -65,8 +66,11 @@ class FarmaciaController extends Controller
 
     public function all()
     {
-        return $this->repo->all()->map(function($elem){
-            return $elem->toArray($elem);
+        DB::transaction(function() {
+
+            return $this->repo->all()->map(function ($elem) {
+                return $elem->toArray($elem);
+            });
         });
     }
 

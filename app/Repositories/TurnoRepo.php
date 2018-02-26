@@ -21,7 +21,7 @@ class TurnoRepo extends Repositorio
 
     public function findBySolicitud($idSolicitud)
     {
-        $obj = $this->gateway->where('IDSOLICITUD', $idSolicitud)->where('CONFIRMACION', 0)->first();
+        $obj = $this->gateway->where('IDSOLICITUD', $idSolicitud)->where('CONFIRMACION', 0)->firstOrFail();
         return $this->mapper->map($obj);
     }
 

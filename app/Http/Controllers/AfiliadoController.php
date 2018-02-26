@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AfiliadoValidator;
 use App\Repositories\AfiliadoRepo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AfiliadoController extends Controller
 {
@@ -39,7 +40,6 @@ class AfiliadoController extends Controller
         return $clinica->toArray($clinica);
     }
 
-
     /**
      * Update the specified resource in storage.
      *
@@ -65,8 +65,10 @@ class AfiliadoController extends Controller
 
     public function all()
     {
-        return $this->repo->all()->map(function($elem){
-            return $elem->toArray($elem);
+        DB::transaction(function(){
+            return $this->repo->all()->map(function($elem){
+                return $elem->toArray($elem);
+            });
         });
     }
 

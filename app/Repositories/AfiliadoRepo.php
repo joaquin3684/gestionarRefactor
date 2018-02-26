@@ -21,7 +21,7 @@ class AfiliadoRepo extends Repositorio
 
     public function findWithObraSocial($id)
     {
-        $obj = $this->gateway->with('obraSocial')->find($id);
+        $obj = $this->gateway->with('obraSocial')->findOrFail($id);
         return $this->mapper->map($obj);
     }
 

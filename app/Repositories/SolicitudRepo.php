@@ -26,13 +26,13 @@ class SolicitudRepo extends Repositorio
 
     public function findTurnos($id)
     {
-        $obj = $this->gateway->with('turnos.climed')->find($id);
+        $obj = $this->gateway->with('turnos.climed')->findOrFail($id);
         return $this->mapper->map($obj);
     }
 
     public function find($id)
     {
-        $obj = $this->gateway->with('turnos.climed', 'climed', 'afiliado.obraSocial', 'especialidad')->find($id);
+        $obj = $this->gateway->with('turnos.climed', 'climed', 'afiliado.obraSocial', 'especialidad')->findOrFail($id);
         return $this->mapper->map($obj);
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\ObraSocialRepo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ObraSocialController extends Controller
 {
@@ -63,8 +64,11 @@ class ObraSocialController extends Controller
 
     public function all()
     {
-        return $this->repo->all()->map(function($elem){
-            return $elem->toArray($elem);
+        DB::transaction(function() {
+
+            return $this->repo->all()->map(function ($elem) {
+                return $elem->toArray($elem);
+            });
         });
     }
 }

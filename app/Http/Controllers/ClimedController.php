@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ClimedValidator;
 use App\Repositories\ClimedRepo;
 use App\Repositories\EspecialidadRepo;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 
 class ClimedController extends Controller
 {
@@ -27,9 +29,11 @@ class ClimedController extends Controller
      */
     public function store(ClimedValidator $request)
     {
-        $clinica = $this->repo->create($request->all());
-        $this->repo->attach($request['obrasSociales'], 'obrasSociales', $clinica->getId());
-        $this->repo->attach($request['especialidades'], 'especialidades', $clinica->getId());
+        DB::transaction(function() use ($request){
+            $clinica = $this->repo->create($request->all());
+            $this->repo->attach($request['obrasSociales'], 'obrasSociales', $clinica->getId());
+            $this->repo->attach($request['especialidades'], 'especialidades', $clinica->getId());
+        });
     }
 
     /**
@@ -53,10 +57,13 @@ class ClimedController extends Controller
      */
     public function update(ClimedValidator $request, $id)
     {
+        DB::transaction(function() use ($request, $id){
+
         $clinica = $this->repo->update($request->all(), $id);
         $this->repo->detach('obrasSociales', $id);
         $this->repo->attach($request['obrasSociales'], 'obrasSociales', $clinica->getId());
 
+        });
     }
 
     /**
@@ -72,8 +79,11 @@ class ClimedController extends Controller
 
     public function all()
     {
-        return $this->repo->all()->map(function($elem){
-            return $elem->toArray($elem);
+        DB::transaction(function() {
+
+            return $this->repo->all()->map(function ($elem) {
+                return $elem->toArray($elem);
+            });
         });
     }
 

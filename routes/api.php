@@ -31,7 +31,8 @@ Route::resource('climed', 'ClimedController');
 //--------------------- SOLICITUD --------------------
 
 Route::get('solicitud/traerElementos', 'SolicitudController@all');
-
+Route::post('solicitud/autorizar', 'SolicitudController@autorizar');
+Route::post('solicitud/rechazar', 'SolicitudController@rechazar');
 Route::resource('solicitud', 'SolicitudController');
 
 //---------------------- TURNO ------------------------
@@ -55,8 +56,10 @@ Route::resource('obraSocial', 'ObraSocialController');
 
 Route::post('solicitud/pendientesyabiertas', 'Aplicacion\AppSolicitudController@pendientesOAbiertas');
 Route::get('solicitud/solicitudApp/{id}', 'Aplicacion\AppSolicitudController@findApp');
-Route::post('solicitud/confirmar', 'Aplicacion\AppSolicitudController@confirmarSolicitud');
-Route::post('solicitud/rechazar', 'Aplicacion\AppSolicitudController@confirmarSolicitud');
+
+
+Route::post('turno/confirmar', 'Aplicacion\AppSolicitudController@confirmarTurno');
+Route::post('turno/rechazar', 'Aplicacion\AppSolicitudController@rechazarTurno');
 
 
 // CLIMED
