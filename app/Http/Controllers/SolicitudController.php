@@ -81,6 +81,14 @@ class SolicitudController extends Controller
             });
     }
 
+    public function solicitudesEnProceso()
+    {
+        $solicitudes = $this->repo->solicitudesEnProceso();
+        return $solicitudes->map(function ($solicitud) {
+            return $solicitud->toArray($solicitud);
+        });
+    }
+
     public function turnos(Request $request)
     {
         $id = $request['id'];

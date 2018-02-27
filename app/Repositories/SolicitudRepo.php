@@ -20,7 +20,7 @@ class SolicitudRepo extends Repositorio
 
     public function all()
     {
-        $obj = $this->gateway->with('turnos.climed', 'climed', 'afiliado.obraSocial', 'especialidad')->where('ESTADO', '<>','Confirmado')->get();
+        $obj = $this->gateway->with('turnos.climed', 'climed', 'afiliado.obraSocial', 'especialidad')->get();
         return $this->mapper->map($obj);
     }
 
@@ -36,4 +36,9 @@ class SolicitudRepo extends Repositorio
         return $this->mapper->map($obj);
     }
 
+    public function solicitudesEnProceso()
+    {
+        $obj = $this->gateway->with('turnos.climed', 'climed', 'afiliado.obraSocial', 'especialidad')->where('ESTADO', '<>','Confirmado')->where('ESTADO', '<>', 'Rechazado')->get();
+        return $this->mapper->map($obj);
+    }
 }
