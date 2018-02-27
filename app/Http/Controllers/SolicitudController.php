@@ -75,13 +75,10 @@ class SolicitudController extends Controller
 
     public function all()
     {
-        DB::transaction(function() {
-
             $solicitudes = $this->repo->all();
             return $solicitudes->map(function ($solicitud) {
                 return $solicitud->toArray($solicitud);
             });
-        });
     }
 
     public function turnos(Request $request)

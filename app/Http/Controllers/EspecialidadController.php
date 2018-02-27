@@ -66,12 +66,10 @@ class EspecialidadController extends Controller
 
     public function all()
     {
-        DB::transaction(function() {
 
             return $this->repo->all()->map(function ($elem) {
                 return $elem->toArray($elem);
             });
-        });
     }
 
 

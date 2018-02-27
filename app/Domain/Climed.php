@@ -23,7 +23,7 @@ class Climed
     private $latitud;
     private $longitud;
     private $telefono;
-    private $especilidades;
+    private $especialidades;
     private $obrasSociales;
 
     /**
@@ -49,6 +49,22 @@ class Climed
         $this->latitud = $latitud;
         $this->longitud = $longitud;
         $this->telefono = $telefono;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEspecialidades()
+    {
+        return $this->especialidades;
+    }
+
+    /**
+     * @param mixed $especialidades
+     */
+    public function setEspecialidades($especialidades)
+    {
+        $this->especialidades = $especialidades;
     }
 
     /**
