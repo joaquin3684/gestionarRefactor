@@ -33,6 +33,7 @@ Route::resource('climed', 'ClimedController');
 Route::get('solicitud/traerElementos', 'SolicitudController@all');
 Route::post('solicitud/autorizar', 'SolicitudController@autorizar');
 Route::post('solicitud/rechazar', 'SolicitudController@rechazar');
+Route::get('solicitud/solicitudesEnProceso', 'SolicitudController@solicitudesEnProceso');
 Route::resource('solicitud', 'SolicitudController');
 
 //---------------------- TURNO ------------------------
