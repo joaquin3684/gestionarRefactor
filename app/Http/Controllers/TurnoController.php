@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\SolicitudRepo;
 use App\Repositories\TurnoRepo;
 use Illuminate\Http\Request;
 
@@ -9,10 +10,11 @@ class TurnoController extends Controller
 {
 
     private $repo;
-
-    public function __construct(TurnoRepo $repo)
+    private $solRepo;
+    public function __construct(TurnoRepo $repo, SolicitudRepo $solRepo)
     {
         $this->repo = $repo;
+        $this->solRepo = $solRepo;
     }
 
 
@@ -25,6 +27,7 @@ class TurnoController extends Controller
     public function store(Request $request)
     {
         $this->repo->create($request->all());
+        $this->solRepo->update(['ESTADO' => 'En Espera'], $request['IDSOLICITUD']);
     }
 
     /**
