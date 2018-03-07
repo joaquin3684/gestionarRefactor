@@ -24,7 +24,7 @@ class EspecialidadValidator extends FormRequest
     public function rules()
     {
         return [
-            'NOMBRE' => 'required',
+            'NOMBRE' => 'required|unique:especialidades,NOMBRE,'.$this->get('ID'),
             'ESTUDIO' => 'required',
         ];
     }

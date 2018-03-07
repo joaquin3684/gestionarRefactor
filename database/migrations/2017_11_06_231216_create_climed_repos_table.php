@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -13,8 +14,16 @@ class CreateClimedReposTable extends Migration
      */
     public function up()
     {
-        Schema::create('climed_repos', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('climed', function (Blueprint $table) {
+            $table->increments('IDCLI');
+            $table->string('NOMBRE');
+            $table->string('DIRECCION');
+            $table->string('LOCALIDAD');
+            $table->string('ZONA');
+            $table->integer('PARTICULAR');
+            $table->double('latitude');
+            $table->double('longitude');
+            $table->integer('TELEFONO');
             $table->timestamps();
         });
     }
@@ -26,6 +35,10 @@ class CreateClimedReposTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('climed_repos');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+
+        Schema::dropIfExists('climed');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+
     }
 }

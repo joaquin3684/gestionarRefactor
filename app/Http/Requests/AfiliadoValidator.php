@@ -24,15 +24,13 @@ class AfiliadoValidator extends FormRequest
     public function rules()
     {
         return [
-            'DNI' => 'required|unique:Afiliados,DNI,'.$this->get('ID'),
+            'DNI' => 'required|unique:afiliados,DNI,'.$this->get('ID'),
             'NOMBRE' => 'required',
             'APELLIDO' => 'required',
             'EMAIL' => 'required',
             'TELEFONO' => 'required',
             'CELULAR' => 'required',
             'DIRECCION' => 'required',
-            'PISO' => 'required',
-            'DEPARTAMENTO' => 'required',
             'NACIMIENTO' => 'required',
             'CUIL' => 'required',
             'IDOBRASOCIAL' => 'required',

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFarmaciaReposTable extends Migration
+class CreateObraSocialReposTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateFarmaciaReposTable extends Migration
      */
     public function up()
     {
-        Schema::create('farmacia_repos', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('obras_sociales', function (Blueprint $table) {
+            $table->increments('ID');
+            $table->string('NOMBRE');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreateFarmaciaReposTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('farmacia_repos');
+        Schema::dropIfExists('obra_social_repos');
     }
 }

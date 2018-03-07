@@ -25,7 +25,7 @@ class SolicitudMapper
         if(is_a($solicitud, 'Illuminate\Support\Collection'))
         {
             $solicitudes = $solicitud->map(function($solicitud){
-                $solicitudMappeada = new \App\Domain\Solicitud($solicitud->IDS, $solicitud->MEDICO, $solicitud->FECHAS, $solicitud->ESTADO, $solicitud->ASIGNADO, $solicitud->EQUIVALENCIA, $solicitud->MOTIVO, $solicitud->TIPO, $solicitud->FOTO, $solicitud->REVISADO, $solicitud->OBS);
+                $solicitudMappeada = new \App\Domain\Solicitud($solicitud->IDS, $solicitud->MEDICO, $solicitud->FECHAS, $solicitud->ESTADO, $solicitud->ASIGNADO, $solicitud->MOTIVO, $solicitud->TIPO, $solicitud->FOTO, $solicitud->REVISADO, $solicitud->OBS);
                  $this->setearRelaciones($solicitud, $solicitudMappeada);
                  return $solicitudMappeada;
             });
@@ -34,7 +34,7 @@ class SolicitudMapper
         }
         else
         {
-            $solicitudMappeada = new \App\Domain\Solicitud($solicitud->IDS, $solicitud->MEDICO, $solicitud->FECHAS, $solicitud->ESTADO, $solicitud->ASIGNADO, $solicitud->EQUIVALENCIA, $solicitud->MOTIVO, $solicitud->TIPO, $solicitud->FOTO, $solicitud->REVISADO, $solicitud->OBS);
+            $solicitudMappeada = new \App\Domain\Solicitud($solicitud->IDS, $solicitud->MEDICO, $solicitud->FECHAS, $solicitud->ESTADO, $solicitud->ASIGNADO, $solicitud->MOTIVO, $solicitud->TIPO, $solicitud->FOTO, $solicitud->REVISADO, $solicitud->OBS);
             $this->setearRelaciones($solicitud, $solicitudMappeada);
             return $solicitudMappeada;
         }

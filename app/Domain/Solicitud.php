@@ -20,7 +20,6 @@ class Solicitud
     private $fecha;
     private $estado;
     private $asignado;
-    private $equivalencia;
     private $motivo;
     private $tipo;
     private $foto;
@@ -45,14 +44,13 @@ class Solicitud
      * @param $revisado
      * @param $obs
      */
-    public function __construct($id, $medico, $fecha, $estado, $asignado, $equivalencia, $motivo, $tipo, $foto, $revisado, $obs)
+    public function __construct($id, $medico, $fecha, $estado, $asignado, $motivo, $tipo, $foto, $revisado, $obs)
     {
         $this->id = $id;
         $this->medico = $medico;
         $this->fecha = $fecha;
         $this->estado = $estado;
         $this->asignado = $asignado;
-        $this->equivalencia = $equivalencia;
         $this->motivo = $motivo;
         $this->tipo = $tipo;
         $this->foto = $foto;
@@ -172,22 +170,6 @@ class Solicitud
     public function setAsignado($asignado)
     {
         $this->asignado = $asignado;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEquivalencia()
-    {
-        return $this->equivalencia;
-    }
-
-    /**
-     * @param mixed $equivalencia
-     */
-    public function setEquivalencia($equivalencia)
-    {
-        $this->equivalencia = $equivalencia;
     }
 
     /**

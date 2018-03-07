@@ -47,9 +47,33 @@ Route::get('especialidad/traerElementos', 'EspecialidadController@all');
 Route::resource('especialidad', 'EspecialidadController');
 
 //-------------------- OBRA SOCIAL ----------------------
-
 Route::get('obraSocial/traerElementos', 'ObraSocialController@all');
 Route::resource('obraSocial', 'ObraSocialController');
+
+//--------------------- LOGIN ----------------------------
+
+Route::post('usuario/registrar', 'LoginController@registrar');
+Route::post('usuario/login', 'LoginController@login');
+Route::post('usuario/logout', 'LoginController@logout');
+
+
+//------------------ USER --------------------------------
+
+Route::get('user/traerElementos', 'UserController@all');
+Route::resource('user', 'UserController');
+
+//------------------ ROLES -----------------------------
+
+Route::get('role/traerElementos', 'RoleController@all');
+Route::resource('role', 'RoleController');
+
+//------------------ PERMISOS -----------------------------
+
+Route::get('permiso/traerElementos', 'PermissionController@all');
+Route::resource('permiso', 'PermissionController');
+
+
+
 
 //----------------------- APLICACION CELULAR -------------------------
 

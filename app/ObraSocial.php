@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ObraSocial extends Model
 {
     protected $primaryKey = 'ID';
-    protected $table = 'Obras_sociales';
-    public $timestamps = false;
+    protected $table = 'obras_sociales';
 
 
     protected $fillable = [

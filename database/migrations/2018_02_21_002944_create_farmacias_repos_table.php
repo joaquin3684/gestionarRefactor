@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -13,8 +14,14 @@ class CreateFarmaciasReposTable extends Migration
      */
     public function up()
     {
-        Schema::create('farmacias_repos', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('farmacias', function (Blueprint $table) {
+            $table->increments('ID');
+            $table->string('NOMBRE');
+            $table->string('DIRECCION');
+            $table->string('LOCALIDAD');
+            $table->double('latitude');
+            $table->double('longitude');
+            $table->integer('TELEFONO');
             $table->timestamps();
         });
     }
@@ -26,6 +33,10 @@ class CreateFarmaciasReposTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('farmacias_repos');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+
+        Schema::dropIfExists('farmacias');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+
     }
 }

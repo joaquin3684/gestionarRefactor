@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\ObraSocialRepo;
+use App\Repositories\PermissionRepo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class ObraSocialController extends Controller
+class PermissionController extends Controller
 {
-    private $repo;
 
-    public function __construct(ObraSocialRepo $repo)
+    private $repo;
+    public function __construct(PermissionRepo $repo)
     {
         $this->repo = $repo;
     }
@@ -34,10 +33,8 @@ class ObraSocialController extends Controller
      */
     public function show($id)
     {
-        $obraSocial =  $this->repo->find($id);
-        return $obraSocial->toArray($obraSocial);
+        $this->repo->find($id);
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -60,13 +57,5 @@ class ObraSocialController extends Controller
     public function destroy($id)
     {
         $this->repo->destroy($id);
-    }
-
-    public function all()
-    {
-
-            return $this->repo->all()->map(function ($elem) {
-                return $elem->toArray($elem);
-            });
     }
 }

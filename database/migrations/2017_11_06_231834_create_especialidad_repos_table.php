@@ -13,8 +13,10 @@ class CreateEspecialidadReposTable extends Migration
      */
     public function up()
     {
-        Schema::create('especialidad_repos', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('especialidades', function (Blueprint $table) {
+            $table->increments('IDESPECIALIDAD');
+            $table->string('NOMBRE');
+            $table->integer('ESTUDIO');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateEspecialidadReposTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('especialidad_repos');
+        Schema::dropIfExists('especialidades');
     }
 }

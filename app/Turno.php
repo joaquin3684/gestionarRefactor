@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Turno extends Model
 {
     protected $primaryKey = 'IDT';
-    public $timestamps = false;
-    protected $table = 'Turnos';
+    protected $table = 'turnos';
     protected $fillable = [
         'IDSOLICITUD', 'FECHAT', 'HORAT', 'CONFIRMACION', 'MEDICOASIGNADO', 'MOTIVOT'
     ];

@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Especialidad extends Model
 {
     protected $primaryKey = 'IDESPECIALIDAD';
-    protected $table = 'Especialidad';
-    public $timestamps = false;
+    protected $table = 'especialidades';
 
 
     protected $fillable = [
@@ -17,6 +16,6 @@ class Especialidad extends Model
 
     public function clinicas()
     {
-        return $this->belongsToMany('App\Climed', 'ClimedEsp', 'IDESP', 'IDCLIMED');
+        return $this->belongsToMany('App\Climed', 'climed_esp', 'IDESP', 'IDCLIMED');
     }
 }

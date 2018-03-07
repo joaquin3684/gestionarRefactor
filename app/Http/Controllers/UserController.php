@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\ObraSocialRepo;
+use App\Repositories\UserRepo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ObraSocialController extends Controller
+class UserController extends Controller
 {
-    private $repo;
 
-    public function __construct(ObraSocialRepo $repo)
+    private $repo;
+    public function __construct(UserRepo $repo)
     {
         $this->repo = $repo;
     }
@@ -23,7 +23,10 @@ class ObraSocialController extends Controller
      */
     public function store(Request $request)
     {
-        $this->repo->create($request->all());
+        DB::transaction(function() use ($request){
+            $this->repo->create($request->all());
+
+        });
     }
 
     /**
@@ -34,10 +37,8 @@ class ObraSocialController extends Controller
      */
     public function show($id)
     {
-        $obraSocial =  $this->repo->find($id);
-        return $obraSocial->toArray($obraSocial);
+        $this->repo->find($id);
     }
-
 
     /**
      * Update the specified resource in storage.
@@ -48,7 +49,9 @@ class ObraSocialController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->repo->update($request->all(), $id);
+        DB::transaction(function() use ($request, $id) {
+            $this->repo->update($request->all(), $id);
+        });
     }
 
     /**
@@ -60,13 +63,5 @@ class ObraSocialController extends Controller
     public function destroy($id)
     {
         $this->repo->destroy($id);
-    }
-
-    public function all()
-    {
-
-            return $this->repo->all()->map(function ($elem) {
-                return $elem->toArray($elem);
-            });
     }
 }

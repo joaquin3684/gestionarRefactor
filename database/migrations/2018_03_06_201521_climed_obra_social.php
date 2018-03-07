@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRecomendacionReposTable extends Migration
+class ClimedObraSocial extends Migration
 {
     /**
      * Run the migrations.
@@ -14,14 +14,12 @@ class CreateRecomendacionReposTable extends Migration
      */
     public function up()
     {
-        Schema::create('recomendaciones', function (Blueprint $table) {
+        Schema::create('climed_obra_social', function (Blueprint $table) {
             $table->increments('ID');
-            $table->string('NOMBRE');
-            $table->string('APELLIDO');
-            $table->string('NRO');
-            $table->date('FECHA');
-            $table->integer('CONTACTADO');
-            $table->string('COMENTARIO');
+            $table->integer('IDCLIMED')->unsigned();
+            $table->foreign('IDCLIMED')->references('IDCLI')->on('climed');
+            $table->integer('IDOBRASOCIAL')->unsigned();
+            $table->foreign('IDOBRASOCIAL')->references('ID')->on('obras_sociales');
             $table->timestamps();
         });
     }
@@ -35,8 +33,7 @@ class CreateRecomendacionReposTable extends Migration
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
-        Schema::dropIfExists('recomendaciones');
+        Schema::dropIfExists('climed_obra_social');
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-
     }
 }
