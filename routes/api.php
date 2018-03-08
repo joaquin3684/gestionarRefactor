@@ -73,8 +73,6 @@ Route::get('permiso/traerElementos', 'PermissionController@all');
 Route::resource('permiso', 'PermissionController');
 
 
-
-
 //----------------------- APLICACION CELULAR -------------------------
 
 // SOLICITUDES
