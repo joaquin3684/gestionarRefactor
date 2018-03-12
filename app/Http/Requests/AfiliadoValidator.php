@@ -32,7 +32,8 @@ class AfiliadoValidator extends FormRequest
             'CELULAR' => 'required',
             'DIRECCION' => 'required',
             'NACIMIENTO' => 'required',
-            'CUIL' => 'required',
+            'NAFILIADO' => 'required|unique:afiliados,NAFILIADO,'.$this->get('ID'),
+            'CUIL' => 'required|unique:afiliados,CUIL,'.$this->get('ID'),
             'IDOBRASOCIAL' => 'required',
         ];
     }

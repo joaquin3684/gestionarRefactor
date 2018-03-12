@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 //-------------------- AFILIADO -----------------------
-Route::get('climed/traerElementos', 'ClimedController@all');
 
 Route::get('afiliado/traerElementos', 'AfiliadoController@all');
 Route::resource('afiliado', 'AfiliadoController');
@@ -25,7 +24,7 @@ Route::resource('recomendacion', 'RecomendacionController');
 
 //--------------------- CLIMED ------------------------
 
-
+Route::get('climed/traerElementos', 'ClimedController@all');
 Route::resource('climed', 'ClimedController');
 
 //--------------------- SOLICITUD --------------------

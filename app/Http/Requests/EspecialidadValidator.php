@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class EspecialidadValidator extends FormRequest
 {
@@ -24,7 +25,10 @@ class EspecialidadValidator extends FormRequest
     public function rules()
     {
         return [
-            'NOMBRE' => 'required|unique:especialidades,NOMBRE,'.$this->get('ID'),
+            'NOMBRE' => [
+                'required',
+                Rule::unique('especialidades')->ignore($this->get('IDESPECIALIDAD'), 'IDESPECIALIDAD'),
+            ],
             'ESTUDIO' => 'required',
         ];
     }

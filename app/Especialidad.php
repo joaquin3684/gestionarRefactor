@@ -11,7 +11,7 @@ class Especialidad extends Model
 
 
     protected $fillable = [
-        'NOMBRE', 'ESTUDIO', 'LOCALIDAD', 'ZONA', 'PARTICULAR', 'latitude', 'longitude', 'TELEFONO'
+        'NOMBRE', 'ESTUDIO',
     ];
 
     public function clinicas()
