@@ -14,8 +14,13 @@ return [
     ],
 
     'forbidden' => [
-        'title'  => 'The request was a valid request, but the server is refusing to respond to it.',
-        'detail' => 'Your request was valid, but you are not authorised to perform that action.'
+        'title'  => 'Acceso denegado.',
+        'detail' => 'No tiene permiso suficiente para acceder a esta ruta.'
+    ],
+
+    'obra_social_erronea' => [
+        'title'  => 'Acceso denegado a obra social.',
+        'detail' => 'No tiene permiso suficiente para acceder a esta obra social.'
     ],
 
     'not_found' => [

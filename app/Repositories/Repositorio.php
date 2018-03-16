@@ -16,11 +16,12 @@ abstract class Repositorio implements abmInterface
     private $app;
     protected $model;
     private $modeloEloquent;
-
+    private $user;
 
     public function __construct() {
         $this->app = new App();
         $this->makeModel();
+
     }
 
     abstract function model();

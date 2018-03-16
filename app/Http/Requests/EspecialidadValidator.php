@@ -27,7 +27,7 @@ class EspecialidadValidator extends FormRequest
         return [
             'NOMBRE' => [
                 'required',
-                Rule::unique('especialidades')->ignore($this->get('IDESPECIALIDAD'), 'IDESPECIALIDAD'),
+                Rule::unique('Especialidad')->ignore($this->get('IDESPECIALIDAD'), 'IDESPECIALIDAD'),
             ],
             'ESTUDIO' => 'required',
         ];

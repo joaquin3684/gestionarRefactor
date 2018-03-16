@@ -33,7 +33,6 @@ class ClimedValidator extends FormRequest
             'latitude' => 'required',
             'longitude' => 'required',
             'TELEFONO' => 'required',
-
         ];
     }
 }

@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\RoleRepo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class RoleController extends Controller
+class PerfilController extends Controller
 {
-
     private $repo;
-    public function __construct(RoleRepo $repo)
+    public function __construct(PerfilRepo $repo)
     {
         $this->repo = $repo;
     }
@@ -22,7 +21,10 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $this->repo->create($request->all());
+        DB::transaction(function() use ($request){
+            $this->repo->create($request->all());
+
+        });
     }
 
     /**
@@ -45,7 +47,9 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->repo->update($request->all(), $id);
+        DB::transaction(function() use ($request, $id) {
+            $this->repo->update($request->all(), $id);
+        });
     }
 
     /**
@@ -57,5 +61,10 @@ class RoleController extends Controller
     public function destroy($id)
     {
         $this->repo->destroy($id);
+    }
+
+    public function all()
+    {
+        return $this->repo->all();
     }
 }

@@ -77,7 +77,25 @@ class Handler extends ExceptionHandler
             }
             $status = 422;
 
-        } else {
+        } else if($e instanceof NoTienePermisoARutaException) {
+
+            $data = array_merge([
+                'id'     => 'forbidden',
+                'status' => '403'
+            ], config('errors.forbidden'));
+
+            $status = 403;
+
+        } else if($e instanceof NoTieneAccesoAEstaObraSocialException) {
+
+            $data = array_merge([
+                'id'     => 'obra_social_erronea',
+                'status' => '403'
+            ], config('errors.obra_social_erronea'));
+
+            $status = 403;
+
+        }else {
             $data = array_merge([
                 'id'     => 'error_sistema',
                 'status' => '500'

@@ -9,8 +9,12 @@
 namespace App\Domain;
 
 
+use App\Traits\Conversion;
+
 class Farmacia
 {
+
+    use Conversion;
 
     private $id;
     private $nombre;

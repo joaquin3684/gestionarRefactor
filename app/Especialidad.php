@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Especialidad extends Model
 {
     protected $primaryKey = 'IDESPECIALIDAD';
-    protected $table = 'especialidades';
-
+    protected $table = 'Especialidad';
+    public $timestamps = false;
 
     protected $fillable = [
         'NOMBRE', 'ESTUDIO',

@@ -67,9 +67,9 @@ class RecomendacionController extends Controller
 
     public function all()
     {
-            return $this->repo->all()->map(function ($elem) {
-                return $elem->toArray($elem);
-            });
+        return $this->repo->all()->map(function ($elem) {
+            return $elem->toArray($elem);
+        });
     }
 
 }

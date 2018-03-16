@@ -8,9 +8,10 @@ class Recomendacion extends Model
 {
     protected $primaryKey = 'ID';
 
-    protected $table = 'recomendaciones';
+    protected $table = 'Recomendaciones';
     protected $fillable = [
         'NOMBRE', 'APELLIDO', 'NRO', 'FECHA', 'CONTACTADO', 'COMENTARIO'
     ];
+    public $timestamps = false;
 
 }

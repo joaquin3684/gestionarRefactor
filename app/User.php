@@ -4,23 +4,34 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable, HasRoles;
+    use Notifiable;
     public $timestamps = false;
 
-    protected $table = 'users';
+    protected $table = 'Usuarios';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'id_perfil'
     ];
+
+
+    public function perfil()
+    {
+        return $this->belongsTo('App\Perfil', 'id_perfil');
+    }
+
+    public function obrasSociales()
+    {
+        return $this->belongsToMany('App\ObraSocial', 'Usuario_obra_social', 'id_usuario', 'id_obra_social');
+    }
+
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

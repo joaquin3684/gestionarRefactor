@@ -2,6 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Exceptions\NoTienePermisoARutaException;
+use App\Ruta;
+use App\User;
 use Closure;
 use Mockery\Exception;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
@@ -19,8 +22,9 @@ class Permisos
     public function handle($request, Closure $next)
     {
         $token = JWTAuth::getToken();
-        $permisos = JWTAuth::decode($token)['foo'];
-        $path = explode("/", $request->getPathInfo());
+        $permisos = JWTAuth::decode($token)['permisos'];
+        $fullPath = $request->getPathInfo();
+        $path = explode("/", $fullPath);
         $pantalla = $path[1];
         foreach($permisos as $permiso)
         {
@@ -29,6 +33,19 @@ class Permisos
                 return $next($request);
             }
         }
-        throw new MethodNotAllowedException();
+        $userId = JWTAuth::decode($token)['user_id'];
+        $user = User::with('perfil.pantallas.rutas')->find($userId);
+        $userRoute = $user->perfil->pantallas->first(function($pantalla) use ($fullPath){
+            return $pantalla->rutas->first(function($ruta) use ($fullPath){
+                return$ruta->ruta == $fullPath;
+            });
+        });
+
+        if($userRoute == null)
+        {
+            throw new NoTienePermisoARutaException('acceso denegado');
+        } else {
+            return $next($request);
+        }
     }
 }

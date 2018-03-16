@@ -26,7 +26,6 @@ class FarmaciaValidator extends FormRequest
         return [
             'NOMBRE' => 'required',
             'LOCALIDAD' => 'required',
-            'PARTICULAR' => 'required',
             'DIRECCION' => 'required',
             'latitude' => 'required',
             'longitude' => 'required',

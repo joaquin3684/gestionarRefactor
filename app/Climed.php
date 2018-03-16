@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Climed extends Model
 {
     protected $primaryKey = 'IDCLI';
-    protected $table = 'climed';
+    protected $table = 'Climed';
+    public $timestamps = false;
 
     protected $fillable = [
         'NOMBRE', 'DIRECCION', 'LOCALIDAD', 'ZONA', 'PARTICULAR', 'latitude', 'longitude', 'TELEFONO'
@@ -15,12 +16,12 @@ class Climed extends Model
 
     public function especialidades()
     {
-        return $this->belongsToMany('App\Especialidad', 'climed_esp', 'IDCLIMED', 'IDESP');
+        return $this->belongsToMany('App\Especialidad', 'ClimedEsp', 'IDCLIMED', 'IDESP');
     }
 
     public function obrasSociales()
     {
-        return $this->belongsToMany('App\ObraSocial', 'climed_obra_social', 'IDOBRASOCIAL', 'IDCLIMED');
+        return $this->belongsToMany('App\ObraSocial', 'Climed_obra_social', 'IDCLIMED', 'IDOBRASOCIAL');
     }
 
 }

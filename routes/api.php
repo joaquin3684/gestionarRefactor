@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\UserFromToken;
 use Illuminate\Http\Request;
 
 /*
@@ -12,10 +13,28 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+//--------------------- LOGIN ----------------------------
+
+
+Route::post('login', 'LoginController@login');
+
+Route::get('userPrueba', function(){
+   return 1;
+});
+
+Route::group(['middleware' => ['permisos', 'jwt.auth']], function(){
+
+
 //-------------------- AFILIADO -----------------------
 
 Route::get('afiliado/traerElementos', 'AfiliadoController@all');
 Route::resource('afiliado', 'AfiliadoController');
+
+//--------------------- FARMACIA ------------------------
+
+Route::get('farmacia/traerElementos', 'FarmaciaController@all');
+Route::resource('farmacia', 'FarmaciaController');
 
 //------------------ RECOMENDACION -------------------------
 
@@ -46,30 +65,18 @@ Route::get('especialidad/traerElementos', 'EspecialidadController@all');
 Route::resource('especialidad', 'EspecialidadController');
 
 //-------------------- OBRA SOCIAL ----------------------
+
 Route::get('obraSocial/traerElementos', 'ObraSocialController@all');
 Route::resource('obraSocial', 'ObraSocialController');
-
-//--------------------- LOGIN ----------------------------
-
-Route::post('usuario/registrar', 'LoginController@registrar');
-Route::post('usuario/login', 'LoginController@login');
-Route::post('usuario/logout', 'LoginController@logout');
-
 
 //------------------ USER --------------------------------
 
 Route::get('user/traerElementos', 'UserController@all');
 Route::resource('user', 'UserController');
 
-//------------------ ROLES -----------------------------
 
-Route::get('role/traerElementos', 'RoleController@all');
-Route::resource('role', 'RoleController');
+});
 
-//------------------ PERMISOS -----------------------------
-
-Route::get('permiso/traerElementos', 'PermissionController@all');
-Route::resource('permiso', 'PermissionController');
 
 
 //----------------------- APLICACION CELULAR -------------------------

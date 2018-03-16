@@ -62,7 +62,8 @@ class ClimedController extends Controller
         $clinica = $this->repo->update($request->all(), $id);
         $this->repo->detach('obrasSociales', $id);
         $this->repo->attach($request['obrasSociales'], 'obrasSociales', $clinica->getId());
-
+        $this->repo->detach('especialidades', $id);
+        $this->repo->attach($request['especialidades'], 'especialidades', $id);
         });
     }
 
@@ -79,15 +80,15 @@ class ClimedController extends Controller
 
     public function all()
     {
-            return $this->repo->all()->map(function ($elem) {
-                return $elem->toArray($elem);
-            });
+        return $this->repo->all()->map(function ($elem) {
+            return $elem->toArray($elem);
+        });
     }
 
-    public function especialidades(Request $request)
+    public function especialidades(Request $request)//TODO ESTE METODO SE PODRIA SACAR POQUE ES IGUAL QUE UN FIND
     {
         $id = $request['id'];
-        $clinica =  $this->repo->findEspecialidades($id);
+        $clinica =  $this->repo->find($id);
         return $clinica->toArray($clinica);
     }
 

@@ -24,7 +24,7 @@ class AfiliadoValidator extends FormRequest
     public function rules()
     {
         return [
-            'DNI' => 'required|unique:afiliados,DNI,'.$this->get('ID'),
+            'DNI' => 'required|unique:Afiliados,DNI,'.$this->get('ID'),
             'NOMBRE' => 'required',
             'APELLIDO' => 'required',
             'EMAIL' => 'required',
@@ -32,8 +32,8 @@ class AfiliadoValidator extends FormRequest
             'CELULAR' => 'required',
             'DIRECCION' => 'required',
             'NACIMIENTO' => 'required',
-            'NAFILIADO' => 'required|unique:afiliados,NAFILIADO,'.$this->get('ID'),
-            'CUIL' => 'required|unique:afiliados,CUIL,'.$this->get('ID'),
+            'NAFILIADO' => 'required|unique:Afiliados,NAFILIADO,'.$this->get('ID'),
+            'CUIL' => 'required|unique:Afiliados,CUIL,'.$this->get('ID'),
             'IDOBRASOCIAL' => 'required',
         ];
     }

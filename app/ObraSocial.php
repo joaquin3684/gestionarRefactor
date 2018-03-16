@@ -22,6 +22,10 @@ class ObraSocial extends Model
     public function afiliados()
     {
         return $this->hasMany('App\Afiliado', 'IDOBRASOCIAL', 'ID');
+    }
 
+    public function farmacias()
+    {
+        return $this->belongsToMany('App\Farmacia', 'Farmacia_obra_social', 'id_farmacia', 'id_obra_social');
     }
 }
