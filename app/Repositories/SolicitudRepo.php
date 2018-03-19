@@ -36,7 +36,8 @@ class SolicitudRepo extends Repositorio
         {
             throw new NoTieneAccesoAEstaObraSocialException('acceso denegado');
         } else {
-            parent::create($data);
+            $solicitud = parent::create($data);
+            return $solicitud;
         }
     }
 
@@ -50,7 +51,8 @@ class SolicitudRepo extends Repositorio
         {
             throw new NoTieneAccesoAEstaObraSocialException('acceso denegado');
         } else {
-            parent::update($data, $id);
+            $solicitud = parent::update($data, $id);
+            return $solicitud;
         }
 
     }

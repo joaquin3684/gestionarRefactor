@@ -40,8 +40,9 @@ class TurnoRepo extends Repositorio
         {
             throw new NoTieneAccesoAEstaObraSocialException('acceso denegado');
         } else {
-            parent::create($data);
+           $turno = parent::create($data);
             $this->solRepo->update(['ESTADO' => 'En Espera'], $data['IDSOLICITUD']);
+            return $turno;
         }
     }
 
@@ -55,7 +56,8 @@ class TurnoRepo extends Repositorio
         {
             throw new NoTieneAccesoAEstaObraSocialException('acceso denegado');
         } else {
-            parent::update($data, $id);
+           $turno = parent::update($data, $id);
+           return $turno;
         }
 
     }

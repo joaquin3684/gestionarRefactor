@@ -38,9 +38,9 @@ class FarmaciaRepo extends Repositorio
                 throw new NoTieneAccesoAEstaObraSocialException('acceso denegado');
             }
         }
-        $clinica = parent::create($data);
-        parent::attach($data['obrasSociales'], 'obrasSociales', $clinica->getId());
-
+        $farmacia = parent::create($data);
+        parent::attach($data['obrasSociales'], 'obrasSociales', $farmacia->getId());
+        return $farmacia;
     }
 
     public function update(array $data, $id)
@@ -53,10 +53,10 @@ class FarmaciaRepo extends Repositorio
                 throw new NoTieneAccesoAEstaObraSocialException('acceso denegado');
             }
         }
-        $clinica = parent::create($data);
+        $farmacia = parent::create($data);
         parent::detach('obrasSociales', $id);
-        parent::attach($data['obrasSociales'], 'obrasSociales', $clinica->getId());
-
+        parent::attach($data['obrasSociales'], 'obrasSociales', $farmacia->getId());
+        return $farmacia;
 
     }
 

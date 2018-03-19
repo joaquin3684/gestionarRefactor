@@ -31,8 +31,6 @@ class ClimedController extends Controller
     {
         DB::transaction(function() use ($request){
             $clinica = $this->repo->create($request->all());
-            $this->repo->attach($request['obrasSociales'], 'obrasSociales', $clinica->getId());
-            $this->repo->attach($request['especialidades'], 'especialidades', $clinica->getId());
         });
     }
 

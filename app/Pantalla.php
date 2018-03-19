@@ -21,6 +21,6 @@ class Pantalla extends Model
 
     public function rutas()
     {
-        return $this->belongsToMany('App\Ruta', 'pantalla_ruta', 'id_ruta', 'id_pantalla');
+        return $this->belongsToMany('App\Ruta', 'pantalla_ruta', 'id_pantalla', 'id_ruta');
     }
 }

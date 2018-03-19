@@ -51,7 +51,7 @@ class AfiliadoRepo extends Repositorio
             $user = $this->userRepo->create($data);
             $afiliado->usuario()->attach($user->id);
             //TODO para que esto funcione el perfil 1 tiene que ser el de afiliado
-
+            return $afiliado;
         }
     }
 
@@ -71,7 +71,7 @@ class AfiliadoRepo extends Repositorio
             $data['id_perfil'] = 1;
             $data['obrasSociales'] = $data['IDOBRASOCIAL'];
             $user = $this->userRepo->update($data, $afiliado->id_usuario);
-
+            return $afiliado;
         }
     }
 

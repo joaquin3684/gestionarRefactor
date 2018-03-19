@@ -40,7 +40,7 @@ class ClimedRepo extends Repositorio
         $clinica = parent::create($data);
         parent::attach($data['obrasSociales'], 'obrasSociales', $clinica->getId());
         parent::attach($data['especialidades'], 'especialidades', $clinica->getId());
-
+        return $clinica;
     }
 
     public function update(array $data, $id)
@@ -58,7 +58,7 @@ class ClimedRepo extends Repositorio
         parent::attach($data['obrasSociales'], 'obrasSociales', $clinica->getId());
         parent::detach('especialidades', $id);
         parent::attach($data['especialidades'], 'especialidades', $id);
-
+        return $clinica;
     }
 
     public function find($id)

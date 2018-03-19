@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Exceptions\NoTienePermisoARutaException;
+use App\Pantalla;
 use App\Ruta;
 use App\User;
 use Closure;
