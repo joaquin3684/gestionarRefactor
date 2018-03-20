@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Perfil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PerfilController extends Controller
 {
     private $repo;
-    public function __construct(PerfilRepo $repo)
+    public function __construct(Perfil $repo)
     {
         $this->repo = $repo;
     }
@@ -48,6 +49,7 @@ class PerfilController extends Controller
     public function update(Request $request, $id)
     {
         DB::transaction(function() use ($request, $id) {
+            $this->repo->fill($request->all());
             $this->repo->update($request->all(), $id);
         });
     }

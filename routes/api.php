@@ -74,7 +74,9 @@ Route::resource('obraSocial', 'ObraSocialController');
 Route::get('user/traerElementos', 'UserController@all');
 Route::resource('user', 'UserController');
 
+//-------------------- PERFIL --------------------------
 
+Route::get('perfil/traerElementos', 'PerfilController@all');
 });
 
 

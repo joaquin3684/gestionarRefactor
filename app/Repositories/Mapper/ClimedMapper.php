@@ -49,7 +49,7 @@ class ClimedMapper
                 $especialidades = $objeto->especialidades->map(function($especialidad){
                     return $this->especialidadesMapper->map($especialidad);
                 });
-                $clinica->setEspecilidades($especialidades);
+                $clinica->setEspecialidades($especialidades);
             }
             if($objeto->relationLoaded('obrasSociales'))
             {

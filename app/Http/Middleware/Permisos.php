@@ -38,7 +38,7 @@ class Permisos
         $user = User::with('perfil.pantallas.rutas')->find($userId);
         $userRoute = $user->perfil->pantallas->first(function($pantalla) use ($fullPath){
             return $pantalla->rutas->first(function($ruta) use ($fullPath){
-                return$ruta->ruta == $fullPath;
+                return $ruta->ruta == $fullPath;
             });
         });
 

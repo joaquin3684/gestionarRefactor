@@ -11,7 +11,6 @@ namespace App\Repositories;
 
 use App\Exceptions\NoTieneAccesoAEstaObraSocialException;
 use App\Repositories\Mapper\UserMapper;
-use App\Services\UserFromToken;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -63,7 +62,10 @@ class UserRepo extends Repositorio
                 throw new NoTieneAccesoAEstaObraSocialException('acceso denegado');
             }
         }
-        $data['password'] = Hash::make($data['password']);
+        if(array_key_exists('password', $data))
+        {
+            $data['password'] = Hash::make($data['password']);
+        }
         $user = $this->gateway->findOrFail($id);
         $user->fill($data)->save();
         parent::detach('obrasSociales', $id);
@@ -73,10 +75,10 @@ class UserRepo extends Repositorio
 
     public function find($id)
     {
-        $obj = $this->gateway->with('obrasSociales')->whereHas('obrasSociales', function($query){
+        $obj =  $this->gateway->with('obrasSociales')->whereHas('obrasSociales', function($query){
             $query->whereIn('id_obra_social', $this->obsUser->toArray());
         })->findOrFail($id);
-        return $this->mapper->map($obj);
+        return $obj;
     }
 
     public function all()
@@ -84,10 +86,15 @@ class UserRepo extends Repositorio
         $obj = $this->gateway->with('obrasSociales')
             ->whereHas('obrasSociales', function($query){
                 $query->whereIn('id_obra_social', $this->obsUser->toArray());
-            })->get();
-        return $obj->map(function($ob){
-            return $this->mapper->map($ob);
-        });
+            })->get()->map(function($usuario){
+                 $usuario->obrasSociales->map(function($obs){
+                    $obs->nombre = $obs->NOMBRE;
+                    $obs->id = $obs->ID;
+                    return $obs;
+                });
+                 return $usuario;
+            });
+        return $obj;
     }
 
     public function destroy($id)

@@ -83,21 +83,6 @@ class Climed
         $this->obrasSociales = $obrasSociales;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getEspecilidades()
-    {
-        return $this->especilidades;
-    }
-
-    /**
-     * @param mixed $especilidad
-     */
-    public function setEspecilidades($especilidades)
-    {
-        $this->especilidades = $especilidades;
-    }
 
     /**
      * @return array

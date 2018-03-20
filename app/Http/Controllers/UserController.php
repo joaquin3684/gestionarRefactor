@@ -64,4 +64,9 @@ class UserController extends Controller
     {
         $this->repo->destroy($id);
     }
+
+    public function all()
+    {
+        return $this->repo->all();
+    }
 }
