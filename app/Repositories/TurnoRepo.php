@@ -32,7 +32,7 @@ class TurnoRepo extends Repositorio
 
     public function create(array $data)
     {
-        $obs = Solicitud::with('afiliado')->find($data['IDAFILIADO'])->afiliado->IDOBRASOCIAL;
+        $obs = Solicitud::with('afiliado')->find($data['IDSOLICITUD'])->afiliado->IDOBRASOCIAL;
         $obra = $this->obsUser->first(function($obraSocial) use ($obs){
             return $obraSocial == $obs;
         });
@@ -48,7 +48,7 @@ class TurnoRepo extends Repositorio
 
     public function update(array $data, $id)
     {
-        $obs = Solicitud::with('afiliado')->find($data['IDAFILIADO'])->afiliado->IDOBRASOCIAL;
+        $obs = Solicitud::with('afiliado')->find($data['IDSOLICITUD'])->afiliado->IDOBRASOCIAL;
         $obra = $this->obsUser->first(function($obraSocial) use ($obs){
             return $obraSocial == $obs;
         });

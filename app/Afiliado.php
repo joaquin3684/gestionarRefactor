@@ -24,4 +24,9 @@ class Afiliado extends Model
     {
         return $this->belongsTo('App\User', 'id_usuario', 'ID');
     }
+
+    public function recomendaciones()
+    {
+        return $this->hasMany('App\Recomendacion', 'NRO', 'DNI');
+    }
 }

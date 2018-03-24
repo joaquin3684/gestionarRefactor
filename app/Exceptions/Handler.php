@@ -65,16 +65,17 @@ class Handler extends ExceptionHandler
         } else if($e instanceof ValidationException) {
 
             $data = collect();
-            foreach($e->response->original as $key => $error)
+            foreach($e->validator->messages()->messages() as $key => $error)
             {
                 $a = collect();
                 $a->put('id', 'validation_error');
                 $a->put('status', '422');
                 $a->put('title', $key);
-                $a->put('detail', $error);
+                $a->put('detail', $error[0]);
                 $data->push($a);
 
             }
+            $data = $data->toArray();
             $status = 422;
 
         } else if($e instanceof NoTienePermisoARutaException) {

@@ -72,4 +72,15 @@ class RecomendacionController extends Controller
         });
     }
 
+    public function recomendacionesSinContactar()
+    {
+        return $this->repo->recomendacionesSinContactar()->map(function ($elem) {
+            return $elem->toArray($elem);
+        });
+    }
+
+    public function contactado(Request $request)
+    {
+        $this->repo->update(['CONTACTADO' => 1], $request['id']);
+    }
 }

@@ -14,4 +14,9 @@ class Recomendacion extends Model
     ];
     public $timestamps = false;
 
+
+    public function afiliado()
+    {
+        return $this->belongsTo('App\Afiliado', 'NRO', 'DNI');
+    }
 }

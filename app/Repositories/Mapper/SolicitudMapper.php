@@ -54,12 +54,12 @@ class SolicitudMapper
             $afiliado = $this->afiliadoMapper->map($solicitud->afiliado);
             $solicitudMappeada->setAfiliado($afiliado);
         }
-        if($solicitud->relationLoaded('climed'))
+        if($solicitud->relationLoaded('climed') && $solicitud->climed != null)
         {
             $climed = $this->climedMapper->map($solicitud->climed);
             $solicitudMappeada->setClimed($climed);
         }
-        if($solicitud->relationLoaded('especialidad'))
+        if($solicitud->relationLoaded('especialidad') && $solicitud->especialidad != null)
         {
             $especialidad = $this->especialidadMapper->map($solicitud->especialidad);
             $solicitudMappeada->setEspecialidad($especialidad);

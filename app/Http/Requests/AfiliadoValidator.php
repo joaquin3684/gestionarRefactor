@@ -37,4 +37,24 @@ class AfiliadoValidator extends FormRequest
             'IDOBRASOCIAL' => 'required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'DNI.required' => 'El campo dni es obligatorio',
+            'DNI.unique' => 'El campo dni debe ser unico',
+            'NOMBRE.required' => 'El campo nombre es obligatorio',
+            'APELLIDO.required' => 'El campo apellido es obligatorio',
+            'EMAIL.required' => 'El campo email es obligatorio',
+            'TELEFONO.required' => 'El campo telefono es obligatorio',
+            'CELULAR.required' => 'El campo celular es obligatorio',
+            'DIRECCION.required' => 'El campo direccion es obligatorio',
+            'NACIMIENTO.required' => 'El campo nacimiento es obligatorio',
+            'NAFILIADO.required' => 'El campo nro afiliado es obligatorio',
+            'NAFILIADO.unique' => 'El campo nro afiliado debe ser unico',
+            'CUIL.required' => 'El campo cuil es obligatorio',
+            'CUIL.unique' => 'El campo cuil debe ser unico',
+            'IDOBRASOCIAL.required' => 'El campo obra social es obligatorio',
+            ];
+    }
 }

@@ -7,6 +7,7 @@ use App\Exceptions\NoTieneAccesoAEstaObraSocialException;
 use App\Services\UserFromToken;
 use App\Solicitud;
 use App\Repositories\Mapper\SolicitudMapper;
+use Carbon\Carbon;
 
 class SolicitudRepo extends Repositorio
 {
@@ -43,9 +44,12 @@ class SolicitudRepo extends Repositorio
 
     public function update(array $data, $id)
     {
-        $afiliado = Afiliado::find($data['IDAFILIADO']);
-        $obra = $this->obsUser->first(function($obraSocial) use ($afiliado){
-            return $obraSocial == $afiliado->IDOBRASOCIAL;
+        $data['FECHAMODIFICACION'] = Carbon::today()->toDateString();
+
+        $obs = Solicitud::with('afiliado')->find($id)->afiliado->IDOBRASOCIAL;
+
+        $obra = $this->obsUser->first(function($obraSocial) use ($obs){
+            return $obraSocial == $obs;
         });
         if($obra == null)
         {
@@ -95,10 +99,31 @@ class SolicitudRepo extends Repositorio
     public function solicitudesEnProceso()
     {
         $obj = $this->gateway->with('turnos.climed', 'climed', 'afiliado.obraSocial', 'especialidad')
-            ->whereHas('afiliado.obraSocial', function($query){
-                $query->whereIn('ID', $this->obsUser->toArray());
-            })->where('ESTADO', '<>','Confirmado')
-            ->where('ESTADO', '<>', 'Rechazado')->get();
+            ->whereHas('afiliado', function($query){
+                $query->whereIn('IDOBRASOCIAL', $this->obsUser->toArray());
+            })
+            ->where('ESTADO', '<>','Confirmado')
+            ->where('ESTADO', '<>', 'Rechazado')
+            ->where('TIPO', '1')
+            ->orWhere(function ($query) {
+                $query->where('ESTADO', '<>','Confirmado')
+                    ->where('ESTADO', '<>', 'Rechazado')
+                    ->where('REVISADO', '1');
+            })->get();
+        return $this->mapper->map($obj);
+    }
+
+    public function solicitudesParaAuditar()
+    {
+        $obj = $this->gateway->with('turnos.climed', 'climed', 'afiliado.obraSocial', 'especialidad')
+            ->whereHas('afiliado', function($query){
+                $query->whereIn('IDOBRASOCIAL', $this->obsUser->toArray());
+            })
+            ->where('ESTADO', '<>','Confirmado')
+            ->where('ESTADO', '<>', 'Rechazado')
+            ->where('TIPO', '<>', 1)
+            ->where('REVISADO', 0)
+            ->get();
         return $this->mapper->map($obj);
     }
 }

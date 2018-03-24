@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\SolicitudRepo;
 use App\Repositories\TurnoRepo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -63,10 +64,16 @@ class SolicitudController extends Controller
 
     public function rechazar(Request $request)
     {
-        $this->repo->update(['ESTADO' => 'Rechazado', 'REVISADO' => 1], $request['id']);
+        $this->repo->update(['ESTADO' => 'Rechazado', 'REVISADO' => 1, 'MOTIVO' => $request['MOTIVO']], $request['id']);
     }
 
-
+    public function solicitudesParaAuditar()
+    {
+        $solicitudes = $this->repo->solicitudesParaAuditar();
+        return $solicitudes->map(function ($solicitud) {
+            return $solicitud->toArray($solicitud);
+        });
+    }
 
     public function destroy($id)
     {

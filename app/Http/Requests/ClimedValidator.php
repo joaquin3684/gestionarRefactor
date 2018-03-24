@@ -37,4 +37,21 @@ class ClimedValidator extends FormRequest
             'obrasSociales' => 'required',
         ];
     }
+
+    public function messages()
+    {
+         return [
+             'NOMBRE.required' => 'El campo nombre es obligatorio',
+             'LOCALIDAD.required' => 'El campo localidad es obligatorio',
+             'ZONA.required' => 'El campo zona es obligatorio',
+             'PARTICULAR.required' => 'El campo particular es obligatorio',
+             'DIRECCION.required' => 'El campo direccion es obligatorio',
+             'latitude.required' => 'El campo ubicacion es obligatorio',
+             'longitude.required' => 'El campo ubicacion es obligatorio',
+             'TELEFONO.required' => 'El campo telefono es obligatorio',
+             'especialidades.required' => 'El campo especialidades es obligatorio',
+             'obrasSociales.required' => 'El campo obras sociales es obligatorio',
+         ];
+    }
+
 }

@@ -31,6 +31,6 @@ class Solicitud extends Model
 
     public function afiliado()
     {
-        return $this->belongsTo('App\Afiliado', 'IDAFILIADO', 'ID');
+        return $this->belongsTo('App\Afiliado', 'DNISOLICITANTE', 'DNI');
     }
 }

@@ -32,4 +32,16 @@ class FarmaciaValidator extends FormRequest
             'TELEFONO' => 'required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'NOMBRE.required' => 'El campo nombre es obligatorio',
+            'LOCALIDAD.required' => 'El campo localidad es obligatorio',
+            'DIRECCION.required' => 'El campo direccion es obligatorio',
+            'latitude.required' => 'El campo ubicacion es obligatorio',
+            'longitude.required' => 'El campo ubicacion es obligatorio',
+            'TELEFONO.required' => 'El campo telefono es obligatorio',
+        ];
+    }
 }

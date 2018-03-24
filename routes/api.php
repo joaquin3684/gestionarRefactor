@@ -39,6 +39,8 @@ Route::resource('farmacia', 'FarmaciaController');
 //------------------ RECOMENDACION -------------------------
 
 Route::get('recomendacion/traerElementos', 'RecomendacionController@all');
+Route::post('recomendacion/contactado', 'RecomendacionController@contactado');
+Route::get('recomendacion/sinContactar', 'RecomendacionController@recomendacionesSinContactar');
 Route::resource('recomendacion', 'RecomendacionController');
 
 //--------------------- CLIMED ------------------------
@@ -52,6 +54,7 @@ Route::get('solicitud/traerElementos', 'SolicitudController@all');
 Route::post('solicitud/autorizar', 'SolicitudController@autorizar');
 Route::post('solicitud/rechazar', 'SolicitudController@rechazar');
 Route::get('solicitud/solicitudesEnProceso', 'SolicitudController@solicitudesEnProceso');
+Route::get('solicitud/solicitudesParaAuditar', 'SolicitudController@solicitudesParaAuditar');
 Route::resource('solicitud', 'SolicitudController');
 
 //---------------------- TURNO ------------------------
@@ -79,7 +82,13 @@ Route::resource('user', 'UserController');
 Route::get('perfil/traerElementos', 'PerfilController@all');
 });
 
+//---------------------- REPORTE SOLICITUDES --------------
 
+
+Route::post('reporteSolicitudes/zonas', 'ReporteSolicitudesController@porZona');
+Route::post('reporteSolicitudes/clinicas', 'ReporteSolicitudesController@porClinica');
+Route::post('reporteSolicitudes/solicitudes', 'ReporteSolicitudesController@porSolicitud');
+Route::post('reporteSolicitudes/turnos', 'ReporteSolicitudesController@porTurnos');
 
 //----------------------- APLICACION CELULAR -------------------------
 
