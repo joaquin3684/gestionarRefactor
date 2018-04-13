@@ -14,9 +14,11 @@ class CreateAfiliadoReposTable extends Migration
      */
     public function up()
     {
-        Schema::create('afiliados', function (Blueprint $table) {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+
+        Schema::create('Afiliados', function (Blueprint $table) {
             $table->increments('ID');
-            $table->integer('DNI');
+            $table->integer('DNI')->unique();
             $table->string('NOMBRE');
             $table->string('APELLIDO');
             $table->string('EMAIL');
@@ -29,10 +31,16 @@ class CreateAfiliadoReposTable extends Migration
             $table->bigInteger('CUIL');
             $table->integer('GRUPOF')->nullable();
             $table->string('NAFILIADO');
+            $table->string('PLAN');
             $table->integer('IDOBRASOCIAL')->unsigned();
             $table->foreign('IDOBRASOCIAL')->references('ID')->on('obras_sociales');
+            $table->integer('id_usuario')->unsigned()->nullable();
+            $table->foreign('id_usuario')->references('id')->on('Usuarios');
+
             $table->timestamps();
         });
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+
     }
 
     /**
@@ -44,7 +52,7 @@ class CreateAfiliadoReposTable extends Migration
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
-        Schema::dropIfExists('afiliados');
+        Schema::dropIfExists('Afiliados');
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
     }

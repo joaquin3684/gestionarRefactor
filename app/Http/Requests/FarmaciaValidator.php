@@ -30,6 +30,7 @@ class FarmaciaValidator extends FormRequest
             'latitude' => 'required',
             'longitude' => 'required',
             'TELEFONO' => 'required',
+            'obrasSociales' => 'required'
         ];
     }
 
@@ -42,6 +43,7 @@ class FarmaciaValidator extends FormRequest
             'latitude.required' => 'El campo ubicacion es obligatorio',
             'longitude.required' => 'El campo ubicacion es obligatorio',
             'TELEFONO.required' => 'El campo telefono es obligatorio',
+            'obrasSociales.required' => 'El campo obra social es obligatorio'
         ];
     }
 }

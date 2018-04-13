@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserValidator;
 use App\Repositories\UserRepo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserValidator $request)
     {
         DB::transaction(function() use ($request){
             $this->repo->create($request->all());
@@ -47,10 +48,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserValidator $request, $id)
     {
         DB::transaction(function() use ($request, $id) {
             $this->repo->update($request->all(), $id);
+        });
+    }
+
+    public function cambiarContraseña(Request $request)
+    {
+        DB::transaction(function() use ($request){
+            $this->repo->cambiarContraseña($request->all());
         });
     }
 

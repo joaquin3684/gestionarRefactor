@@ -7,6 +7,7 @@ use App\Exceptions\NoTieneAccesoAEstaObraSocialException;
 use App\Services\UserFromToken;
 use App\Solicitud;
 use App\Repositories\Mapper\SolicitudMapper;
+use App\User;
 use Carbon\Carbon;
 
 class SolicitudRepo extends Repositorio
@@ -27,9 +28,29 @@ class SolicitudRepo extends Repositorio
     {
         return 'App\Repositories\SolicitudRepo';
     }
+
+    public function abrir($id)
+    {
+        $obs = Solicitud::with('afiliado')->find($id)->afiliado->IDOBRASOCIAL;
+
+        $obra = $this->obsUser->first(function($obraSocial) use ($obs){
+            return $obraSocial == $obs;
+        });
+        if($obra == null)
+        {
+            throw new NoTieneAccesoAEstaObraSocialException('acceso denegado');
+        } else {
+            $data['ASIGNADO'] = $this->user->id;
+            $solicitud = parent::update($data, $id);
+            return User::whereHas('obrasSociales', function($q) use ($obs){
+                $q->where('id_obra_social', $obs);
+            })->where('id_perfil', '<>', '2')->get()->map(function($us){return $us->id;});
+        }
+    }
+
     public function create(array $data)
     {
-        $afiliado = Afiliado::find($data['IDAFILIADO']);
+        $afiliado = Afiliado::where('DNI', $data['DNISOLICITANTE'])->get()->first();
         $obra = $this->obsUser->first(function($obraSocial) use ($afiliado){
             return $obraSocial == $afiliado->IDOBRASOCIAL;
         });
@@ -37,6 +58,7 @@ class SolicitudRepo extends Repositorio
         {
             throw new NoTieneAccesoAEstaObraSocialException('acceso denegado');
         } else {
+            $data['FECHAS'] = Carbon::today()->toDateString();
             $solicitud = parent::create($data);
             return $solicitud;
         }
@@ -102,13 +124,26 @@ class SolicitudRepo extends Repositorio
             ->whereHas('afiliado', function($query){
                 $query->whereIn('IDOBRASOCIAL', $this->obsUser->toArray());
             })
-            ->where('ESTADO', '<>','Confirmado')
-            ->where('ESTADO', '<>', 'Rechazado')
-            ->where('TIPO', '1')
+            ->where(function ($query){
+                $query->where('ESTADO', '<>','Confirmado')
+                    ->where('ESTADO', '<>', 'Rechazado')
+                    ->where('TIPO', '1')
+                    ->where(function ($q){
+                        $q->where('ASIGNADO', null)
+                        ->orWhere('ASIGNADO', $this->user->id);
+
+                    });
+            })
+
             ->orWhere(function ($query) {
                 $query->where('ESTADO', '<>','Confirmado')
                     ->where('ESTADO', '<>', 'Rechazado')
-                    ->where('REVISADO', '1');
+                    ->where('REVISADO', '1')
+                    ->where(function ($q){
+                        $q->where('ASIGNADO', null)
+                            ->orWhere('ASIGNADO', $this->user->id);
+
+                    });
             })->get();
         return $this->mapper->map($obj);
     }

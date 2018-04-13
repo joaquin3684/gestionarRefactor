@@ -81,6 +81,9 @@ class RecomendacionController extends Controller
 
     public function contactado(Request $request)
     {
-        $this->repo->update(['CONTACTADO' => 1], $request['id']);
+        foreach($request['ids'] as $id){
+
+            $this->repo->update(['CONTACTADO' => 1], $id);
+        }
     }
 }

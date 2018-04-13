@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SolicitudValidator;
 use App\Repositories\SolicitudRepo;
 use App\Repositories\TurnoRepo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use GuzzleHttp\Client;
 
 class SolicitudController extends Controller
 {
@@ -26,7 +28,7 @@ class SolicitudController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SolicitudValidator $request)
     {
         $this->repo->create($request->all());
     }
@@ -80,12 +82,23 @@ class SolicitudController extends Controller
         $this->repo->destroy($id);
     }
 
+    public function abrir(Request $request)
+    {
+        DB::transaction(function() use ($request){
+
+            $usersANotificar = $this->repo->abrir($request['id']);
+            $client = new Client();
+
+           $r = $client->post( 'http://gestionar.herokuapp.com/actualizarClientes', ['json' => $usersANotificar->toArray(), 'allow_redirects' => false]);
+        });
+    }
+
     public function all()
     {
-            $solicitudes = $this->repo->all();
-            return $solicitudes->map(function ($solicitud) {
+        $solicitudes = $this->repo->all();
+        return $solicitudes->map(function ($solicitud) {
                 return $solicitud->toArray($solicitud);
-            });
+        });
     }
 
     public function solicitudesEnProceso()

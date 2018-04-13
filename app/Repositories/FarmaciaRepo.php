@@ -70,7 +70,7 @@ class FarmaciaRepo extends Repositorio
 
     public function all()
     {
-        $obj = $this->gateway
+        $obj = $this->gateway->with('obrasSociales')
             ->whereHas('obrasSociales', function($query){
                 $query->whereIn('id_obra_social', $this->obsUser->toArray());
             })->get();

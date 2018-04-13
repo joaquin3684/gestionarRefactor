@@ -73,7 +73,6 @@ class Handler extends ExceptionHandler
                 $a->put('title', $key);
                 $a->put('detail', $error[0]);
                 $data->push($a);
-
             }
             $data = $data->toArray();
             $status = 422;

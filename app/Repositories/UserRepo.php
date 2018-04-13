@@ -103,7 +103,13 @@ class UserRepo extends Repositorio
         return parent::destroy($id);
     }
 
-
+    public function cambiarContraseña(array $data)
+    {
+        $us = User::find($data['id']);
+        $data['password'] = Hash::make($data['password']);
+        $us->fill($data)->save();
+        return $this->user;
+    }
 
     public function findByCredentials($credentials)
     {

@@ -11,7 +11,7 @@ class Afiliado extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'NOMBRE', 'APELLIDO', 'DNI', 'EMAIL', 'TELEFONO', 'CELULAR', 'DIRECCION', 'PISO', 'DEPARTAMENTO', 'NACIMIENTO', 'CUIL', 'GRUPOF', 'NAFILIADO', 'IDOBRASOCIAL', 'OBS'
+        'NOMBRE', 'APELLIDO', 'DNI', 'EMAIL', 'TELEFONO', 'CELULAR', 'DIRECCION', 'PISO', 'DEPARTAMENTO', 'NACIMIENTO', 'CUIL', 'GRUPOF', 'NAFILIADO', 'IDOBRASOCIAL', 'OBS', 'id_usuario', 'PLAN'
     ];
 
 
@@ -28,5 +28,10 @@ class Afiliado extends Model
     public function recomendaciones()
     {
         return $this->hasMany('App\Recomendacion', 'NRO', 'DNI');
+    }
+
+    public function familiares()
+    {
+        return $this->hasMany('App\Familiar', 'id_afiliado', 'DNI');
     }
 }

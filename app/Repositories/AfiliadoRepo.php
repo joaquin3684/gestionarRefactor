@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 
 use App\Afiliado;
+use App\Familiar;
 use App\Perfil;
 use App\Repositories\Mapper\AfiliadoMapper;
 use App\Exceptions\NoTieneAccesoAEstaObraSocialException;
@@ -42,14 +43,20 @@ class AfiliadoRepo extends Repositorio
             throw new NoTieneAccesoAEstaObraSocialException('acceso denegado');
         } else {
 
-            $afiliado = $this->gateway->create($data);
             $data['name'] = $data['DNI'];
             $data['password'] = $data['NAFILIADO'];
             $data['email'] = $data['EMAIL'];
             $data['id_perfil'] = 1;
-            $data['obrasSociales'] = $data['IDOBRASOCIAL'];
+            $data['obrasSociales'] = array($data['IDOBRASOCIAL']);
             $user = $this->userRepo->create($data);
-            $afiliado->usuario()->attach($user->id);
+            $data['id_usuario'] = $user->id;
+            $afiliado = $this->gateway->create($data);
+            $col = collect($data['familiares']);
+            $familiares = $col->map(function($c) use ($afiliado){
+                $c['id_afiliado'] = $afiliado->DNI;
+                return $c;
+            });
+            Familiar::insert($familiares->toArray());
             //TODO para que esto funcione el perfil 1 tiene que ser el de afiliado
             return $afiliado;
         }
@@ -64,20 +71,29 @@ class AfiliadoRepo extends Repositorio
         {
             throw new NoTieneAccesoAEstaObraSocialException('acceso denegado');
         } else {
-           $afiliado = $this->gateway->update($data, $id);
+           $afiliado = $this->gateway->find($id);
+           $afiliado->fill($data)->save();
             $data['name'] = $data['DNI'];
             $data['password'] = $data['NAFILIADO'];
             $data['email'] = $data['EMAIL'];
             $data['id_perfil'] = 1;
-            $data['obrasSociales'] = $data['IDOBRASOCIAL'];
+            $data['obrasSociales'] = array($data['IDOBRASOCIAL']);
             $user = $this->userRepo->update($data, $afiliado->id_usuario);
+            $col = collect($data['familiares']);
+            $familiares = $col->map(function($c) use ($afiliado){
+                $c['id_afiliado'] = $afiliado->DNI;
+                return $c;
+            });
+            Familiar::where('id_afiliado', $afiliado->id)->delete();
+            Familiar::insert($familiares->toArray());
+
             return $afiliado;
         }
     }
 
     public function find($id)
     {
-        $obj = $this->gateway->with('obraSocial')->whereHas('obraSocial', function($query){
+        $obj = $this->gateway->with('obraSocial', 'familiares')->whereHas('obraSocial', function($query){
             $query->whereIn('ID', $this->obsUser->toArray());
         })->findOrFail($id);
         return $this->mapper->map($obj);
@@ -85,7 +101,7 @@ class AfiliadoRepo extends Repositorio
 
     public function all()
     {
-        $obj = $this->gateway->with('obraSocial')
+        $obj = $this->gateway->with('obraSocial', 'familiares')
             ->whereHas('obraSocial', function($query){
                 $query->whereIn('ID', $this->obsUser->toArray());
         })->get();

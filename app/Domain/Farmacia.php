@@ -23,6 +23,9 @@ class Farmacia
     private $latitude;
     private $longitude;
     private $telefono;
+    private $obrasSociales;
+
+
 
     /**
      * Farmacia constructor.
@@ -43,6 +46,22 @@ class Farmacia
         $this->latitude = $latitude;
         $this->longitude = $longitude;
         $this->telefono = $telefono;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getObrasSociales()
+    {
+        return $this->obrasSociales;
+    }
+
+    /**
+     * @param mixed $obrasSociales
+     */
+    public function setObrasSociales($obrasSociales)
+    {
+        $this->obrasSociales = $obrasSociales;
     }
 
     /**

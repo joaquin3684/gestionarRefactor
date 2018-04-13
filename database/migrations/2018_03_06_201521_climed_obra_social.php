@@ -14,14 +14,18 @@ class ClimedObraSocial extends Migration
      */
     public function up()
     {
-        Schema::create('climed_obra_social', function (Blueprint $table) {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+
+        Schema::create('Climed_obra_social', function (Blueprint $table) {
             $table->increments('ID');
             $table->integer('IDCLIMED')->unsigned();
-            $table->foreign('IDCLIMED')->references('IDCLI')->on('climed');
+            $table->foreign('IDCLIMED')->references('IDCLI')->on('Climed');
             $table->integer('IDOBRASOCIAL')->unsigned();
             $table->foreign('IDOBRASOCIAL')->references('ID')->on('obras_sociales');
             $table->timestamps();
         });
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+
     }
 
     /**
@@ -33,7 +37,7 @@ class ClimedObraSocial extends Migration
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
-        Schema::dropIfExists('climed_obra_social');
+        Schema::dropIfExists('Climed_obra_social');
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

@@ -8,6 +8,7 @@ use App\Services\UserFromToken;
 use App\Solicitud;
 use App\Turno;
 use App\Repositories\Mapper\TurnoMapper;
+use Carbon\Carbon;
 
 class TurnoRepo extends Repositorio
 {
@@ -32,7 +33,9 @@ class TurnoRepo extends Repositorio
 
     public function create(array $data)
     {
-        $obs = Solicitud::with('afiliado')->find($data['IDSOLICITUD'])->afiliado->IDOBRASOCIAL;
+        $data['FECHACREACION'] = Carbon::today()->toDateString();
+        $obs = Solicitud::with('afiliado')->find($data['IDSOLICITUD']);
+        $obs = $obs->afiliado->IDOBRASOCIAL;
         $obra = $this->obsUser->first(function($obraSocial) use ($obs){
             return $obraSocial == $obs;
         });

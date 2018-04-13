@@ -14,7 +14,9 @@ class CreateFarmaciasReposTable extends Migration
      */
     public function up()
     {
-        Schema::create('farmacias', function (Blueprint $table) {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+
+        Schema::create('Farmacias', function (Blueprint $table) {
             $table->increments('ID');
             $table->string('NOMBRE');
             $table->string('DIRECCION');
@@ -24,6 +26,8 @@ class CreateFarmaciasReposTable extends Migration
             $table->integer('TELEFONO');
             $table->timestamps();
         });
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+
     }
 
     /**
@@ -35,7 +39,7 @@ class CreateFarmaciasReposTable extends Migration
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
-        Schema::dropIfExists('farmacias');
+        Schema::dropIfExists('Farmacias');
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
     }

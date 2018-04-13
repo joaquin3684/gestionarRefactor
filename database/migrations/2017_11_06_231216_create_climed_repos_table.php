@@ -14,7 +14,7 @@ class CreateClimedReposTable extends Migration
      */
     public function up()
     {
-        Schema::create('climed', function (Blueprint $table) {
+        Schema::create('Climed', function (Blueprint $table) {
             $table->increments('IDCLI');
             $table->string('NOMBRE');
             $table->string('DIRECCION');
@@ -37,7 +37,7 @@ class CreateClimedReposTable extends Migration
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
-        Schema::dropIfExists('climed');
+        Schema::dropIfExists('Climed');
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
     }

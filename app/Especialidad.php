@@ -16,6 +16,6 @@ class Especialidad extends Model
 
     public function clinicas()
     {
-        return $this->belongsToMany('App\Climed', 'climed_esp', 'IDESP', 'IDCLIMED');
+        return $this->belongsToMany('App\Climed', 'ClimedEsp', 'IDESP', 'IDCLIMED');
     }
 }

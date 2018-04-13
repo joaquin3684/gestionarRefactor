@@ -14,16 +14,21 @@ class CreateRecomendacionReposTable extends Migration
      */
     public function up()
     {
-        Schema::create('recomendaciones', function (Blueprint $table) {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+
+        Schema::create('Recomendaciones', function (Blueprint $table) {
             $table->increments('ID');
             $table->string('NOMBRE');
             $table->string('APELLIDO');
-            $table->string('NRO');
+            $table->integer('NRO');
+            $table->integer('DNIAFILIADO');
             $table->date('FECHA');
             $table->integer('CONTACTADO');
             $table->string('COMENTARIO');
             $table->timestamps();
         });
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+
     }
 
     /**
@@ -35,7 +40,7 @@ class CreateRecomendacionReposTable extends Migration
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
-        Schema::dropIfExists('recomendaciones');
+        Schema::dropIfExists('Recomendaciones');
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
     }

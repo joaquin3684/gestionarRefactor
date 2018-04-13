@@ -14,24 +14,31 @@ class CreateSolicitudReposTable extends Migration
      */
     public function up()
     {
-        Schema::create('solicitudes', function (Blueprint $table) {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+
+        Schema::create('Solicitudes', function (Blueprint $table) {
             $table->increments('IDS');
             $table->string('MEDICO');
             $table->date('FECHAS');
-            $table->string('ESTADO');
-            $table->integer('ASIGNADO');
-            $table->integer('IDAFILIADO')->unsigned();
-            $table->foreign('IDAFILIADO')->references('ID')->on('afiliados');
+            $table->date('FECHAMODIFICACION')->nullable();
+            $table->string('ESTADO')->nullable();
+            $table->integer('ASIGNADO')->nullable();
+            $table->integer('DNISOLICITANTE');
+            $table->integer('IDAFILIADO');
             $table->integer('IDCLIMED')->unsigned();
-            $table->foreign('IDCLIMED')->references('IDCLI')->on('climed');
+            $table->foreign('IDCLIMED')->references('IDCLI')->on('Climed');
             $table->integer('ESPECIALIDAD')->unsigned();
-            $table->foreign('ESPECIALIDAD')->references('IDESPECIALIDAD')->on('especialidades');
+            $table->foreign('ESPECIALIDAD')->references('IDESPECIALIDAD')->on('Especialidad');
             $table->integer('TIPO');
-            $table->string('FOTO');
-            $table->integer('REVISADO');
-            $table->string('OBS');
+            $table->string('FOTO')->nullable();
+            $table->string('MOTIVO')->nullable();
+            $table->string('EQUIVALENCIA')->nullable();
+            $table->integer('REVISADO')->default(0);
+            $table->string('OBS')->nullable();
             $table->timestamps();
         });
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+
     }
 
     /**
@@ -43,7 +50,7 @@ class CreateSolicitudReposTable extends Migration
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
-        Schema::dropIfExists('solicitudes');
+        Schema::dropIfExists('Solicitudes');
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
     }

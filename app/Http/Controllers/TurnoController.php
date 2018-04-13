@@ -27,7 +27,6 @@ class TurnoController extends Controller
     public function store(Request $request)
     {
         $this->repo->create($request->all());
-        $this->solRepo->update(['ESTADO' => 'En Espera'], $request['IDSOLICITUD']);
     }
 
     /**
@@ -50,9 +49,9 @@ class TurnoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $this->repo->update($request->all(), $id);
+        $this->repo->update($request->all(), $request['id']);
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -13,7 +14,7 @@ class CreateEspecialidadReposTable extends Migration
      */
     public function up()
     {
-        Schema::create('especialidades', function (Blueprint $table) {
+        Schema::create('Especialidad', function (Blueprint $table) {
             $table->increments('IDESPECIALIDAD');
             $table->string('NOMBRE');
             $table->integer('ESTUDIO');
@@ -28,6 +29,8 @@ class CreateEspecialidadReposTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('especialidades');
-    }
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+
+        Schema::dropIfExists('Especialidad');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');    }
 }

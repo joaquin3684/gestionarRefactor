@@ -27,8 +27,6 @@ class RecomendacionValidator extends FormRequest
             'NOMBRE' => 'required',
             'APELLIDO' => 'required',
             'NRO' => 'required',
-            'FECHA' => 'required',
-            'CONTACTADO' => 'required',
         ];
     }
 
@@ -38,8 +36,6 @@ class RecomendacionValidator extends FormRequest
             'NOMBRE.required' => 'El campo nombre es obligatorio',
             'APELLIDO.required' => 'El campo apellido es obligatorio',
             'NRO.required' => 'El campo nro es obligatorio',
-            'FECHA.required' => 'El campo fecha es obligatorio',
-            'CONTACTADO.required' => 'El campo contactado es obligatorio',
         ];
     }
 }

@@ -30,23 +30,9 @@ class Afiliado
     private $obs;
     private $grupof;
     private $nafiliado;
+    private $plan;
     private $obra_social;
-
-    /**
-     * @return mixed
-     */
-    public function getObraSocial()
-    {
-        return $this->obra_social;
-    }
-
-    /**
-     * @param mixed $obra_social
-     */
-    public function setObraSocial($obra_social)
-    {
-        $this->obra_social = $obra_social;
-    }
+    private $familiares;
 
     /**
      * Afiliado constructor.
@@ -66,7 +52,7 @@ class Afiliado
      * @param $grupof
      * @param $nafiliado
      */
-    public function __construct($id, $nombre, $dni, $apellido, $email, $celular, $telefono, $direccion, $piso, $departamento, $nacimiento, $cuil, $obs, $grupof, $nafiliado)
+    public function __construct($id, $nombre, $dni, $apellido, $email, $celular, $telefono, $direccion, $piso, $departamento, $nacimiento, $cuil, $obs, $grupof, $nafiliado, $plan)
     {
         $this->id = $id;
         $this->nombre = $nombre;
@@ -83,7 +69,44 @@ class Afiliado
         $this->obs = $obs;
         $this->grupof = $grupof;
         $this->nafiliado = $nafiliado;
+        $this->plan = $plan;
     }
+
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getObraSocial()
+    {
+        return $this->obra_social;
+    }
+
+    /**
+     * @param mixed $obra_social
+     */
+    public function setObraSocial($obra_social)
+    {
+        $this->obra_social = $obra_social;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFamiliares()
+    {
+        return $this->familiares;
+    }
+
+    /**
+     * @param mixed $familiares
+     */
+    public function setFamiliares($familiares)
+    {
+        $this->familiares = $familiares;
+    }
+
 
     /**
      * @return mixed

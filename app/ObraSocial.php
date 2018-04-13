@@ -16,7 +16,7 @@ class ObraSocial extends Model
 
     public function clinicas()
     {
-        return $this->belongsToMany('App\Climed', 'Climed_obra_social', 'IDCLIMED', 'IDOBRASOCIAL');
+        return $this->belongsToMany('App\Climed', 'Climed_obra_social', 'IDOBRASOCIAL', 'IDCLIMED');
     }
 
     public function afiliados()
@@ -26,6 +26,12 @@ class ObraSocial extends Model
 
     public function farmacias()
     {
-        return $this->belongsToMany('App\Farmacia', 'Farmacia_obra_social', 'id_farmacia', 'id_obra_social');
+        return $this->belongsToMany('App\Farmacia', 'Farmacia_obra_social', 'id_obra_social', 'id_farmacia');
+    }
+
+    public function usuarios()
+    {
+        return $this->belongsToMany('App\User', 'Usuario_obra_social', 'id_obra_social', 'id_usuario');
+
     }
 }

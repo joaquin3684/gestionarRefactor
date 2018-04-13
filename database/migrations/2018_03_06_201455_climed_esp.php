@@ -14,14 +14,18 @@ class ClimedEsp extends Migration
      */
     public function up()
     {
-        Schema::create('climed_esp', function (Blueprint $table) {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+
+        Schema::create('ClimedEsp', function (Blueprint $table) {
             $table->increments('ID');
             $table->integer('IDCLIMED')->unsigned();
-            $table->foreign('IDCLIMED')->references('IDCLI')->on('climed');
+            $table->foreign('IDCLIMED')->references('IDCLI')->on('Climed');
             $table->integer('IDESP')->unsigned();
-            $table->foreign('IDESP')->references('IDESPECIALIDAD')->on('especialidades');
+            $table->foreign('IDESP')->references('IDESPECIALIDAD')->on('Especialidad');
             $table->timestamps();
         });
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+
     }
 
     /**
@@ -33,7 +37,7 @@ class ClimedEsp extends Migration
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
-        Schema::dropIfExists('climed_esp');
+        Schema::dropIfExists('ClimedEsp');
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

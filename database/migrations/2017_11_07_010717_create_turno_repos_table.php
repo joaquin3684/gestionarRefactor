@@ -14,18 +14,22 @@ class CreateTurnoReposTable extends Migration
      */
     public function up()
     {
-        Schema::create('turnos', function (Blueprint $table) {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+
+        Schema::create('Turnos', function (Blueprint $table) {
             $table->increments('IDT');
             $table->integer('IDSOLICITUD')->unsigned();
-            $table->foreign('IDSOLICITUD')->references('IDS')->on('solicitudes');
+            $table->foreign('IDSOLICITUD')->references('IDS')->on('Solicitudes');
             $table->date('FECHAT');
+            $table->date('FECHACREACION');
             $table->time('HORAT');
             $table->integer('CONFIRMACION');
-            $table->string('MOTIVOT');
-            $table->integer('MEDICOASIGNADO')->unsigned();
-            $table->foreign('MEDICOASIGNADO')->references('IDCLI')->on('climed');
+            $table->string('MOTIVOT')->nullable();
+            $table->string('MEDICOASIGNADO');
             $table->timestamps();
         });
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+
     }
 
     /**
@@ -37,7 +41,7 @@ class CreateTurnoReposTable extends Migration
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
-        Schema::dropIfExists('turnos');
+        Schema::dropIfExists('Turnos');
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 
     }

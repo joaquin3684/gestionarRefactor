@@ -10,7 +10,7 @@ class Recomendacion extends Model
 
     protected $table = 'Recomendaciones';
     protected $fillable = [
-        'NOMBRE', 'APELLIDO', 'NRO', 'FECHA', 'CONTACTADO', 'COMENTARIO'
+        'NOMBRE', 'APELLIDO', 'NRO', 'FECHA', 'CONTACTADO', 'COMENTARIO', 'DNIAFILIADO'
     ];
     public $timestamps = false;
 

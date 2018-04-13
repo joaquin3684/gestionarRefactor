@@ -8,6 +8,7 @@ use App\Exceptions\NoTieneAccesoAEstaObraSocialException;
 use App\Recomendacion;
 use App\Repositories\Mapper\RecomendacionMapper;
 use App\Services\UserFromToken;
+use Carbon\Carbon;
 
 class RecomendacionRepo extends Repositorio
 {
@@ -32,7 +33,7 @@ class RecomendacionRepo extends Repositorio
 
     public function create(array $data)
     {
-        $afiliado = Afiliado::where('DNI', $data['NRO'])->firstOrFail();
+        $afiliado = Afiliado::where('id_usuario', $this->user->id)->firstOrFail();
         $obs = $afiliado->IDOBRASOCIAL;
         $obra = $this->obsUser->first(function($obraSocial) use ($obs){
             return $obraSocial == $obs;
@@ -41,7 +42,9 @@ class RecomendacionRepo extends Repositorio
         {
             throw new NoTieneAccesoAEstaObraSocialException('acceso denegado');
         } else {
-
+            $data['FECHA'] = Carbon::today()->toDateString();
+            $data['DNIAFILIADO'] = $afiliado->DNI;
+            $data['CONTACTADO'] = 0;
             $recomendacion = $this->gateway->create($data);
             return $recomendacion;
 
@@ -67,7 +70,7 @@ class RecomendacionRepo extends Repositorio
     public function update(array $data, $id)
     {
         $recomendacion = Recomendacion::find($id);
-        $afiliado = Afiliado::where('DNI', $recomendacion->NRO)->firstOrFail();
+        $afiliado = Afiliado::where('id_usuario', $this->user->id)->firstOrFail();
         $obs = $afiliado->IDOBRASOCIAL;
         $obra = $this->obsUser->first(function($obraSocial) use ($obs){
             return $obraSocial == $obs;
@@ -77,7 +80,7 @@ class RecomendacionRepo extends Repositorio
             throw new NoTieneAccesoAEstaObraSocialException('acceso denegado');
         } else {
 
-            $recomendacion = $this->gateway->update($data, $id);
+            $recomendacion->fill($data)->save();
             return $recomendacion;
 
         }
