@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\SolicitudRepo;
 use App\Repositories\TurnoRepo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TurnoController extends Controller
 {
@@ -26,7 +27,10 @@ class TurnoController extends Controller
      */
     public function store(Request $request)
     {
-        $this->repo->create($request->all());
+        DB::transaction(function() use ($request) {
+
+            $this->repo->create($request->all());
+        });
     }
 
     /**
@@ -51,7 +55,10 @@ class TurnoController extends Controller
      */
     public function update(Request $request)
     {
-        $this->repo->update($request->all(), $request['id']);
+        DB::transaction(function() use ($request) {
+
+            $this->repo->update($request->all(), $request['id']);
+        });
     }
 
     /**
@@ -62,7 +69,10 @@ class TurnoController extends Controller
      */
     public function destroy($id)
     {
-        $this->repo->destroy($id);
+        DB::transaction(function() use ($id) {
+
+            $this->repo->destroy($id);
+        });
     }
 
     public function all()

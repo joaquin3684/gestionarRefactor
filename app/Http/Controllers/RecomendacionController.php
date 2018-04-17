@@ -26,7 +26,9 @@ class RecomendacionController extends Controller
      */
     public function store(RecomendacionValidator $request)
     {
-        $this->repo->create($request->all());
+        DB::transaction(function() use ($request){
+            $this->repo->create($request->all());
+        });
     }
 
     /**
@@ -51,7 +53,10 @@ class RecomendacionController extends Controller
      */
     public function update(RecomendacionValidator $request, $id)
     {
-        $this->repo->update($request->all(), $id);
+        DB::transaction(function() use ($request, $id) {
+
+            $this->repo->update($request->all(), $id);
+        });
     }
 
     /**
@@ -62,7 +67,10 @@ class RecomendacionController extends Controller
      */
     public function destroy($id)
     {
-        $this->repo->destroy($id);
+        DB::transaction(function() use ($id) {
+
+            $this->repo->destroy($id);
+        });
     }
 
     public function all()
@@ -81,9 +89,12 @@ class RecomendacionController extends Controller
 
     public function contactado(Request $request)
     {
-        foreach($request['ids'] as $id){
+        DB::transaction(function() use ($request){
 
-            $this->repo->update(['CONTACTADO' => 1], $id);
-        }
+            foreach($request['ids'] as $id){
+
+                $this->repo->update(['CONTACTADO' => 1], $id);
+            }
+        });
     }
 }

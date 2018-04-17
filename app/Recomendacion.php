@@ -17,6 +17,6 @@ class Recomendacion extends Model
 
     public function afiliado()
     {
-        return $this->belongsTo('App\Afiliado', 'NRO', 'DNI');
+        return $this->belongsTo('App\Afiliado', 'DNIAFILIADO', 'DNI');
     }
 }

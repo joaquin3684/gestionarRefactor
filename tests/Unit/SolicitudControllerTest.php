@@ -97,4 +97,37 @@ class SolicitudControllerTest extends TestCase
 
         $this->assertDatabaseHas('Solicitudes', ['IDS' => 1, 'ESTADO' => 'Rechazado', 'REVISADO' => 1, 'MOTIVO' => $data['MOTIVO']]);
     }
+
+    /**
+     * @expectedException App\Exceptions\NoTieneAccesoAEstaObraSocialException
+     */
+    public function testAutorizarSinPermisoAObraSocial()
+    {
+        $data = $this->dataStore();
+        $af = factory(\App\Afiliado::class)->create(['IDOBRASOCIAL' => 3, 'DNI' => 47]);
+        $sol = factory(\App\Solicitud::class)->create(['DNISOLICITANTE' => $af->DNI, 'IDCLIMED' => $data['IDCLIMED'], 'ESPECIALIDAD' => $data['ESPECIALIDAD'] ]);
+        $data['DNISOLICITANTE'] = $af->DNI;
+        $data['id'] = $sol->IDS;
+
+        $response = $this->post('solicitud/autorizar', $data, ['Authorization' => 'Bearer '.$this->token]);
+    }
+
+
+    /**
+     * @expectedException App\Exceptions\NoTieneAccesoAEstaObraSocialException
+     */
+    public function testRechazarSinPermisoObraSocial()
+    {
+        $data = $this->dataStore();
+        $af = factory(\App\Afiliado::class)->create(['IDOBRASOCIAL' => 3, 'DNI' => 47]);
+        $sol = factory(\App\Solicitud::class)->create(['DNISOLICITANTE' => $af->DNI, 'IDCLIMED' => $data['IDCLIMED'], 'ESPECIALIDAD' => $data['ESPECIALIDAD'] ]);
+        $data['DNISOLICITANTE'] = $af->DNI;
+        $data['id'] = $sol->IDS;
+        $data = array('id' => 1, 'MOTIVO' => 'prueba');
+
+        $response = $this->post('solicitud/rechazar', $data, ['Authorization' => 'Bearer '.$this->token]);
+
+    }
+
+
 }

@@ -15,6 +15,7 @@ use App\Repositories\RecomendacionRepo;
 use App\Repositories\UserRepo;
 use App\Services\UserFromToken;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AppRecomendacionController extends Controller
 {
@@ -32,7 +33,10 @@ class AppRecomendacionController extends Controller
 
     public function create(Request $request)
     {
-        $repo = new RecomendacionRepo();
-        $repo->create($request->all());
+        DB::transaction(function() use ($request) {
+
+            $repo = new RecomendacionRepo();
+            $repo->create($request->all());
+        });
     }
 }

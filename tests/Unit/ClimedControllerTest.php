@@ -78,10 +78,22 @@ class ClimedControllerTest extends TestCase
 
     }
 
+    /**
+     * @expectedException App\Exceptions\NoTieneAccesoAEstaObraSocialException
+     */
+    public function testPostSinPermisoAObraSocial()
+    {
+        $data = $this->dataStore();
+        $data['obrasSociales'][2] = 3;
+        $response = $this->post("climed", $data, ['Authorization' => 'Bearer '.$this->token]);
+    }
+
+
     public function testUpdate()
     {
         $data = $this->dataStore();
         $dataUpdate = $this->dataUpdate();
+
         $response = $this->post("climed", $data, ['Authorization' => 'Bearer '.$this->token]);
 
         $response = $this->put("climed/1", $dataUpdate, ['Authorization' => 'Bearer '.$this->token]);
@@ -94,6 +106,21 @@ class ClimedControllerTest extends TestCase
 
         $this->assertDatabaseHas('Climed_obra_social', ['IDCLIMED' => 1, 'IDOBRASOCIAL' => 1]);
         $this->assertDatabaseMissing('Climed_obra_social', ['IDCLIMED' => 1, 'IDOBRASOCIAL' => 2]);
+
+    }
+
+    /**
+     * @expectedException App\Exceptions\NoTieneAccesoAEstaObraSocialException
+     */
+    public function testUpdateSinPermisoAObraSocial()
+    {
+        $data = $this->dataStore();
+        $dataUpdate = $this->dataUpdate();
+        $dataUpdate['obrasSociales'][2] = 3;
+
+        $response = $this->post("climed", $data, ['Authorization' => 'Bearer '.$this->token]);
+        $response = $this->put("climed/1", $dataUpdate, ['Authorization' => 'Bearer '.$this->token]);
+
 
     }
 }

@@ -25,7 +25,10 @@ class FarmaciaController extends Controller
      */
     public function store(FarmaciaValidator $request)
     {
-        $this->repo->create($request->all());
+        DB::transaction(function() use ($request) {
+
+            $this->repo->create($request->all());
+        });
     }
 
     /**
@@ -50,7 +53,10 @@ class FarmaciaController extends Controller
      */
     public function update(FarmaciaValidator $request, $id)
     {
-        $this->repo->update($request->all(), $id);
+        DB::transaction(function() use ($request, $id) {
+
+            $this->repo->update($request->all(), $id);
+        });
     }
 
     /**
@@ -61,7 +67,10 @@ class FarmaciaController extends Controller
      */
     public function destroy($id)
     {
-        $this->repo->destroy($id);
+        DB::transaction(function() use ($id) {
+
+            $this->repo->destroy($id);
+        });
     }
 
     public function all()

@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Turno;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -73,6 +74,36 @@ class TurnoControllerTest extends TestCase
 
         unset($data['id']);
         $this->assertDatabaseHas('Turnos', $data);
+
+    }
+
+    /**
+     * @expectedException App\Exceptions\NoTieneAccesoAEstaObraSocialException
+     */
+    public function testCreateSinPermisoObraSocial()
+    {
+        $data = $this->dataStore();
+        $af = factory(\App\Afiliado::class)->create(['IDOBRASOCIAL' => 3, 'DNI' => 47]);
+        $sol = factory(\App\Solicitud::class)->create(['DNISOLICITANTE' => $af->DNI, 'IDCLIMED' => 1, 'ESPECIALIDAD' => 1 ]);
+        $data['IDSOLICITUD'] = $sol->IDS;
+
+        $response = $this->post('turno', $data, ['Authorization' => 'Bearer '.$this->token]);
+    }
+
+    /**
+     * @expectedException App\Exceptions\NoTieneAccesoAEstaObraSocialException
+     */
+    public function testUpdateSinPermisoObraSocial()
+    {
+        $data = $this->dataStore();
+        $af = factory(\App\Afiliado::class)->create(['IDOBRASOCIAL' => 3, 'DNI' => 47]);
+        $sol = factory(\App\Solicitud::class)->create(['DNISOLICITANTE' => $af->DNI, 'IDCLIMED' => 1, 'ESPECIALIDAD' => 1 ]);
+        $data['IDSOLICITUD'] = $sol->IDS;
+        Turno::create($data);
+
+        $data = $this->dataUpdate();
+        $data['id'] = 1;
+        $response = $this->post('turno/modificar', $data, ['Authorization' => 'Bearer '.$this->token]);
 
     }
 }

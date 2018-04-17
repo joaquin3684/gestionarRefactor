@@ -58,6 +58,7 @@ class SolicitudRepo extends Repositorio
         {
             throw new NoTieneAccesoAEstaObraSocialException('acceso denegado');
         } else {
+            $data['ESTADO'] = 'Pendiente';
             $data['FECHAS'] = Carbon::today()->toDateString();
             $solicitud = parent::create($data);
             return $solicitud;

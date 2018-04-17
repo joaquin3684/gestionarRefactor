@@ -72,6 +72,7 @@ class AfiliadoRepo extends Repositorio
             throw new NoTieneAccesoAEstaObraSocialException('acceso denegado');
         } else {
            $afiliado = $this->gateway->find($id);
+           Familiar::where('id_afiliado', $afiliado->DNI)->delete();
            $afiliado->fill($data)->save();
             $data['name'] = $data['DNI'];
             $data['password'] = $data['NAFILIADO'];
@@ -84,7 +85,8 @@ class AfiliadoRepo extends Repositorio
                 $c['id_afiliado'] = $afiliado->DNI;
                 return $c;
             });
-            Familiar::where('id_afiliado', $afiliado->id)->delete();
+
+
             Familiar::insert($familiares->toArray());
 
             return $afiliado;

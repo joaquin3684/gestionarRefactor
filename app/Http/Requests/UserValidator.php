@@ -25,7 +25,6 @@ class UserValidator extends FormRequest
     {
         return [
             'name' => 'required|unique:Usuarios,name,'.$this->get('id'),
-            'password' => 'required',
             'email' => 'required',
             'id_perfil' => 'required',
             'obrasSociales' => 'required'
@@ -37,7 +36,6 @@ class UserValidator extends FormRequest
         return [
             'name.required' => 'El campo nombre es obligatorio',
             'name.unique' => 'El campo nombre ya existe',
-            'password.required' => 'El campo contraseña es obligatorio',
             'email.required' => 'El campo email es obligatorio',
             'perfil.required' => 'El campo perfil es obligatorio',
             'obrasSociales.required' => 'El campo obras sociales es obligatorio',

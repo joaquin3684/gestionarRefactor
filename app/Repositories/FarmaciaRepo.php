@@ -53,7 +53,7 @@ class FarmaciaRepo extends Repositorio
                 throw new NoTieneAccesoAEstaObraSocialException('acceso denegado');
             }
         }
-        $farmacia = parent::create($data);
+        $farmacia = parent::update($data, $id);
         parent::detach('obrasSociales', $id);
         parent::attach($data['obrasSociales'], 'obrasSociales', $farmacia->getId());
         return $farmacia;

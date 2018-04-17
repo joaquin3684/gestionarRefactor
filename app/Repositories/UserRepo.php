@@ -52,6 +52,14 @@ class UserRepo extends Repositorio
         return $user;
     }
 
+    public function usersWithObraSocial($obs)
+    {
+        $obj =  $this->gateway->whereHas('obrasSociales', function($query) use ($obs){
+            $query->where('id_obra_social', $obs);
+        })->get();
+        return $obj;
+    }
+
     public function update(array $data, $id)
     {
         $obrasSociales = $data['obrasSociales'];
@@ -119,5 +127,13 @@ class UserRepo extends Repositorio
     public function findWithAllRelationships($id)
     {
         return User::with('obrasSociales')->find($id);
+    }
+
+    public function auditoresWithObraSocial($obs)
+    {
+        $obj =  $this->gateway->whereHas('obrasSociales', function($query) use ($obs){
+            $query->where('id_obra_social', $obs);
+        })->where('id_perfil', 3)->get();
+        return $obj;
     }
 }

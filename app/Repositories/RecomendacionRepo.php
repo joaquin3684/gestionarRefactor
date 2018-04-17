@@ -70,7 +70,7 @@ class RecomendacionRepo extends Repositorio
     public function update(array $data, $id)
     {
         $recomendacion = Recomendacion::find($id);
-        $afiliado = Afiliado::where('id_usuario', $this->user->id)->firstOrFail();
+        $afiliado = Afiliado::where('DNI', $recomendacion->DNIAFILIADO)->firstOrFail();
         $obs = $afiliado->IDOBRASOCIAL;
         $obra = $this->obsUser->first(function($obraSocial) use ($obs){
             return $obraSocial == $obs;

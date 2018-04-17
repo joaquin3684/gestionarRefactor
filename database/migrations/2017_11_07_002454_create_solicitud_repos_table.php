@@ -25,9 +25,9 @@ class CreateSolicitudReposTable extends Migration
             $table->integer('ASIGNADO')->nullable();
             $table->integer('DNISOLICITANTE');
             $table->integer('IDAFILIADO');
-            $table->integer('IDCLIMED')->unsigned();
+            $table->integer('IDCLIMED')->unsigned()->nullable();
             $table->foreign('IDCLIMED')->references('IDCLI')->on('Climed');
-            $table->integer('ESPECIALIDAD')->unsigned();
+            $table->integer('ESPECIALIDAD')->unsigned()->nullable();
             $table->foreign('ESPECIALIDAD')->references('IDESPECIALIDAD')->on('Especialidad');
             $table->integer('TIPO');
             $table->string('FOTO')->nullable();

@@ -23,8 +23,8 @@ class CreateRecomendacionReposTable extends Migration
             $table->integer('NRO');
             $table->integer('DNIAFILIADO');
             $table->date('FECHA');
-            $table->integer('CONTACTADO');
-            $table->string('COMENTARIO');
+            $table->integer('CONTACTADO')->default(0);
+            $table->string('COMENTARIO')->nullable();
             $table->timestamps();
         });
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');

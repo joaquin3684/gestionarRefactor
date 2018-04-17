@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SolicitudValidator;
 use App\Repositories\SolicitudRepo;
 use App\Repositories\TurnoRepo;
+use App\Repositories\UserRepo;
+use App\Solicitud;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,10 +17,12 @@ class SolicitudController extends Controller
 
     private $repo;
     private $turnosRepo;
-    public function __construct(SolicitudRepo $repo, TurnoRepo $turnosRepo)
+    private $userRepo;
+    public function __construct(SolicitudRepo $repo, TurnoRepo $turnosRepo,  UserRepo $userRepo)
     {
         $this->repo = $repo;
         $this->turnosRepo  = $turnosRepo;
+        $this->userRepo = $userRepo;
     }
 
 
@@ -30,7 +34,10 @@ class SolicitudController extends Controller
      */
     public function store(SolicitudValidator $request)
     {
-        $this->repo->create($request->all());
+        DB::transaction(function() use ($request) {
+
+            $this->repo->create($request->all());
+        });
     }
 
     /**
@@ -55,18 +62,40 @@ class SolicitudController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->repo->update($request->all(), $id);
+        DB::transaction(function() use ($request, $id) {
+
+            $this->repo->update($request->all(), $id);
+        });
+    }
+
+    public function autorizarEstudio(Request $request)
+    {
+        DB::transaction(function() use ($request) {
+
+            $this->repo->update($request->all(), $request['id']);
+        });
     }
 
 
     public function autorizar(Request $request)
     {
-        $this->repo->update(['ESTADO' => 'Pendiente', 'REVISADO' => 1], $request['id']);
+        DB::transaction(function() use ($request) {
+
+            $solicitud = $this->repo->update(['ESTADO' => 'Pendiente', 'REVISADO' => 1], $request['id']);
+            $client = new Client();
+            $obs = Solicitud::with('afiliado')->find($solicitud->getId())->afiliado->IDOBRASOCIAL;
+            $usersANotificar = $this->userRepo->usersWithObraSocial($obs)->map(function($user){return $user->id;});
+            $r = $client->post( 'http://gestionar.herokuapp.com/actualizarClientes', ['json' => $usersANotificar->toArray(), 'allow_redirects' => false]);
+
+        });
     }
 
     public function rechazar(Request $request)
     {
-        $this->repo->update(['ESTADO' => 'Rechazado', 'REVISADO' => 1, 'MOTIVO' => $request['MOTIVO']], $request['id']);
+        DB::transaction(function() use ($request) {
+
+            $this->repo->update(['ESTADO' => 'Rechazado', 'REVISADO' => 1, 'MOTIVO' => $request['MOTIVO']], $request['id']);
+        });
     }
 
     public function solicitudesParaAuditar()
@@ -79,7 +108,10 @@ class SolicitudController extends Controller
 
     public function destroy($id)
     {
-        $this->repo->destroy($id);
+        DB::transaction(function() use ($id) {
+
+            $this->repo->destroy($id);
+        });
     }
 
     public function abrir(Request $request)

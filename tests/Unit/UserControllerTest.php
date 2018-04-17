@@ -95,4 +95,32 @@ class UserControllerTest extends TestCase
         $us = User::find(3);
         $this->assertTrue(Hash::check($data['password'], $us->password));
     }
+
+    /**
+     * @expectedException App\Exceptions\NoTieneAccesoAEstaObraSocialException
+     */
+    public function testUpdateSinPermisoAObraSocial()
+    {
+        $data = $this->dataStore();
+        $dataUpdate = $this->dataUpdate();
+        $dataUpdate['obrasSociales'][2] = 3;
+
+        $response = $this->post("user", $data, ['Authorization' => 'Bearer '.$this->token]);
+        $response = $this->put("user/3", $dataUpdate, ['Authorization' => 'Bearer '.$this->token]);
+
+
+    }
+
+    /**
+     * @expectedException App\Exceptions\NoTieneAccesoAEstaObraSocialException
+     */
+    public function testCreateSinPermisoAObraSocial()
+    {
+        $data = $this->dataStore();
+        $data['obrasSociales'][2] = 3;
+
+        $response = $this->post("user", $data, ['Authorization' => 'Bearer '.$this->token]);
+
+
+    }
 }

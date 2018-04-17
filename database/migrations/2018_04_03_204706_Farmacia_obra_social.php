@@ -19,7 +19,7 @@ class FarmaciaObraSocial extends Migration
         Schema::create('Farmacia_obra_social', function (Blueprint $table) {
             $table->increments('ID');
             $table->integer('id_farmacia')->unsigned();
-            $table->foreign('id_farmacia')->references('ID')->on('Farmacia');
+            $table->foreign('id_farmacia')->references('ID')->on('Farmacias');
             $table->integer('id_obra_social')->unsigned();
             $table->foreign('id_obra_social')->references('ID')->on('obras_sociales');
             $table->timestamps();

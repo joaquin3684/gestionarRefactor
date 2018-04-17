@@ -22,6 +22,8 @@ class RecomendacionControllerTest extends TestCase
             'NOMBRE' => 'required',
             'APELLIDO' => 'required',
             'NRO' => 1,
+            'FECHA' => Carbon::today()->toDateString(),
+            'DNIAFILIADO' => 1,
         ];
     }
 
@@ -41,7 +43,7 @@ class RecomendacionControllerTest extends TestCase
     public function testCreate()
     {
         $data = $this->dataStore();
-        $response = $this->post("recomendacion", $data, ['Authorization' => 'Bearer '.$this->token]);
+        $response = $this->post("recomendacionApp", $data, ['Authorization' => 'Bearer '.$this->token]);
 
         $data['FECHA'] = Carbon::today()->toDateString();
         $data['CONTACTADO'] = 0;
@@ -52,14 +54,28 @@ class RecomendacionControllerTest extends TestCase
     {
         $storeData = $this->dataStore();
         $data = array("ids" => array(1, 2, 3));
-        $response = $this->post("recomendacion", $storeData, ['Authorization' => 'Bearer '.$this->token]);
-        $response = $this->post("recomendacion", $storeData, ['Authorization' => 'Bearer '.$this->token]);
-        $response = $this->post("recomendacion", $storeData, ['Authorization' => 'Bearer '.$this->token]);
+        $response = $this->post("recomendacionApp", $storeData, ['Authorization' => 'Bearer '.$this->token]);
+        $response = $this->post("recomendacionApp", $storeData, ['Authorization' => 'Bearer '.$this->token]);
+        $response = $this->post("recomendacionApp", $storeData, ['Authorization' => 'Bearer '.$this->token]);
 
         $response = $this->post("recomendacion/contactado", $data, ['Authorization' => 'Bearer '.$this->token]);
 
         $this->assertDatabaseHas('Recomendaciones', ['ID' => 1, 'CONTACTADO' => 1]);
         $this->assertDatabaseHas('Recomendaciones', ['ID' => 2, 'CONTACTADO' => 1]);
         $this->assertDatabaseHas('Recomendaciones', ['ID' => 3, 'CONTACTADO' => 1]);
+    }
+
+
+    /**
+     * @expectedException App\Exceptions\NoTieneAccesoAEstaObraSocialException
+     */
+    public function testContactadoSinPermisoAObraSocial()
+    {
+        $data = array("ids" => array(1));
+        $af = factory(\App\Afiliado::class)->create(['IDOBRASOCIAL' => 3, 'DNI' => 48]);
+        $re = factory(\App\Recomendacion::class)->create(['DNIAFILIADO' => $af->DNI]);
+
+        $response = $this->post("recomendacion/contactado", $data, ['Authorization' => 'Bearer '.$this->token]);
+
     }
 }

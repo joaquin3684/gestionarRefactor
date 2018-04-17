@@ -70,7 +70,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $this->repo->destroy($id);
+        DB::transaction(function() use ($id) {
+
+            $this->repo->destroy($id);
+        });
     }
 
     public function all()

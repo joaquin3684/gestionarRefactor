@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Aplicacion;
 
+use App\Afiliado;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SolicitudValidator;
 use App\Repositories\SolicitudRepo;
 use App\Repositories\TurnoRepo;
 use App\Repositories\UserRepo;
 use App\Services\UserFromToken;
+use App\Solicitud;
+use App\User;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,18 +20,54 @@ class AppSolicitudController extends Controller
 
     private $repo;
     private $turnosRepo;
-
-    public function __construct(SolicitudRepo $repo, TurnoRepo $turnosRepo)
+    private $userRepo;
+    public function __construct(SolicitudRepo $repo, TurnoRepo $turnosRepo, UserRepo $userRepo)
     {
         $this->repo = $repo;
         $this->turnosRepo  = $turnosRepo;
-
+        $this->userRepo = $userRepo;
     }
 
     public function storeClinico(SolicitudValidator $request)
     {
+        DB::transaction(function() use ($request){
+
+
         $request['TIPO'] = 1;
-        $this->repo->create($request->all());
+        $solicitud = $this->repo->create($request->all());
+        $client = new Client();
+        $obs = Solicitud::with('afiliado')->find($solicitud->getId())->afiliado->IDOBRASOCIAL;
+        $usersANotificar = $this->userRepo->usersWithObraSocial($obs)->map(function($user){return $user->id;});
+        $r = $client->post( 'http://gestionar.herokuapp.com/actualizarClientes', ['json' => $usersANotificar->toArray(), 'allow_redirects' => false]);
+        });
+    }
+
+    public function storeEspecialidad(SolicitudValidator $request)
+    {
+        DB::transaction(function() use ($request) {
+
+            $request['TIPO'] = 2;
+            $solicitud = $this->repo->create($request->all());
+            $client = new Client();
+            $obs = Solicitud::with('afiliado')->find($solicitud->getId())->afiliado->IDOBRASOCIAL;
+            $usersANotificar = $this->userRepo->auditoresWithObraSocial($obs)->map(function($user){return $user->id;});
+            $r = $client->post( 'http://gestionar.herokuapp.com/actualizarClientes', ['json' => $usersANotificar->toArray(), 'allow_redirects' => false]);
+
+        });
+    }
+
+    public function storeEstudio(Request $request)
+    {
+        DB::transaction(function() use ($request) {
+
+            $request['TIPO'] = 3;
+            $solicitud = $this->repo->create($request->all());
+            $client = new Client();
+            $obs = Solicitud::with('afiliado')->find($solicitud->getId())->afiliado->IDOBRASOCIAL;
+            $usersANotificar = $this->userRepo->auditoresWithObraSocial($obs)->map(function($user){return $user->id;});
+            $r = $client->post( 'http://gestionar.herokuapp.com/actualizarClientes', ['json' => $usersANotificar->toArray(), 'allow_redirects' => false]);
+
+        });
     }
 
     public function uploadFile(Request $request)
@@ -40,23 +80,30 @@ class AppSolicitudController extends Controller
     public function confirmarTurno(Request $request)
     {
         DB::transaction(function() use ($request){
-        $this->repo->update(['ESTADO' => 'Confirmado'], $request['IDSOLICITUD']);
+        $solicitud = $this->repo->update(['ESTADO' => 'Confirmado'], $request['IDSOLICITUD']);
         $turno = $this->turnosRepo->findBySolicitud($request['IDSOLICITUD']);
-            $request['CONFIRMACION'] = 2;
-            $request['MOTIVOT'] = null;
+        $request['CONFIRMACION'] = 2;
+        $request['MOTIVOT'] = null;
         $this->turnosRepo->update($request->all(), $turno->getId());
+            $client = new Client();
+            $userANotificar = Solicitud::find($solicitud->getId())->ASIGNADO;
+            $r = $client->post( 'http://gestionar.herokuapp.com/actualizarClientes', ['json' => [$userANotificar], 'allow_redirects' => false]);
+
         });
     }
 
     public function rechazarTurno(Request $request)
     {
         DB::transaction(function() use ($request) {
-
-            $this->repo->update(['ESTADO' => 'Pendiente'], $request['IDSOLICITUD']);
+            $solicitud = $this->repo->update(['ESTADO' => 'Pendiente'], $request['IDSOLICITUD']);
             $turno = $this->turnosRepo->findBySolicitud($request['IDSOLICITUD']);
             $request['CONFIRMACION'] = 1;
             $request['MOTIVOT'] = $request['motivo'];
             $this->turnosRepo->update($request->all(), $turno->getId());
+            $client = new Client();
+            $userANotificar = Solicitud::find($solicitud->getId())->ASIGNADO;
+            $r = $client->post( 'http://gestionar.herokuapp.com/actualizarClientes', ['json' => [$userANotificar], 'allow_redirects' => false]);
+
         });
     }
 

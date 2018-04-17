@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Afiliado;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
@@ -93,16 +94,17 @@ class AfiliadoControllerTest extends TestCase
         $data= array("name" => "1", "password" => "1");
         $response = $this->json('POST','login', $data);
         $this->token = $response->json()['data']['token'];
+        factory(Afiliado::class)->create(['IDOBRASOCIAL' => 3, 'DNI' => 4]);
 
     }
 
     public function testUpdate()
     {
-
+        $dataVieja = $this->data();
         $data = $this->dataUpdate();
         $response = $this->post("afiliado", $this->data(), ['Authorization' => 'Bearer '.$this->token]);
 
-        $response2 = $this->put("afiliado/1", $this->dataUpdate(), ['Authorization' => 'Bearer '.$this->token]);
+        $response2 = $this->put("afiliado/3", $this->dataUpdate(), ['Authorization' => 'Bearer '.$this->token]);
         $dataUsuario = array("name" => $this->dataUpdate()['DNI'], "email" => $this->dataUpdate()['EMAIL'], 'id_perfil' => 1);
 
         $familiares = $data['familiares'];
@@ -110,6 +112,8 @@ class AfiliadoControllerTest extends TestCase
         $this->assertDatabaseHas('Usuarios', $dataUsuario);
         $this->assertDatabaseHas('Afiliados', $data);
 
+        $this->assertDatabaseMissing('familiares', $dataVieja['familiares'][0]);
+        $this->assertDatabaseMissing('familiares', $dataVieja['familiares'][1]);
         $this->assertDatabaseHas('familiares', $familiares[0]);
         $this->assertDatabaseHas('familiares', $familiares[1]);
     }
@@ -127,6 +131,29 @@ class AfiliadoControllerTest extends TestCase
 
         $this->assertDatabaseHas('familiares', $familiares[0]);
         $this->assertDatabaseHas('familiares', $familiares[1]);
+    }
+
+    /**
+     * @expectedException App\Exceptions\NoTieneAccesoAEstaObraSocialException
+     */
+    public function testPostSinPermisoAObraSocial()
+    {
+        $data = $this->data();
+        $data['IDOBRASOCIAL'] = 3;
+        $response = $this->post("afiliado", $data, ['Authorization' => 'Bearer '.$this->token]);
+    }
+
+
+    /**
+     * @expectedException App\Exceptions\NoTieneAccesoAEstaObraSocialException
+     */
+    public function testUpdateSinPermisoAObraSocial()
+    {
+        $data = $this->dataUpdate();
+        $data['IDOBRASOCIAL'] = 3;
+        $response = $this->post("afiliado", $this->data(), ['Authorization' => 'Bearer '.$this->token]);
+        $response2 = $this->put("afiliado/2", $data, ['Authorization' => 'Bearer '.$this->token]);
+
     }
 
 

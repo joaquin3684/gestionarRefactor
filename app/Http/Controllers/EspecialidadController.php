@@ -26,7 +26,10 @@ class EspecialidadController extends Controller
     public function store(EspecialidadValidator $request)
     {
         $request['NOMBRE'] = ucfirst(strtolower($request['NOMBRE']));
-        $this->repo->create($request->all());
+        DB::transaction(function() use ($request) {
+
+            $this->repo->create($request->all());
+        });
     }
 
     /**
@@ -52,7 +55,10 @@ class EspecialidadController extends Controller
     public function update(EspecialidadValidator $request, $id)
     {
         $request['NOMBRE'] = ucfirst(strtolower($request['NOMBRE']));
-        $this->repo->update($request->all(), $id);
+        DB::transaction(function() use ($request, $id) {
+
+            $this->repo->update($request->all(), $id);
+        });
     }
 
     /**
@@ -63,7 +69,10 @@ class EspecialidadController extends Controller
      */
     public function destroy($id)
     {
-        $this->repo->destroy($id);
+        DB::transaction(function() use ($id) {
+
+            $this->repo->destroy($id);
+        });
     }
 
     public function all()
