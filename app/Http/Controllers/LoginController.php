@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\UsuarioOPasswordIncorrectosException;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -23,7 +24,9 @@ class LoginController extends Controller
     {
 
         $credentials = $request->only('name', 'password');
-        $user = User::where('name', $credentials['name'])->firstOrFail(); //TODO FALTA LOGUEAR POR LA PASSWORD
+        $user = User::where('name', $credentials['name'])->firstOrFail();
+        if(!Hash::check($credentials['password'], $user->password))
+            throw new UsuarioOPasswordIncorrectosException("error");
         $permisos = $user->perfil->pantallas->map(function($pantalla){
             return $pantalla->nombre;
         });

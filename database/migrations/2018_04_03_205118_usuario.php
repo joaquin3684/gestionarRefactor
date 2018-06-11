@@ -18,7 +18,7 @@ class Usuario extends Migration
 
         Schema::create('Usuarios', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->char('name', 100)->unique();
             $table->string('email');
             $table->text('password');
             $table->integer('id_perfil')->unsigned();

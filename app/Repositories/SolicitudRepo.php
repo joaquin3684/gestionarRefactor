@@ -86,7 +86,7 @@ class SolicitudRepo extends Repositorio
 
     public function find($id)
     {
-        $obj = $this->gateway->with('turnos.climed', 'climed', 'afiliado.obraSocial', 'especialidad')
+        $obj = $this->gateway->with('turnos', 'climed', 'afiliado.obraSocial', 'especialidad')
             ->whereHas('afiliado.obraSocial', function($query){
             $query->whereIn('ID', $this->obsUser->toArray());
         })->findOrFail($id);
@@ -95,7 +95,7 @@ class SolicitudRepo extends Repositorio
 
     public function all()
     {
-        $obj = $this->gateway->with('turnos.climed', 'climed', 'afiliado.obraSocial', 'especialidad')
+        $obj = $this->gateway->with('turnos', 'climed', 'afiliado.obraSocial', 'especialidad')
             ->whereHas('afiliado.obraSocial', function($query){
                 $query->whereIn('ID', $this->obsUser->toArray());
             })->get();
@@ -112,7 +112,7 @@ class SolicitudRepo extends Repositorio
 
     public function findTurnos($id)
     {
-        $obj = $this->gateway->with('turnos.climed')
+        $obj = $this->gateway->with('turnos')
             ->whereHas('afiliado.obraSocial', function($query){
                 $query->whereIn('ID', $this->obsUser->toArray());
             })->findOrFail($id);
@@ -121,7 +121,7 @@ class SolicitudRepo extends Repositorio
 
     public function solicitudesEnProceso()
     {
-        $obj = $this->gateway->with('turnos.climed', 'climed', 'afiliado.obraSocial', 'especialidad')
+        $obj = $this->gateway->with('turnos', 'climed', 'afiliado.obraSocial', 'especialidad')
             ->whereHas('afiliado', function($query){
                 $query->whereIn('IDOBRASOCIAL', $this->obsUser->toArray());
             })
@@ -151,7 +151,7 @@ class SolicitudRepo extends Repositorio
 
     public function solicitudesParaAuditar()
     {
-        $obj = $this->gateway->with('turnos.climed', 'climed', 'afiliado.obraSocial', 'especialidad')
+        $obj = $this->gateway->with('turnos', 'climed', 'afiliado.obraSocial', 'especialidad')
             ->whereHas('afiliado', function($query){
                 $query->whereIn('IDOBRASOCIAL', $this->obsUser->toArray());
             })

@@ -17,6 +17,8 @@ class CreateObraSocialReposTable extends Migration
         Schema::create('obras_sociales', function (Blueprint $table) {
             $table->increments('ID');
             $table->string('NOMBRE');
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

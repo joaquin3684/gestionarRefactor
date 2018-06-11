@@ -3,12 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Especialidad extends Model
 {
+    use SoftDeletes;
+
     protected $primaryKey = 'IDESPECIALIDAD';
     protected $table = 'Especialidad';
-    public $timestamps = false;
+    protected $dates = ['deleted_at'];
+
 
     protected $fillable = [
         'NOMBRE', 'ESTUDIO',

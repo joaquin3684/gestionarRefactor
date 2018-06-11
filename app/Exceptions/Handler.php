@@ -99,6 +99,15 @@ class Handler extends ExceptionHandler
 
             $status = 403;
 
+        }else if($e instanceof UsuarioOPasswordIncorrectosException) {
+
+            $data = array_merge([
+                'id'     => 'login_incorrecto',
+                'status' => '403'
+            ], config('errors.login_incorrecto'));
+
+            $status = 403;
+
         }else {
             $data = array_merge([
                 'id'     => 'error_sistema',

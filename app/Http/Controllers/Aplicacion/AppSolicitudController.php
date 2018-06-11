@@ -32,14 +32,13 @@ class AppSolicitudController extends Controller
     {
         DB::transaction(function() use ($request){
 
-
-        $request['TIPO'] = 1;
-        $solicitud = $this->repo->create($request->all());
-        $client = new Client();
-        $obs = Solicitud::with('afiliado')->find($solicitud->getId())->afiliado->IDOBRASOCIAL;
-        $usersANotificar = $this->userRepo->usersWithObraSocial($obs)->map(function($user){return $user->id;});
-        $r = $client->post( 'http://gestionar.herokuapp.com/actualizarClientes', ['json' => $usersANotificar->toArray(), 'allow_redirects' => false]);
-        });
+            $request['TIPO'] = 1;
+            $solicitud = $this->repo->create($request->all());
+            $client = new Client();
+            $obs = Solicitud::with('afiliado')->find($solicitud->getId())->afiliado->IDOBRASOCIAL;
+            $usersANotificar = $this->userRepo->usersWithObraSocial($obs)->map(function($user){return $user->id;});
+            $r = $client->post( 'https://node-gestionar.herokuapp.com/actualizarClientes', ['json' => $usersANotificar->toArray(), 'allow_redirects' => false]);
+            });
     }
 
     public function storeEspecialidad(SolicitudValidator $request)
@@ -51,7 +50,7 @@ class AppSolicitudController extends Controller
             $client = new Client();
             $obs = Solicitud::with('afiliado')->find($solicitud->getId())->afiliado->IDOBRASOCIAL;
             $usersANotificar = $this->userRepo->auditoresWithObraSocial($obs)->map(function($user){return $user->id;});
-            $r = $client->post( 'http://gestionar.herokuapp.com/actualizarClientes', ['json' => $usersANotificar->toArray(), 'allow_redirects' => false]);
+            $r = $client->post( 'https://node-gestionar.herokuapp.com/actualizarClientes', ['json' => $usersANotificar->toArray(), 'allow_redirects' => false]);
 
         });
     }
@@ -65,7 +64,7 @@ class AppSolicitudController extends Controller
             $client = new Client();
             $obs = Solicitud::with('afiliado')->find($solicitud->getId())->afiliado->IDOBRASOCIAL;
             $usersANotificar = $this->userRepo->auditoresWithObraSocial($obs)->map(function($user){return $user->id;});
-            $r = $client->post( 'http://gestionar.herokuapp.com/actualizarClientes', ['json' => $usersANotificar->toArray(), 'allow_redirects' => false]);
+            $r = $client->post( 'https://node-gestionar.herokuapp.com/actualizarClientes', ['json' => $usersANotificar->toArray(), 'allow_redirects' => false]);
 
         });
     }
@@ -87,7 +86,7 @@ class AppSolicitudController extends Controller
         $this->turnosRepo->update($request->all(), $turno->getId());
             $client = new Client();
             $userANotificar = Solicitud::find($solicitud->getId())->ASIGNADO;
-            $r = $client->post( 'http://gestionar.herokuapp.com/actualizarClientes', ['json' => [$userANotificar], 'allow_redirects' => false]);
+            $r = $client->post( 'https://node-gestionar.herokuapp.com/actualizarClientes', ['json' => [$userANotificar], 'allow_redirects' => false]);
 
         });
     }
@@ -102,7 +101,7 @@ class AppSolicitudController extends Controller
             $this->turnosRepo->update($request->all(), $turno->getId());
             $client = new Client();
             $userANotificar = Solicitud::find($solicitud->getId())->ASIGNADO;
-            $r = $client->post( 'http://gestionar.herokuapp.com/actualizarClientes', ['json' => [$userANotificar], 'allow_redirects' => false]);
+            $r = $client->post( 'https://node-gestionar.herokuapp.com/actualizarClientes', ['json' => [$userANotificar], 'allow_redirects' => false]);
 
         });
     }
@@ -150,7 +149,7 @@ class AppSolicitudController extends Controller
                                     INNER JOIN Afiliados ON Solicitudes.DNISOLICITANTE = Afiliados.DNI
                                     INNER JOIN Climed ON Solicitudes.IDCLIMED = Climed.IDCLI 
                                     INNER JOIN Especialidad ON Solicitudes.ESPECIALIDAD = Especialidad.IDESPECIALIDAD
-                                     WHERE Solicitudes.ESTADO='En espera' AND Solicitudes.DNISOLICITANTE = '$dni' AND Afiliados.IDOBRASOCIAL = '$obsUser->ID' AND Turnos.CONFIRMACION = 0 "));
+                                     WHERE Solicitudes.ESTADO='En Espera' AND Solicitudes.DNISOLICITANTE = '$dni' AND Afiliados.IDOBRASOCIAL = '$obsUser->ID' AND Turnos.CONFIRMACION = 0 "));
 
     }
 

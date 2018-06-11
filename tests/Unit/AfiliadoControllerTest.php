@@ -125,7 +125,7 @@ class AfiliadoControllerTest extends TestCase
         $dataUsuario = array("name" => $data['DNI'], "email" => $data['EMAIL'], 'id_perfil' => 1);
         $familiares = $data['familiares'];
         unset($data['familiares']);
-        $data['id_usuario'] = 3; // va el 3 por la inicializacion de los datos para testear en la base
+        $data['id_usuario'] = 5; // va el 3 por la inicializacion de los datos para testear en la base
         $this->assertDatabaseHas('Usuarios', $dataUsuario);
         $this->assertDatabaseHas('Afiliados', $data);
 

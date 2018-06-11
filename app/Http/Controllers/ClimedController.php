@@ -57,11 +57,11 @@ class ClimedController extends Controller
     {
         DB::transaction(function() use ($request, $id){
 
-        $clinica = $this->repo->update($request->all(), $id);
-        $this->repo->detach('obrasSociales', $id);
-        $this->repo->attach($request['obrasSociales'], 'obrasSociales', $clinica->getId());
-        $this->repo->detach('especialidades', $id);
-        $this->repo->attach($request['especialidades'], 'especialidades', $id);
+            $clinica = $this->repo->update($request->all(), $id);
+            $this->repo->detach('obrasSociales', $id);
+            $this->repo->attach($request['obrasSociales'], 'obrasSociales', $clinica->getId());
+            $this->repo->detach('especialidades', $id);
+            $this->repo->attach($request['especialidades'], 'especialidades', $id);
         });
     }
 

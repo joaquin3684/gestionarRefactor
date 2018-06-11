@@ -24,7 +24,7 @@ class CreateFamiliarReposTable extends Migration
             $table->bigInteger('cuil');
             $table->string('nafiliado');
             $table->integer('dni');
-            $table->integer('id_afiliado');
+            $table->integer('id_afiliado')->unsigned();
             $table->timestamps();
         });
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');

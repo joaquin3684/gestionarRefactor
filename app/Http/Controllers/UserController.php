@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserValidator;
 use App\Repositories\UserRepo;
+use App\Solicitud;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -73,6 +74,11 @@ class UserController extends Controller
         DB::transaction(function() use ($id) {
 
             $this->repo->destroy($id);
+            $solicitudes = Solicitud::where('ASIGNADO', $id)->get();
+            $solicitudes->each(function($sol){
+                $sol->fill(['ASIGNADO' => null]);
+                $sol->save();
+            });
         });
     }
 

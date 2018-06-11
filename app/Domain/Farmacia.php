@@ -23,6 +23,7 @@ class Farmacia
     private $latitude;
     private $longitude;
     private $telefono;
+    private $zona;
     private $obrasSociales;
 
 
@@ -37,7 +38,7 @@ class Farmacia
      * @param $longitude
      * @param $telefono
      */
-    public function __construct($id, $nombre, $direccion, $localidad, $latitude, $longitude, $telefono)
+    public function __construct($id, $nombre, $direccion, $localidad, $latitude, $longitude, $telefono, $zona)
     {
         $this->id = $id;
         $this->nombre = $nombre;
@@ -46,6 +47,7 @@ class Farmacia
         $this->latitude = $latitude;
         $this->longitude = $longitude;
         $this->telefono = $telefono;
+        $this->zona = $zona;
     }
 
     /**

@@ -36,7 +36,7 @@ class CreateAfiliadoReposTable extends Migration
             $table->foreign('IDOBRASOCIAL')->references('ID')->on('obras_sociales');
             $table->integer('id_usuario')->unsigned()->nullable();
             $table->foreign('id_usuario')->references('id')->on('Usuarios');
-
+            $table->softDeletes();
             $table->timestamps();
         });
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');

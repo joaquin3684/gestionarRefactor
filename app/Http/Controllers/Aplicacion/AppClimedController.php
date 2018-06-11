@@ -24,12 +24,15 @@ class AppClimedController extends Controller
     private $userRepo;
     private $obsUser;
     private $user;
-    public function __construct()
+    private $repo;
+    public function __construct(ClimedRepo $repo)
     {
+       // $this->obsUser = collect([1,2,3]);
+        $this->repo = $repo;
         $service = new UserFromToken();
-        $this->userRepo = new UserRepo();
+       $this->userRepo = new UserRepo();
         $this->user = $service->getUser();
-        $this->obsUser = $this->user->obrasSociales->map(function($obraSocial){ return $obraSocial->ID;});
+         $this->obsUser = $this->user->obrasSociales->map(function($obraSocial){ return $obraSocial->ID;});
     }
 
     public function findClinicasByEspecialidad($id)
@@ -58,7 +61,22 @@ class AppClimedController extends Controller
     {
         return Climed::whereHas('obrasSociales', function($query){
             $query->whereIn('IDOBRASOCIAL', $this->obsUser->toArray());
-        })->get();
+        })->where('PARTICULAR', 0)->get();
+      // return Climed::all();
+    }
+
+    public function clinicass()
+    {
+        return Climed::whereHas('obrasSociales', function($query){
+            $query->whereIn('IDOBRASOCIAL', $this->obsUser->toArray());
+        })->where('PARTICULAR', 0)->get();
+    }
+
+    public function particularess()
+    {
+        return Climed::whereHas('obrasSociales', function($query){
+            $query->whereIn('IDOBRASOCIAL', $this->obsUser->toArray());
+        })->where('PARTICULAR', 1)->get();
     }
 
     public function allParticulares()
@@ -73,6 +91,7 @@ class AppClimedController extends Controller
         return Climed::whereHas('obrasSociales', function($query){
             $query->whereIn('IDOBRASOCIAL', $this->obsUser->toArray());
         })->find($id);
+        return Climed::find($id);
     }
 
     public function especialidadesClinica($clinicaId)

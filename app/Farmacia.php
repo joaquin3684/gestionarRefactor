@@ -11,7 +11,7 @@ class Farmacia extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'NOMBRE', 'LOCALIDAD', 'latitude', 'longitude', 'TELEFONO', 'DIRECCION'
+        'NOMBRE', 'LOCALIDAD', 'latitude', 'longitude', 'TELEFONO', 'DIRECCION', 'ZONA'
     ];
 
     public function obrasSociales()

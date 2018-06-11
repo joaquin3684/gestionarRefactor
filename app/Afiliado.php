@@ -3,12 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Afiliado extends Model
 {
+    use SoftDeletes;
     protected $primaryKey = 'ID';
     protected $table = 'Afiliados';
-    public $timestamps = false;
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'NOMBRE', 'APELLIDO', 'DNI', 'EMAIL', 'TELEFONO', 'CELULAR', 'DIRECCION', 'PISO', 'DEPARTAMENTO', 'NACIMIENTO', 'CUIL', 'GRUPOF', 'NAFILIADO', 'IDOBRASOCIAL', 'OBS', 'id_usuario', 'PLAN'

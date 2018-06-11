@@ -59,10 +59,10 @@ class UserControllerTest extends TestCase
         $pass = $data['password'];
         unset($data['obrasSociales']);
         unset($data['password']);
-        $us = User::find(3);
+        $us = User::find(5);
         $this->assertDatabaseHas('Usuarios', $data);
-        $this->assertDatabaseHas('Usuario_obra_social', ['id_usuario' => 3, 'id_obra_social' => 1]);
-        $this->assertDatabaseHas('Usuario_obra_social', ['id_usuario' => 3, 'id_obra_social' => 2]);
+        $this->assertDatabaseHas('Usuario_obra_social', ['id_usuario' => 5, 'id_obra_social' => 1]);
+        $this->assertDatabaseHas('Usuario_obra_social', ['id_usuario' => 5, 'id_obra_social' => 2]);
         $this->assertTrue(Hash::check($pass, $us->password));
     }
 

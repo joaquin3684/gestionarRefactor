@@ -28,8 +28,12 @@ class ReporteSolicitudesController extends Controller
             ->join('Climed', 'Climed.IDCLI', 'Solicitudes.IDCLIMED')
             ->groupBy('Climed.ZONA')
             ->whereIn('Afiliados.IDOBRASOCIAL', $this->obsUser->toArray())
-            ->whereBetween('Solicitudes.FECHAMODIFICACION', [$request['fecha_modificacion_desde'], $request['fecha_modificacion_hasta']])
+            ->where('Solicitudes.ESTADO', '<>', 'En Espera')
             ->whereBetween('Solicitudes.FECHAS', [$request['fecha_creacion_desde'], $request['fecha_creacion_hasta']])
+            ->where(function($q) use ($request){
+                $q->whereBetween('Solicitudes.FECHAMODIFICACION', [$request['fecha_modificacion_desde'], $request['fecha_modificacion_hasta']])
+                ->orWhere('Solicitudes.FECHAMODIFICACION', null);
+            })
             ->select('Climed.ZONA as zona', DB::raw('COUNT(Solicitudes.IDS) AS total'),
                 DB::raw('COUNT(CASE WHEN Solicitudes.ESTADO = "Pendiente" then 1 ELSE NULL END) as "pendientes",
                             COUNT(CASE WHEN Solicitudes.ESTADO = "Rechazado" then 1 ELSE NULL END) as "rechazados",
@@ -42,9 +46,13 @@ class ReporteSolicitudesController extends Controller
             ->join('Climed', 'Climed.IDCLI', 'Solicitudes.IDCLIMED')
             ->join('Afiliados', 'Afiliados.DNI', 'Solicitudes.DNISOLICITANTE')
             ->whereIn('Afiliados.IDOBRASOCIAL', $this->obsUser->toArray())
-            ->whereBetween('Solicitudes.FECHAMODIFICACION', [$request['fecha_modificacion_desde'], $request['fecha_modificacion_hasta']])
+            ->where('Solicitudes.ESTADO', '<>', 'En Espera')
             ->whereBetween('Solicitudes.FECHAS', [$request['fecha_creacion_desde'], $request['fecha_creacion_hasta']])
             ->where('Climed.ZONA', $request['zona'])
+            ->where(function($q) use ($request){
+                $q->whereBetween('Solicitudes.FECHAMODIFICACION', [$request['fecha_modificacion_desde'], $request['fecha_modificacion_hasta']])
+                    ->orWhere('Solicitudes.FECHAMODIFICACION', null);
+            })
             ->groupBy('Climed.IDCLI')
             ->groupBy('Climed.NOMBRE')
             ->select('Climed.NOMBRE as nombre', 'Climed.IDCLI as id_clinica', DB::raw('COUNT(Solicitudes.IDS) AS total'),
@@ -59,9 +67,13 @@ class ReporteSolicitudesController extends Controller
         return DB::table('Solicitudes')
             ->join('Afiliados', 'Afiliados.DNI', 'Solicitudes.DNISOLICITANTE')
             ->whereIn('Afiliados.IDOBRASOCIAL', $this->obsUser->toArray())
-            ->whereBetween('FECHAMODIFICACION', [$request['fecha_modificacion_desde'], $request['fecha_modificacion_hasta']])
-            ->whereBetween('FECHAS', [$request['fecha_creacion_desde'], $request['fecha_creacion_hasta']])
+            ->where('Solicitudes.ESTADO', '<>', 'En Espera')
             ->where('IDCLIMED', $request['id_clinica'])
+            ->whereBetween('FECHAS', [$request['fecha_creacion_desde'], $request['fecha_creacion_hasta']])
+            ->where(function($q) use ($request){
+                $q->whereBetween('Solicitudes.FECHAMODIFICACION', [$request['fecha_modificacion_desde'], $request['fecha_modificacion_hasta']])
+                    ->orWhere('Solicitudes.FECHAMODIFICACION', null);
+            })
             ->select('IDS as id', 'FECHAS as fechaCreacion', 'ESTADO as estado', 'MOTIVO as motivo', 'FECHAMODIFICACION as fechaModificacion')->get();
     }
 

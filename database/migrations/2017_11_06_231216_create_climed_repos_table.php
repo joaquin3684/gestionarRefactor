@@ -24,6 +24,8 @@ class CreateClimedReposTable extends Migration
             $table->double('latitude');
             $table->double('longitude');
             $table->integer('TELEFONO');
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

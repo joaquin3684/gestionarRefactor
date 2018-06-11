@@ -12,6 +12,7 @@ namespace App\Repositories;
 use App\Exceptions\NoTieneAccesoAEstaObraSocialException;
 use App\Repositories\Mapper\UserMapper;
 use App\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -56,7 +57,7 @@ class UserRepo extends Repositorio
     {
         $obj =  $this->gateway->whereHas('obrasSociales', function($query) use ($obs){
             $query->where('id_obra_social', $obs);
-        })->get();
+        })->whereIn('id_perfil', [4,1])->get();
         return $obj;
     }
 
@@ -94,7 +95,7 @@ class UserRepo extends Repositorio
         $obj = $this->gateway->with('obrasSociales')
             ->whereHas('obrasSociales', function($query){
                 $query->whereIn('id_obra_social', $this->obsUser->toArray());
-            })->get()->map(function($usuario){
+            })->where('id_perfil', '<>', 2)->get()->map(function($usuario){
                  $usuario->obrasSociales->map(function($obs){
                     $obs->nombre = $obs->NOMBRE;
                     $obs->id = $obs->ID;
@@ -108,6 +109,7 @@ class UserRepo extends Repositorio
     public function destroy($id)
     {
         $this->find($id);
+        DB::table('Usuario_obra_social')->where('id_usuario', $id)->delete();
         return parent::destroy($id);
     }
 

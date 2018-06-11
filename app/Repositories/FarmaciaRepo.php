@@ -7,6 +7,7 @@ use App\Exceptions\NoTieneAccesoAEstaObraSocialException;
 use App\Farmacia;
 use App\Repositories\Mapper\FarmaciaMapper;
 use App\Services\UserFromToken;
+use Illuminate\Support\Facades\DB;
 
 class FarmaciaRepo extends Repositorio
 {
@@ -82,6 +83,7 @@ class FarmaciaRepo extends Repositorio
     public function destroy($id)
     {
         $this->find($id);
+        DB::table('Farmacia_obra_social')->where('id_farmacia', $id)->delete();
         return parent::destroy($id);
     }
 

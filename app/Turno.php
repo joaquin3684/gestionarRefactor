@@ -14,8 +14,5 @@ class Turno extends Model
         'IDSOLICITUD', 'FECHAT', 'HORAT', 'CONFIRMACION', 'MEDICOASIGNADO', 'MOTIVOT', 'FECHACREACION'
     ];
 
-    public function climed()
-    {
-        return $this->belongsTo('App\Climed', 'MEDICOASIGNADO', 'IDCLI');
-    }
+
 }

@@ -29,12 +29,22 @@ class ClimedController extends Controller
      */
     public function clinicas()
     {
-        return DB::select(DB::raw("SELECT Climed.IDCLI,Climed.NOMBRE,Climed.ZONA,Climed.DIRECCION,Climed.LOCALIDAD,Climed.latitude,Climed.longitude, Especialidad.NOMBRE AS ESPECIALIDAD FROM Climed
+        return DB::select(DB::raw("SELECT Climed.IDCLI,Climed.NOMBRE,Climed.ZONA,Climed.DIRECCION,Climed.LOCALIDAD,Climed.latitude,Climed.longitude, Especialidad.NOMBRE AS ESPECIALIDAD, Climed.TELEFONO FROM Climed
           INNER JOIN ClimedEsp ON (Climed.IDCLI = ClimedEsp.IDCLIMED)
            INNER JOIN Especialidad ON (ClimedEsp.IDESP = Especialidad.IDESPECIALIDAD)
+           INNER JOIN Climed_obra_social ON Climed.IDCLI = Climed_obra_social.IDCLIMED
+           WHERE Climed_obra_social.IDOBRASOCIAL = 1
             ORDER BY Climed.NOMBRE"));
 
 
+    }
+
+    public function farmacias()
+    {
+        return DB::select(DB::raw("SELECT Farmacias.* FROM Farmacias
+           INNER JOIN Farmacia_obra_social ON Farmacias.ID = Farmacia_obra_social.id_farmacia
+            WHERE Farmacia_obra_social.id_obra_social = 1
+            ORDER BY Farmacias.NOMBRE"));
     }
 
     /**

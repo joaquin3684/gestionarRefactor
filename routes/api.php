@@ -27,11 +27,22 @@ Route::get('prueba', function(){
     return $r;
 });
 
-Route::get('ponerBasesDeDatos', function(){
+Route::get('ponerClinicas', function(){
 
     $climeds = \App\Climed::all();
     $climeds->each(function($cli){
         $cli->obrasSociales()->attach(1);
+    });
+    return 1;
+});
+
+Route::post('importarAfiliados', 'ImportacionController@importarAfiliados');
+
+Route::get('ponerFarmacias', function(){
+
+    $farmacias = \App\Farmacia::all();
+    $farmacias->each(function($farmacia){
+        $farmacia->obrasSociales()->attach(1);
     });
     return 1;
 });
@@ -138,14 +149,17 @@ Route::post('turno/rechazar', 'Aplicacion\AppSolicitudController@rechazarTurno')
 
 // CLIMED
 
-Route::post('climedApp/clinicasPorEspecialidadYLocalidad', 'Aplicacion\AppClimedController@findClinicasByEspecialidadAndLocalidad');
-Route::get('climedApp/clinicasPorEspecialidad/{id}', 'Aplicacion\AppClimedController@findClinicasByEspecialidad');
 Route::get('climedApp/all', 'Aplicacion\AppClimedController@all');
 Route::get('climedApp/allParticulares', 'Aplicacion\AppClimedController@allParticulares');
 Route::get('climedApp/{id}', 'Aplicacion\AppClimedController@find');
 Route::get('climedApp/especialidades/{id}', 'Aplicacion\AppClimedController@especialidadesClinica');
 Route::get('climedApp/localidades/{idEspecialidad}', 'Aplicacion\AppClimedController@localidadesEspecialidad');
 Route::get('climedApp/ag', 'Aplicacion\AppClimedController@localidadesEspecialidadClinico');
+Route::get('climedApp/clinicasPorEspecialidad/{id}', 'Aplicacion\AppClimedController@findClinicasByEspecialidad');
+
+Route::post('climedApp/clinicasPorEspecialidadYLocalidad', 'Aplicacion\AppClimedController@findClinicasByEspecialidadAndLocalidad');
+
+
 
 
 Route::get('especialidadApp/all', 'Aplicacion\AppClimedController@especialidades');
@@ -161,3 +175,4 @@ Route::post('recomendacionApp', 'Aplicacion\AppRecomendacionController@create');
 
 
 Route::get('cobertec/clinicas', 'Cobertec\ClimedController@clinicas');
+Route::get('cobertec/farmacias', 'Cobertec\ClimedController@farmacias');

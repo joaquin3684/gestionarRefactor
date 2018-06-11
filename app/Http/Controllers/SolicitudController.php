@@ -85,7 +85,7 @@ class SolicitudController extends Controller
             $client = new Client();
             $obs = Solicitud::with('afiliado')->find($solicitud->getId())->afiliado->IDOBRASOCIAL;
             $usersANotificar = $this->userRepo->usersWithObraSocial($obs)->map(function($user){return $user->id;});
-            $r = $client->post( 'http://gestionar.herokuapp.com/actualizarClientes', ['json' => $usersANotificar->toArray(), 'allow_redirects' => false]);
+            $r = $client->post( 'https://node-gestionar.herokuapp.com/actualizarClientes', ['json' => $usersANotificar->toArray(), 'allow_redirects' => false]);
 
         });
     }
@@ -121,7 +121,7 @@ class SolicitudController extends Controller
             $usersANotificar = $this->repo->abrir($request['id']);
             $client = new Client();
 
-           $r = $client->post( 'http://gestionar.herokuapp.com/actualizarClientes', ['json' => $usersANotificar->toArray(), 'allow_redirects' => false]);
+           $r = $client->post( 'https://node-gestionar.herokuapp.com/actualizarClientes', ['json' => $usersANotificar->toArray(), 'allow_redirects' => false]);
         });
     }
 

@@ -68,7 +68,6 @@ class FarmaciaController extends Controller
     public function destroy($id)
     {
         DB::transaction(function() use ($id) {
-
             $this->repo->destroy($id);
         });
     }
