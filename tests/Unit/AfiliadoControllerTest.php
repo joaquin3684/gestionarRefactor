@@ -29,6 +29,8 @@ class AfiliadoControllerTest extends TestCase
             'CUIL' => 1,
             'IDOBRASOCIAL' => 1,
             'PLAN' => 'oro',
+            'CP' => 'pin',
+            'LOCALIDAD' => 'pun',
             'id_usuario' => null,
             'familiares' => [
                 [
@@ -66,6 +68,8 @@ class AfiliadoControllerTest extends TestCase
             'CUIL' => 2,
             'IDOBRASOCIAL' => 1,
             'PLAN' => 'oro',
+            'CP' => 'pin',
+            'LOCALIDAD' => 'pun',
             'familiares' => [
                 [
                     'nombre' => 'pruebaup',

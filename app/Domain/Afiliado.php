@@ -52,7 +52,7 @@ class Afiliado
      * @param $grupof
      * @param $nafiliado
      */
-    public function __construct($id, $nombre, $dni, $apellido, $email, $celular, $telefono, $direccion, $piso, $departamento, $nacimiento, $cuil, $obs, $grupof, $nafiliado, $plan)
+    public function __construct($id, $nombre, $dni, $apellido, $email, $celular, $telefono, $direccion, $piso, $departamento, $nacimiento, $cuil, $obs, $grupof, $nafiliado, $plan, $localidad, $cp)
     {
         $this->id = $id;
         $this->nombre = $nombre;
@@ -70,6 +70,8 @@ class Afiliado
         $this->grupof = $grupof;
         $this->nafiliado = $nafiliado;
         $this->plan = $plan;
+        $this->cp = $cp;
+        $this->localidad = $localidad;
     }
 
 

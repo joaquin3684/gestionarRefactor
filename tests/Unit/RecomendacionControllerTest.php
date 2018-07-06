@@ -34,7 +34,7 @@ class RecomendacionControllerTest extends TestCase
 
         parent::setUp();
         $this->seed("SecuritySeed");
-        $data= array("name" => "afiliado", "password" => "afiliado");
+        $data= array("name" => "afiliado", "password" => "1");
         $response = $this->json('POST','login', $data);
         $this->token = $response->json()['data']['token'];
 

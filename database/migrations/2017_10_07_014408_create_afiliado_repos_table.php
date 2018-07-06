@@ -31,6 +31,8 @@ class CreateAfiliadoReposTable extends Migration
             $table->bigInteger('CUIL');
             $table->integer('GRUPOF')->nullable();
             $table->string('NAFILIADO');
+            $table->string('LOCALIDAD');
+            $table->string('CP');
             $table->string('PLAN');
             $table->integer('IDOBRASOCIAL')->unsigned();
             $table->foreign('IDOBRASOCIAL')->references('ID')->on('obras_sociales');
