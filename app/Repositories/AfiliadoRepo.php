@@ -46,7 +46,7 @@ class AfiliadoRepo extends Repositorio
             $data['name'] = $data['DNI'];
             $data['password'] = $data['NAFILIADO'];
             $data['email'] = $data['EMAIL'];
-            $data['id_perfil'] = 1;
+            $data['id_perfil'] = 2;
             $data['obrasSociales'] = array($data['IDOBRASOCIAL']);
             $user = $this->userRepo->create($data);
             $data['id_usuario'] = $user->id;

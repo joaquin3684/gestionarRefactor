@@ -174,5 +174,13 @@ Route::get('farmaciaApp/all', 'Aplicacion\AppFarmaciaController@all');
 Route::post('recomendacionApp', 'Aplicacion\AppRecomendacionController@create');
 
 
+// COBERTEC WEB
+
 Route::get('cobertec/clinicas', 'Cobertec\ClimedController@clinicas');
 Route::get('cobertec/farmacias', 'Cobertec\ClimedController@farmacias');
+
+
+// SANATORIAL WEB
+
+Route::get('sanatorial/clinicas', 'Sanatorial\ClimedController@clinicas');
+Route::get('sanatorial/farmacias', 'Sanatorial\ClimedController@farmacias');
