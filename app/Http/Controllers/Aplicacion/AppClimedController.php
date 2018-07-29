@@ -46,13 +46,16 @@ class AppClimedController extends Controller
 
     public function findClinicasByEspecialidadAndLocalidad(Request $request)
     {
+        $obraSocial = $this->obsUser->first();
+
         $especialidad = $request['especialidad'];
         $localidad = $request['localidad'];
         return DB::select(DB::raw("SELECT Climed.IDCLI,Climed.NOMBRE,Climed.DIRECCION,Climed.LOCALIDAD,Climed.latitude,Climed.longitude, Especialidad.NOMBRE AS ESPECIALIDAD
                         FROM Climed 
 	                    INNER JOIN ClimedEsp ON Climed.IDCLI = ClimedEsp.IDCLIMED
 	                    INNER JOIN Especialidad ON ClimedEsp.IDESP = Especialidad.IDESPECIALIDAD
-	                    WHERE Especialidad.IDESPECIALIDAD = '$especialidad' AND Climed.LOCALIDAD = '$localidad'
+	                    INNER JOIN Climed_obra_social ON Climed.IDCLI = Climed_obra_social.IDCLIMED
+	                    WHERE Especialidad.IDESPECIALIDAD = '$especialidad' AND Climed.LOCALIDAD = '$localidad' AND Climed_obra_social.IDOBRASOCIAL = '$obraSocial' 
 	                    GROUP BY Climed.IDCLI,Climed.NOMBRE,Climed.DIRECCION,Climed.LOCALIDAD,Climed.latitude,Climed.longitude, Especialidad.NOMBRE ORDER BY Climed.NOMBRE "));
 
     }
@@ -104,33 +107,48 @@ class AppClimedController extends Controller
 
     public function localidadesEspecialidad($id)
     {
+        $obraSocial = $this->obsUser->first();
 
         return DB::select(DB::raw("SELECT Climed.LOCALIDAD
                         FROM Climed 
 	                    INNER JOIN ClimedEsp ON Climed.IDCLI = ClimedEsp.IDCLIMED
 	                    INNER JOIN Especialidad ON ClimedEsp.IDESP = Especialidad.IDESPECIALIDAD
-	                    WHERE Especialidad.IDESPECIALIDAD = '$id' 
+	                    INNER JOIN Climed_obra_social ON Climed.IDCLI = Climed_obra_social.IDCLIMED
+	                    WHERE Especialidad.IDESPECIALIDAD = '$id' and Climed_obra_social.IDOBRASOCIAL = '$obraSocial' 
 	                    GROUP BY Climed.LOCALIDAD ORDER BY Climed.LOCALIDAD "));
 
     }
 
     public function localidadesEspecialidadClinico()
     {
+        $obraSocial = $this->obsUser->first();
 
         return DB::select(DB::raw("SELECT Climed.LOCALIDAD
                         FROM Climed 
 	                    INNER JOIN ClimedEsp ON Climed.IDCLI = ClimedEsp.IDCLIMED
 	                    INNER JOIN Especialidad ON ClimedEsp.IDESP = Especialidad.IDESPECIALIDAD
-	                    WHERE Especialidad.IDESPECIALIDAD = '40' 
+	                    INNER JOIN Climed_obra_social ON Climed.IDCLI = Climed_obra_social.IDCLIMED
+	                    WHERE Especialidad.IDESPECIALIDAD = '40' and Climed_obra_social.IDOBRASOCIAL = '$obraSocial'
 	                    ORDER BY Climed.LOCALIDAD "));
 
     }
 
     public function especialidades()
     {
-        return DB::select(DB::raw("SELECT *
+        /*return DB::select(DB::raw("SELECT *
                         FROM Especialidad
-	                    ORDER BY Especialidad.NOMBRE"));
+	                    ORDER BY Especialidad.NOMBRE"));*/
+
+        $obraSocial = $this->obsUser->first();
+
+        return DB::select(DB::raw("SELECT Especialidad.NOMBRE, Especialidad.IDESPECIALIDAD
+                        FROM Climed 
+	                    INNER JOIN ClimedEsp ON Climed.IDCLI = ClimedEsp.IDCLIMED
+	                    INNER JOIN Especialidad ON ClimedEsp.IDESP = Especialidad.IDESPECIALIDAD
+	                    INNER JOIN Climed_obra_social ON Climed.IDCLI = Climed_obra_social.IDCLIMED
+	                    WHERE  Climed_obra_social.IDOBRASOCIAL = '$obraSocial'
+	                    GROUP BY Especialidad.NOMBRE, Especialidad.IDESPECIALIDAD
+	                    ORDER BY Climed.LOCALIDAD "));
     }
 
 
