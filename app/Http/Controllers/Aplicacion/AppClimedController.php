@@ -148,7 +148,7 @@ class AppClimedController extends Controller
 	                    INNER JOIN Climed_obra_social ON Climed.IDCLI = Climed_obra_social.IDCLIMED
 	                    WHERE  Climed_obra_social.IDOBRASOCIAL = '$obraSocial'
 	                    GROUP BY Especialidad.NOMBRE, Especialidad.IDESPECIALIDAD
-	                    ORDER BY Climed.LOCALIDAD "));
+	                    ORDER BY Especialidad.NOMBRE"));
     }
 
 
