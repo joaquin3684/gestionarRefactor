@@ -170,7 +170,9 @@ return [
          'foo',
          'bar',
          'user_id',
-         'permisos'
+         'permisos',
+        'nombre',
+        'email'
     ],
 
     /*

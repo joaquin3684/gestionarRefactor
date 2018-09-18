@@ -11,8 +11,7 @@ class Solicitud extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'MEDICO', 'DNISOLICITANTE', 'FECHAS', 'ESTADO', 'ASIGNADO', 'IDAFILIADO', 'EQUIVALENCIA', 'IDCLIMED', 'MOTIVO', 'ESPECIALIDAD', 'TIPO', 'FOTO', 'REVISADO', 'OBS', 'FECHAMODIFICACION'
-    ];
+        'MEDICO', 'DNISOLICITANTE', 'FECHAS', 'ESTADO', 'ASIGNADO', 'IDAFILIADO', 'EQUIVALENCIA', 'IDCLIMED', 'MOTIVO', 'ESPECIALIDAD', 'TIPO', 'FOTO', 'REVISADO', 'OBS', 'FECHAMODIFICACION', 'RANGO', 'OBSFAMILIAR'];
 
     public function turnos()
     {

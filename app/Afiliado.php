@@ -16,7 +16,6 @@ class Afiliado extends Model
         'NOMBRE', 'APELLIDO', 'DNI', 'EMAIL', 'TELEFONO', 'CELULAR', 'DIRECCION', 'PISO', 'DEPARTAMENTO', 'NACIMIENTO', 'CUIL', 'GRUPOF', 'NAFILIADO', 'IDOBRASOCIAL', 'OBS', 'id_usuario', 'PLAN', 'LOCALIDAD', 'CP'
     ];
 
-
     public function obraSocial()
     {
         return $this->belongsTo('App\ObraSocial', 'IDOBRASOCIAL', 'ID');
@@ -36,4 +35,5 @@ class Afiliado extends Model
     {
         return $this->hasMany('App\Familiar', 'id_afiliado', 'DNI');
     }
+
 }

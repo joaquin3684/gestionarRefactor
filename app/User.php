@@ -21,6 +21,12 @@ class User extends Authenticatable implements JWTSubject
         'name', 'email', 'password', 'id_perfil'
     ];
 
+// mandar un mail cuando las operadoras le envian un turno al afiliado
+//
+    public function afiliado()
+    {
+        return $this->hasOne('App\Afiliado', 'id_usuario', 'id');
+    }
 
     public function perfil()
     {

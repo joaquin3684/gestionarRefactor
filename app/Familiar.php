@@ -9,6 +9,6 @@ class Familiar extends Model
     protected $table = 'familiares';
 
     protected $fillable = [
-        'nombre', 'apellido', 'dni', 'nacimiento', 'cuil', 'nafiliado',
+        'nombre', 'apellido', 'dni', 'nacimiento', 'cuil', 'nafiliado', 'id_afiliado'
     ];
 }

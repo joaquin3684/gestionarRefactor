@@ -138,6 +138,8 @@ Route::get('solicitud/solicitudApp/{id}', 'Aplicacion\AppSolicitudController@fin
 Route::get('solicitud/enespera/{dni}', 'Aplicacion\AppSolicitudController@enEspera');
 Route::get('solicitud/confirmadas/{dni}', 'Aplicacion\AppSolicitudController@confirmadas');
 Route::get('solicitud/rechazadas/{dni}', 'Aplicacion\AppSolicitudController@rechazadas');
+Route::get('solicitud/obtenerFamiliares', 'Aplicacion\AppSolicitudController@obtenerFamiliares');
+
 Route::post('solicitud/createClinico', 'Aplicacion\AppSolicitudController@storeClinico');
 Route::post('solicitud/createEspecialidad', 'Aplicacion\AppSolicitudController@storeEspecialidad');
 Route::post('solicitud/createEstudio', 'Aplicacion\AppSolicitudController@storeEstudio');
@@ -145,7 +147,6 @@ Route::post('solicitud/uploadFile', 'Aplicacion\AppSolicitudController@uploadFil
 
 Route::post('turno/confirmar', 'Aplicacion\AppSolicitudController@confirmarTurno');
 Route::post('turno/rechazar', 'Aplicacion\AppSolicitudController@rechazarTurno');
-
 
 // CLIMED
 
@@ -164,6 +165,9 @@ Route::post('climedApp/clinicasPorEspecialidadYLocalidad', 'Aplicacion\AppClimed
 
 Route::get('especialidadApp/all', 'Aplicacion\AppClimedController@especialidades');
 Route::get('especialidadApp/localidades/{idEspecialidad}', 'Aplicacion\AppClimedController@localidadesEspecialidad');
+
+Route::post('afiliado/modificarEmail', 'Aplicacion\AppAfiliadoController@modificarEmail');
+
 
 //FARMACIA
 

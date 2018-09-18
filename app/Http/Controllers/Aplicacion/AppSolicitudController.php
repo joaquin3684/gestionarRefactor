@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Aplicacion;
 
 use App\Afiliado;
+use App\Familiar;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SolicitudValidator;
 use App\Repositories\SolicitudRepo;
@@ -31,7 +32,7 @@ class AppSolicitudController extends Controller
     public function storeClinico(SolicitudValidator $request)
     {
         DB::transaction(function() use ($request){
-
+            $rango = $request['rango'];
             $request['TIPO'] = 1;
             $solicitud = $this->repo->create($request->all());
             $client = new Client();
@@ -44,6 +45,7 @@ class AppSolicitudController extends Controller
     public function storeEspecialidad(SolicitudValidator $request)
     {
         DB::transaction(function() use ($request) {
+            $rango = $request['rango'];
 
             $request['TIPO'] = 2;
             $solicitud = $this->repo->create($request->all());
@@ -58,6 +60,7 @@ class AppSolicitudController extends Controller
     public function storeEstudio(Request $request)
     {
         DB::transaction(function() use ($request) {
+            $rango = $request['rango'];
 
             $request['TIPO'] = 3;
             $solicitud = $this->repo->create($request->all());
@@ -177,6 +180,14 @@ class AppSolicitudController extends Controller
 	      FROM 
 	    ((Solicitudes INNER JOIN Climed ON Solicitudes.IDCLIMED = Climed.IDCLI) INNER JOIN Turnos ON Solicitudes.IDS = Turnos.IDSOLICITUD)
 	    WHERE Solicitudes.IDS = '$id'"));
+    }
+
+    public function obtenerFamiliares()
+    {
+        $service = new UserFromToken();
+        $userRepo = new UserRepo();
+        $user = $service->getUser();
+        return $user->afiliado()->familiares();
     }
 
 }
