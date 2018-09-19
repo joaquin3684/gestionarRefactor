@@ -31,8 +31,8 @@ class LoginController extends Controller
             return $pantalla->nombre;
         });
 
-        $nombre = $user->afiliado()->NOMBRE. ' '. $user->afiliado()->APELLIDO;
-        $email = $user->afiliado()->EMAIL;
+        $nombre = $user->afiliado->NOMBRE. ' '. $user->afiliado->APELLIDO;
+        $email = $user->afiliado->EMAIL;
         try {
             // attempt to verify the credentials and create a token for the user
             if (! $token = JWTAuth::customClaims(['permisos' => $permisos, 'user_id' => $user->id, 'nombre' => $nombre, 'email' => $email])->fromUser($user)) {
