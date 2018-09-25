@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Aplicacion;
 
 use App\Afiliado;
+use App\Http\Controllers\Controller;
 use App\Repositories\UserRepo;
 use App\Services\UserFromToken;
 use Illuminate\Http\Request;
