@@ -24,7 +24,7 @@ class AppAfiliadoController extends Controller
     }
     public function modificarEmail(Request $request)
     {
-        $afiliado = Afiliado::find($request['ID']);
+        $afiliado = Afiliado::where('DNI', $request['DNI'])->first();
         $afiliado->fill($request->all());
         $afiliado->save();
     }
