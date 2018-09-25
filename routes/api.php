@@ -27,6 +27,22 @@ Route::get('prueba', function(){
     return $r;
 });
 
+
+Route::get('sacarRepetidosRelacionMedicos', function(){
+
+  /*  $clinica = \App\Climed::with('especialidades')->find(5);
+    $clinica->especialidades()->detach([101, 14]);*/
+
+    $clinicas = \App\Climed::with('especialidades')->get();
+    $clinicas->each(function($clinica){
+        $idsEspeciliadaesUnicas = $clinica->especialidades->map(function($especiliadad){ return $especiliadad->IDESPECIALIDAD; })->unique();
+        $clinica->especialidades()->detach($idsEspeciliadaesUnicas);
+        $clinica->especialidades()->attach($idsEspeciliadaesUnicas->toArray());
+    });
+return 1;
+
+});
+
 Route::get('ponerClinicas', function(){
 
     $climeds = \App\Climed::all();
