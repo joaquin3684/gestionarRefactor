@@ -29,7 +29,8 @@ class Solicitud
     private $afiliado;
     private $climed;
     private $especialidad;
-
+    private $rango;
+    private $obsFamiliar;
     /**
      * Solicitud constructor.
      * @param $medico
@@ -44,7 +45,7 @@ class Solicitud
      * @param $revisado
      * @param $obs
      */
-    public function __construct($id, $medico, $fecha, $estado, $asignado, $motivo, $tipo, $foto, $revisado, $obs)
+    public function __construct($id, $medico, $fecha, $estado, $asignado, $motivo, $tipo, $foto, $revisado, $obs, $rango, $obsFamiliar)
     {
         $this->id = $id;
         $this->medico = $medico;
@@ -56,6 +57,8 @@ class Solicitud
         $this->foto = $foto;
         $this->revisado = $revisado;
         $this->obs = $obs;
+        $this->rango = $rango;
+        $this->obsFamiliar = $obsFamiliar;
     }
 
     /**
