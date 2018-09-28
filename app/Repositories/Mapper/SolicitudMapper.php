@@ -34,7 +34,7 @@ class SolicitudMapper
         }
         else
         {
-            $solicitudMappeada = new \App\Domain\Solicitud($solicitud->IDS, $solicitud->MEDICO, $solicitud->FECHAS, $solicitud->ESTADO, $solicitud->ASIGNADO, $solicitud->MOTIVO, $solicitud->TIPO, $solicitud->FOTO, $solicitud->REVISADO, $solicitud->OBS);
+            $solicitudMappeada = new \App\Domain\Solicitud($solicitud->IDS, $solicitud->MEDICO, $solicitud->FECHAS, $solicitud->ESTADO, $solicitud->ASIGNADO, $solicitud->MOTIVO, $solicitud->TIPO, $solicitud->FOTO, $solicitud->REVISADO, $solicitud->OBS, $solicitud->RANGO, $solicitud->OBSFAMILIAR);
             $this->setearRelaciones($solicitud, $solicitudMappeada);
             return $solicitudMappeada;
         }
