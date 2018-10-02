@@ -55,7 +55,7 @@ class AppClimedController extends Controller
 	                    INNER JOIN ClimedEsp ON Climed.IDCLI = ClimedEsp.IDCLIMED
 	                    INNER JOIN Especialidad ON ClimedEsp.IDESP = Especialidad.IDESPECIALIDAD
 	                    INNER JOIN Climed_obra_social ON Climed.IDCLI = Climed_obra_social.IDCLIMED
-	                    WHERE Especialidad.IDESPECIALIDAD = '$especialidad' AND Climed.LOCALIDAD = '$localidad' AND Climed_obra_social.IDOBRASOCIAL = '$obraSocial' 
+	                    WHERE Especialidad.IDESPECIALIDAD = '$especialidad' AND Climed.LOCALIDAD = '$localidad' AND Climed_obra_social.IDOBRASOCIAL = '$obraSocial' AND Climed.deleted_at IS NULL
 	                    GROUP BY Climed.IDCLI,Climed.NOMBRE,Climed.DIRECCION,Climed.LOCALIDAD,Climed.latitude,Climed.longitude, Especialidad.NOMBRE ORDER BY Climed.NOMBRE "));
 
     }
@@ -128,7 +128,7 @@ class AppClimedController extends Controller
 	                    INNER JOIN ClimedEsp ON Climed.IDCLI = ClimedEsp.IDCLIMED
 	                    INNER JOIN Especialidad ON ClimedEsp.IDESP = Especialidad.IDESPECIALIDAD
 	                    INNER JOIN Climed_obra_social ON Climed.IDCLI = Climed_obra_social.IDCLIMED
-	                    WHERE Especialidad.IDESPECIALIDAD = '40' and Climed_obra_social.IDOBRASOCIAL = '$obraSocial'
+	                    WHERE Especialidad.IDESPECIALIDAD = '40' and Climed_obra_social.IDOBRASOCIAL = '$obraSocial' AND Climed.deleted_at IS NULL
 	                    ORDER BY Climed.LOCALIDAD "));
 
     }
@@ -146,7 +146,7 @@ class AppClimedController extends Controller
 	                    INNER JOIN ClimedEsp ON Climed.IDCLI = ClimedEsp.IDCLIMED
 	                    INNER JOIN Especialidad ON ClimedEsp.IDESP = Especialidad.IDESPECIALIDAD
 	                    INNER JOIN Climed_obra_social ON Climed.IDCLI = Climed_obra_social.IDCLIMED
-	                    WHERE  Climed_obra_social.IDOBRASOCIAL = '$obraSocial'
+	                    WHERE  Climed_obra_social.IDOBRASOCIAL = '$obraSocial' AND Climed.deleted_at IS NULL
 	                    GROUP BY Especialidad.NOMBRE, Especialidad.IDESPECIALIDAD
 	                    ORDER BY Especialidad.NOMBRE"));
     }
