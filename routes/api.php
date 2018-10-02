@@ -19,12 +19,7 @@ use Illuminate\Http\Request;
 
 Route::get('prueba', function(){
 
-    $dato = array('IDCLIMED' => 1, 'ESPECIALIDAD' => 1, 'DNISOLICITANTE' => 3, 'IDAFILIADO' => 3, 'MEDICO' => 'asdfas', 'FECHAS' => \Carbon\Carbon::today()->toDateString(), 'ESTADO' => 'Pendiente');
-
-    $client = new Client();
-    $r = $client->post( 'http://des.gestionarturnos.com/solicitud/createClinico', ['json' => $dato, 'allow_redirects' => false, 'headers' => ['Authorization' => 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vZGVzLmdlc3Rpb25hcnR1cm5vcy5jb20vbG9naW4iLCJpYXQiOjE1MjM5MTkyNzcsIm5iZiI6MTUyMzkxOTI3NywianRpIjoid1RXYVgyMGJsRzY3b3NLeSIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSIsInBlcm1pc29zIjpbImFmaWxpYWRvIiwiY2xpbWVkIiwic29saWNpdHVkIiwibWVkaWNvcyIsImZhcm1hY2lhIiwidXNlciIsImVzcGVjaWFsaWRhZCIsImF1ZGl0b3JpYSIsInJlY29tZW5kYWNpb24iLCJyZXBvcnRlU29saWNpdHVkZXMiXSwidXNlcl9pZCI6MX0.6kfl0LF-lxz1fcsNZySTVlDP1ZpkiO3D6bHJ_or38cA']]);
-
-    return $r;
+return 'juan puto';
 });
 
 
