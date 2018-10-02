@@ -185,9 +185,8 @@ class AppSolicitudController extends Controller
     public function obtenerFamiliares()
     {
         $service = new UserFromToken();
-        $userRepo = new UserRepo();
         $user = $service->getUser();
-        return $user->afiliado->familiares();
+        return $user->afiliado->familiares;
     }
 
 }

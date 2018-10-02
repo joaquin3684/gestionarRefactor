@@ -103,7 +103,6 @@ Route::post('solicitud/autorizar', 'SolicitudController@autorizar');
 Route::post('solicitud/rechazar', 'SolicitudController@rechazar');
 Route::get('solicitud/solicitudesEnProceso', 'SolicitudController@solicitudesEnProceso');
 Route::get('solicitud/solicitudesParaAuditar', 'SolicitudController@solicitudesParaAuditar');
-Route::resource('solicitud', 'SolicitudController');
 
 //---------------------- TURNO ------------------------
 
@@ -148,13 +147,12 @@ Route::post('reporteSolicitudes/turnos', 'ReporteSolicitudesController@porTurnos
 //----------------------- APLICACION CELULAR -------------------------
 
 // SOLICITUDES
-
+Route::get('solicitud/obtenerFamiliares', 'Aplicacion\AppSolicitudController@obtenerFamiliares');
 Route::get('solicitud/pendientesyabiertas/{dni}', 'Aplicacion\AppSolicitudController@pendientesOAbiertas');
 Route::get('solicitud/solicitudApp/{id}', 'Aplicacion\AppSolicitudController@findApp');
 Route::get('solicitud/enespera/{dni}', 'Aplicacion\AppSolicitudController@enEspera');
 Route::get('solicitud/confirmadas/{dni}', 'Aplicacion\AppSolicitudController@confirmadas');
 Route::get('solicitud/rechazadas/{dni}', 'Aplicacion\AppSolicitudController@rechazadas');
-Route::get('solicitud/obtenerFamiliares', 'Aplicacion\AppSolicitudController@obtenerFamiliares');
 
 Route::post('solicitud/createClinico', 'Aplicacion\AppSolicitudController@storeClinico');
 Route::post('solicitud/createEspecialidad', 'Aplicacion\AppSolicitudController@storeEspecialidad');
@@ -204,3 +202,5 @@ Route::get('cobertec/farmacias', 'Cobertec\ClimedController@farmacias');
 
 Route::get('sanatorial/clinicas', 'Sanatorial\ClimedController@clinicas');
 Route::get('sanatorial/farmacias', 'Sanatorial\ClimedController@farmacias');
+
+Route::resource('solicitud', 'SolicitudController');
