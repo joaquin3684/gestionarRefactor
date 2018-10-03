@@ -114,7 +114,7 @@ class AppClimedController extends Controller
 	                    INNER JOIN ClimedEsp ON Climed.IDCLI = ClimedEsp.IDCLIMED
 	                    INNER JOIN Especialidad ON ClimedEsp.IDESP = Especialidad.IDESPECIALIDAD
 	                    INNER JOIN Climed_obra_social ON Climed.IDCLI = Climed_obra_social.IDCLIMED
-	                    WHERE Especialidad.IDESPECIALIDAD = '$id' and Climed_obra_social.IDOBRASOCIAL = '$obraSocial' 
+	                    WHERE Especialidad.IDESPECIALIDAD = '$id' and Climed_obra_social.IDOBRASOCIAL = '$obraSocial'  AND Climed.deleted_at IS NULL
 	                    GROUP BY Climed.LOCALIDAD ORDER BY Climed.LOCALIDAD "));
 
     }
