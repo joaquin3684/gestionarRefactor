@@ -9,6 +9,7 @@ use App\Solicitud;
 use App\Turno;
 use App\Repositories\Mapper\TurnoMapper;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 
 class TurnoRepo extends Repositorio
 {
@@ -34,7 +35,7 @@ class TurnoRepo extends Repositorio
     public function create(array $data)
     {
         $data['FECHACREACION'] = Carbon::today()->toDateString();
-        $obs = Solicitud::with('afiliado')->find($data['IDSOLICITUD']);
+        $obs = Solicitud::with('afiliado', 'climed')->find($data['IDSOLICITUD']);
         $obs = $obs->afiliado->IDOBRASOCIAL;
         $obra = $this->obsUser->first(function($obraSocial) use ($obs){
             return $obraSocial == $obs;
@@ -43,10 +44,16 @@ class TurnoRepo extends Repositorio
         {
             throw new NoTieneAccesoAEstaObraSocialException('acceso denegado');
         } else {
-           $turno = parent::create($data);
+           $turno = $this->gateway->create($data);
             $this->solRepo->update(['ESTADO' => 'En Espera'], $data['IDSOLICITUD']);
+            $client = new Client();
+
+            $json = ['afiliado' => $obs->afiliado->NOMBRE. ' '. $obs->afiliado->APELLIDO, 'dni' => $obs->afiliado->DNI, 'mail' => $obs->afiliado->EMAIL, 'hora' => $turno->HORAT, 'fecha' => $turno->FECHAT, 'clinica' =>  $obs->climed->NOMBRE, 'domicilio' => $obs->climed->DIRECCION];
+            $r = $client->post( 'https://node-gestionar.herokuapp.com/actualizarClientes', ['json' => $json, 'allow_redirects' => false]);
             return $turno;
         }
+
+
     }
 
     public function update(array $data, $id)
