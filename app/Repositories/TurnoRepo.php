@@ -49,7 +49,7 @@ class TurnoRepo extends Repositorio
             $client = new Client();
 
             $json = ['afiliado' => $obs->afiliado->NOMBRE. ' '. $obs->afiliado->APELLIDO, 'dni' => $obs->afiliado->DNI, 'mail' => $obs->afiliado->EMAIL, 'hora' => $turno->HORAT, 'fecha' => $turno->FECHAT, 'clinica' =>  $obs->climed->NOMBRE, 'domicilio' => $obs->climed->DIRECCION];
-            $r = $client->post( 'https://node-gestionar.herokuapp.com/actualizarClientes', ['json' => $json, 'allow_redirects' => false]);
+            $r = $client->post( 'http://www.gestionarturnos.com/enviarMail.php', ['json' => $json, 'allow_redirects' => false]);
             return $turno;
         }
 
