@@ -35,8 +35,8 @@ class TurnoRepo extends Repositorio
     public function create(array $data)
     {
         $data['FECHACREACION'] = Carbon::today()->toDateString();
-        $obs = Solicitud::with('afiliado', 'climed')->find($data['IDSOLICITUD']);
-        $obs = $obs->afiliado->IDOBRASOCIAL;
+        $sol = Solicitud::with('afiliado', 'climed')->find($data['IDSOLICITUD']);
+        $obs = $sol->afiliado->IDOBRASOCIAL;
         $obra = $this->obsUser->first(function($obraSocial) use ($obs){
             return $obraSocial == $obs;
         });
@@ -48,7 +48,7 @@ class TurnoRepo extends Repositorio
             $this->solRepo->update(['ESTADO' => 'En Espera'], $data['IDSOLICITUD']);
             $client = new Client();
 
-            $json = ['afiliado' => $obs->afiliado->NOMBRE. ' '. $obs->afiliado->APELLIDO, 'dni' => $obs->afiliado->DNI, 'mail' => $obs->afiliado->EMAIL, 'hora' => $turno->HORAT, 'fecha' => $turno->FECHAT, 'clinica' =>  $obs->climed->NOMBRE, 'domicilio' => $obs->climed->DIRECCION];
+            $json = ['afiliado' => $sol->afiliado->NOMBRE. ' '. $sol->afiliado->APELLIDO, 'dni' => $sol->afiliado->DNI, 'mail' => $sol->afiliado->EMAIL, 'hora' => $turno->HORAT, 'fecha' => $turno->FECHAT, 'clinica' =>  $sol->climed->NOMBRE, 'domicilio' => $sol->climed->DIRECCION];
             $r = $client->post( 'http://www.gestionarturnos.com/enviarMail.php', ['json' => $json, 'allow_redirects' => false]);
             return $turno;
         }
