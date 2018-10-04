@@ -24,7 +24,7 @@ class LoginController extends Controller
     {
 
         $credentials = $request->only('name', 'password');
-        $user = User::where('name', $credentials['name'])->firstOrFail();
+        $user = User::with('afiliado')->where('name', $credentials['name'])->firstOrFail();
         if(!Hash::check($credentials['password'], $user->password))
             throw new UsuarioOPasswordIncorrectosException("error");
         $permisos = $user->perfil->pantallas->map(function($pantalla){
