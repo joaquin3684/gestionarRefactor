@@ -74,7 +74,7 @@ class ReporteSolicitudesController extends Controller
                 $q->whereBetween('Solicitudes.FECHAMODIFICACION', [$request['fecha_modificacion_desde'], $request['fecha_modificacion_hasta']])
                     ->orWhere('Solicitudes.FECHAMODIFICACION', null);
             })
-            ->select('IDS as id', 'FECHAS as fechaCreacion', 'ESTADO as estado', 'MOTIVO as motivo', 'FECHAMODIFICACION as fechaModificacion', 'Afiliados.NOMBRE as Nombresin')->get();
+            ->select('IDS as id', 'FECHAS as fechaCreacion', 'ESTADO as estado', 'MOTIVO as motivo', 'FECHAMODIFICACION as fechaModificacion', 'Afiliados.NOMBRE as NombreAfiliado', 'Afiliados.DNI as DniAfiliado', 'Afiliados.NAFILIADO as nAfiliado')->get();
     }
 
     public function porTurnos(Request $request)
