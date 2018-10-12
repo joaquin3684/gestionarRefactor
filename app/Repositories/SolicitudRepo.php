@@ -131,12 +131,7 @@ class SolicitudRepo extends Repositorio
             ->where(function ($query){
                 $query->where('ESTADO', '<>','Confirmado')
                     ->where('ESTADO', '<>', 'Rechazado')
-                    ->where('TIPO', '1')
-                    ->where(function ($q){
-                        $q->where('ASIGNADO', null)
-                        ->orWhere('ASIGNADO', $this->user->id);
-
-                    });
+                    ->where('TIPO', '1');
             })
 
             ->orWhere(function ($query) {
