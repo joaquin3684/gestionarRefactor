@@ -29,7 +29,7 @@ class ClimedController extends Controller
      */
     public function clinicas()
     {
-        return DB::select(DB::raw("SELECT Climed.IDCLI,Climed.NOMBRE,Climed.ZONA,Climed.DIRECCION,Climed.LOCALIDAD,Climed.latitude,Climed.longitude, Especialidad.NOMBRE AS ESPECIALIDAD, Climed.TELEFONO FROM Climed
+        return DB::select(DB::raw("SELECT Climed.IDCLI,Climed.NOMBRE,Climed.ZONA,Climed.DIRECCION,Climed.LOCALIDAD,Climed.latitude,Climed.longitude,Climed.deleted_at,Especialidad.NOMBRE AS ESPECIALIDAD, Climed.TELEFONO FROM Climed
           INNER JOIN ClimedEsp ON (Climed.IDCLI = ClimedEsp.IDCLIMED)
            INNER JOIN Especialidad ON (ClimedEsp.IDESP = Especialidad.IDESPECIALIDAD)
            INNER JOIN Climed_obra_social ON Climed.IDCLI = Climed_obra_social.IDCLIMED
