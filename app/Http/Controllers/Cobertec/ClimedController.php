@@ -33,7 +33,7 @@ class ClimedController extends Controller
           INNER JOIN ClimedEsp ON (Climed.IDCLI = ClimedEsp.IDCLIMED)
            INNER JOIN Especialidad ON (ClimedEsp.IDESP = Especialidad.IDESPECIALIDAD)
            INNER JOIN Climed_obra_social ON Climed.IDCLI = Climed_obra_social.IDCLIMED
-           WHERE Climed_obra_social.IDOBRASOCIAL = 1 AND Climed.deleted_at = null 
+           WHERE Climed_obra_social.IDOBRASOCIAL = 1 AND Climed.deleted_at IS NULL AND Especialidad.deleted_at IS NULL
             ORDER BY Climed.NOMBRE"));
 
 
@@ -43,7 +43,7 @@ class ClimedController extends Controller
     {
         return DB::select(DB::raw("SELECT Farmacias.* FROM Farmacias
            INNER JOIN Farmacia_obra_social ON Farmacias.ID = Farmacia_obra_social.id_farmacia
-            WHERE Farmacia_obra_social.id_obra_social = 1
+            WHERE Farmacia_obra_social.id_obra_social = 1 AND Farmacia.deleted_at IS NULL
             ORDER BY Farmacias.NOMBRE"));
     }
 
