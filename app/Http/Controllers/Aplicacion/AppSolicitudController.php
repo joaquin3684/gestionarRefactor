@@ -162,7 +162,7 @@ class AppSolicitudController extends Controller
         $userRepo = new UserRepo();
         $user = $service->getUser();
         $obsUser = $user->obrasSociales->first();
-        return DB::select(DB::raw("SELECT Solicitudes.IDS, Solicitudes.TIPO, Solicitudes.MEDICO,Solicitudes.FECHAS,Climed.NOMBRE AS CLINICA,Climed.DIRECCION,Especialidad.NOMBRE AS ESP 
+        return DB::select(DB::raw("SELECT Solicitudes.IDS, Solicitudes.TIPO, Solicitudes.MEDICO,Solicitudes.FECHAS,Solicitudes.MOTIVO,Climed.NOMBRE AS CLINICA,Climed.DIRECCION,Especialidad.NOMBRE AS ESP 
                                     FROM Solicitudes
                                     INNER JOIN Afiliados ON Solicitudes.DNISOLICITANTE = Afiliados.DNI
                                      INNER JOIN Climed ON Solicitudes.IDCLIMED = Climed.IDCLI
