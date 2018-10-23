@@ -22,6 +22,7 @@ class Turno
     private $medicoAsignado;
     private $motivo;
     private $climed;
+    private $fechaCreacion;
 
 
     /**
@@ -33,7 +34,7 @@ class Turno
      * @param $medicoAsignado
      * @param $motivo
      */
-    public function __construct($id, $fecha, $hora, $confirmacion, $medicoAsignado, $motivo)
+    public function __construct($id, $fecha, $hora, $confirmacion, $medicoAsignado, $motivo, $fechaCreacion)
     {
         $this->id = $id;
         $this->fecha = $fecha;
@@ -41,6 +42,7 @@ class Turno
         $this->confirmacion = $confirmacion;
         $this->medicoAsignado = $medicoAsignado;
         $this->motivo = $motivo;
+        $this->fechaCreacion = $fechaCreacion;
     }
 
     /**
