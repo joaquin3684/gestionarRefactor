@@ -150,8 +150,7 @@ class SolicitudRepo extends Repositorio
     public function solicitudesParaAuditar()
     {
         $obj = $this->gateway->with(['turnos', 'climed', 'afiliado.obraSocial', 'especialidad' => function($q){
-            $q->with('obraSocial')
-                ->with('familiares');
+            $q->with('familiares');
         }])
             ->whereHas('afiliado', function($query){
                 $query->whereIn('IDOBRASOCIAL', $this->obsUser->toArray());
