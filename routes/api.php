@@ -98,6 +98,7 @@ Route::post('solicitud/autorizar', 'SolicitudController@autorizar');
 Route::post('solicitud/rechazar', 'SolicitudController@rechazar');
 Route::get('solicitud/solicitudesEnProceso', 'SolicitudController@solicitudesEnProceso');
 Route::get('solicitud/solicitudesParaAuditar', 'SolicitudController@solicitudesParaAuditar');
+Route::get('solicitud/historialAuditoria', 'SolicitudController@historialAuditoria');
 
 //---------------------- TURNO ------------------------
 

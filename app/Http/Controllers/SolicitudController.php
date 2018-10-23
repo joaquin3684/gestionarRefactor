@@ -106,6 +106,14 @@ class SolicitudController extends Controller
         });
     }
 
+    public function historialAuditoria()
+    {
+        $solicitudes = $this->repo->historialAuditoria();
+        return $solicitudes->map(function ($solicitud) {
+            return $solicitud->toArray($solicitud);
+        });
+    }
+
     public function destroy($id)
     {
         DB::transaction(function() use ($id) {
