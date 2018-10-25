@@ -23,6 +23,7 @@ class Turno
     private $motivo;
     private $climed;
     private $fechaCreacion;
+    private $obs;
 
 
     /**
@@ -33,8 +34,9 @@ class Turno
      * @param $confirmacion
      * @param $medicoAsignado
      * @param $motivo
+     * @param $obs
      */
-    public function __construct($id, $fecha, $hora, $confirmacion, $medicoAsignado, $motivo, $fechaCreacion)
+    public function __construct($id, $fecha, $hora, $confirmacion, $medicoAsignado, $motivo, $fechaCreacion, $obs)
     {
         $this->id = $id;
         $this->fecha = $fecha;
@@ -43,6 +45,7 @@ class Turno
         $this->medicoAsignado = $medicoAsignado;
         $this->motivo = $motivo;
         $this->fechaCreacion = $fechaCreacion;
+        $this->obs = $obs;
     }
 
     /**
@@ -156,6 +159,22 @@ class Turno
     public function setClimed($climed)
     {
         $this->climed = $climed;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getObs()
+    {
+        return $this->obs;
+    }
+
+    /**
+     * @param mixed $obs
+     */
+    public function setObs($obs)
+    {
+        $this->obs = $obs;
     }
 
 

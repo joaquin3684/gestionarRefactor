@@ -14,7 +14,7 @@ class TurnoMapper
     }
     public function map($objeto)
     {
-        $turno =  new \App\Domain\Turno($objeto->IDT, $objeto->FECHAT, $objeto->HORAT, $objeto->CONFIRMACION, $objeto->MEDICOASIGNADO, $objeto->MOTIVOT, $objeto->FECHACREACION);
+        $turno =  new \App\Domain\Turno($objeto->IDT, $objeto->FECHAT, $objeto->HORAT, $objeto->CONFIRMACION, $objeto->MEDICOASIGNADO, $objeto->MOTIVOT, $objeto->FECHACREACION, $objeto->OBS);
         if($objeto->relationLoaded('climed') && $objeto->climed != null)
         {
             $climed = $this->climedMapper->map($objeto->climed);
