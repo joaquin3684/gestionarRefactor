@@ -96,6 +96,7 @@ Route::get('solicitud/traerElementos', 'SolicitudController@all');
 Route::post('solicitud/abrir', 'SolicitudController@abrir');
 Route::post('solicitud/autorizar', 'SolicitudController@autorizar');
 Route::post('solicitud/rechazar', 'SolicitudController@rechazar');
+Route::post('solicitud/actualizarClinica', 'SolicitudController@actualizarClinica');
 Route::get('solicitud/solicitudesEnProceso', 'SolicitudController@solicitudesEnProceso');
 Route::get('solicitud/solicitudesParaAuditar', 'SolicitudController@solicitudesParaAuditar');
 Route::get('solicitud/historialAuditoria', 'SolicitudController@historialAuditoria');

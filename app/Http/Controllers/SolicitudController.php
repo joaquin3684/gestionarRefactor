@@ -98,6 +98,14 @@ class SolicitudController extends Controller
         });
     }
 
+    public function actualizarClinica(Request $request)
+    {
+        DB::transaction(function() use ($request) {
+
+            $this->repo->update(['IDCLIMED' => $request['IDCLIMED']], $request['id']);
+        });
+    }
+
     public function solicitudesParaAuditar()
     {
         $solicitudes = $this->repo->solicitudesParaAuditar();
