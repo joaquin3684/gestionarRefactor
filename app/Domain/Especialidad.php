@@ -27,7 +27,7 @@ class Especialidad
      * @param $estudio
      * @param $directo
      */
-    
+
     public function __construct($id, $nombre, $estudio, $directo)
     {
         $this->id = $id;
