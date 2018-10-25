@@ -18,18 +18,21 @@ class Especialidad
     private $id;
     private $nombre;
     private $estudio;
+    private $directo
 
     /**
      * Especialidad constructor.
      * @param $id
      * @param $nombre
      * @param $estudio
+     * @param $directo
      */
-    public function __construct($id, $nombre, $estudio)
+    public function __construct($id, $nombre, $estudio, $directo)
     {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->estudio = $estudio;
+        $this->directo = $directo;
     }
 
     /**
@@ -80,5 +83,20 @@ class Especialidad
         $this->estudio = $estudio;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDirecto()
+    {
+        return $this->directo;
+    }
+
+    /**
+     * @param mixed $directo
+     */
+    public function setDirecto($directo)
+    {
+        $this->estudio = $directo;
+    }
 
 }

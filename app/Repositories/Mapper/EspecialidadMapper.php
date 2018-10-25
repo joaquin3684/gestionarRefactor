@@ -9,6 +9,6 @@ class EspecialidadMapper
 
     public function map($objeto)
     {
-        return new \App\Domain\Especialidad($objeto->IDESPECIALIDAD, $objeto->NOMBRE, $objeto->ESTUDIO);
+        return new \App\Domain\Especialidad($objeto->IDESPECIALIDAD, $objeto->NOMBRE, $objeto->ESTUDIO, $objeto->DIRECTO);
     }
 }

@@ -151,5 +151,23 @@ class AppClimedController extends Controller
 	                    ORDER BY Especialidad.NOMBRE"));
     }
 
+    public function especialidadesDirecto()
+    {
+        /*return DB::select(DB::raw("SELECT *
+                        FROM Especialidad
+	                    ORDER BY Especialidad.NOMBRE"));*/
+
+        $obraSocial = $this->obsUser->first();
+
+        return DB::select(DB::raw("SELECT Especialidad.NOMBRE, Especialidad.IDESPECIALIDAD
+                        FROM Climed 
+	                    INNER JOIN ClimedEsp ON Climed.IDCLI = ClimedEsp.IDCLIMED
+	                    INNER JOIN Especialidad ON ClimedEsp.IDESP = Especialidad.IDESPECIALIDAD
+	                    INNER JOIN Climed_obra_social ON Climed.IDCLI = Climed_obra_social.IDCLIMED
+	                    WHERE  Climed_obra_social.IDOBRASOCIAL = '$obraSocial' AND Climed.deleted_at IS NULL AND Especialidad.deleted_at IS NULL AND Especialidad.ESTUDIO = 0 AND Especialidad.DIRECTO = 1
+	                    GROUP BY Especialidad.NOMBRE, Especialidad.IDESPECIALIDAD
+	                    ORDER BY Especialidad.NOMBRE"));
+    }
+
 
 }

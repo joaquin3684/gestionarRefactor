@@ -39,6 +39,7 @@ class EspecialidadValidator extends FormRequest
             'ESTUDIO.required' => 'El campo estudio es obligatorio',
             'NOMBRE.unique' => 'El campo nombre debe ser unico',
             'NOMBRE.required' => 'El campo nombre es obligatorio',
+            'DIRECTO.required' => 'El campo directo es obligatorio.',
         ];
     }
 }

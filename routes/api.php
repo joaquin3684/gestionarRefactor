@@ -174,6 +174,7 @@ Route::post('climedApp/clinicasPorEspecialidadYLocalidad', 'Aplicacion\AppClimed
 
 
 Route::get('especialidadApp/all', 'Aplicacion\AppClimedController@especialidades');
+Route::get('especialidadApp/allDirecto', 'Aplicacion\AppClimedController@especialidadesDirecto');
 Route::get('especialidadApp/localidades/{idEspecialidad}', 'Aplicacion\AppClimedController@localidadesEspecialidad');
 
 Route::post('afiliado/modificarEmail', 'Aplicacion\AppAfiliadoController@modificarEmail');
