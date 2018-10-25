@@ -18,7 +18,7 @@ class Especialidad
     private $id;
     private $nombre;
     private $estudio;
-    private $directo
+    private $directo;
 
     /**
      * Especialidad constructor.
@@ -27,6 +27,7 @@ class Especialidad
      * @param $estudio
      * @param $directo
      */
+    
     public function __construct($id, $nombre, $estudio, $directo)
     {
         $this->id = $id;
