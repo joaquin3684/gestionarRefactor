@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Afiliado;
 use App\Exceptions\UsuarioOPasswordIncorrectosException;
 use App\User;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
 
-        $credentials = $request->only('name', 'password');
+        $credentials = $request->only('name', 'password', 'idnotificacion');
         $user = User::with('afiliado')->where('name', $credentials['name'])->firstOrFail();
         if(!Hash::check($credentials['password'], $user->password))
             throw new UsuarioOPasswordIncorrectosException("error");
@@ -36,6 +37,7 @@ class LoginController extends Controller
 
             $nombre = $user->afiliado->NOMBRE . ' ' . $user->afiliado->APELLIDO;
             $email = $user->afiliado->EMAIL;
+
         } else {
             $nombre = 'usuario';
             $email = 'usuario';
@@ -50,6 +52,9 @@ class LoginController extends Controller
             return response()->json(['success' => false, 'error' => 'Failed to login, please try again.'], 500);
         }
         // all good so return the token
+        $afiliado = Afiliado::find($user->afiliado->ID);
+        $afiliado->fill(['IDNOTIF'=>$credentials['idnotificacion']]);
+        $afiliado->save();
         return response()->json(['success' => true, 'data'=> [ 'token' => $token ]]);
     }
 
