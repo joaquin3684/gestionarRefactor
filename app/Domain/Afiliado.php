@@ -33,6 +33,7 @@ class Afiliado
     private $plan;
     private $obra_social;
     private $familiares;
+    private $idnotif;
 
     /**
      * Afiliado constructor.
@@ -52,7 +53,7 @@ class Afiliado
      * @param $grupof
      * @param $nafiliado
      */
-    public function __construct($id, $nombre, $dni, $apellido, $email, $celular, $telefono, $direccion, $piso, $departamento, $nacimiento, $cuil, $obs, $grupof, $nafiliado, $plan, $localidad, $cp)
+    public function __construct($id, $nombre, $dni, $apellido, $email, $celular, $telefono, $direccion, $piso, $departamento, $nacimiento, $cuil, $obs, $grupof, $nafiliado, $plan, $localidad, $cp, $idnotif)
     {
         $this->id = $id;
         $this->nombre = $nombre;
@@ -72,6 +73,7 @@ class Afiliado
         $this->plan = $plan;
         $this->cp = $cp;
         $this->localidad = $localidad;
+        $this->idnotif = $idnotif;
     }
 
 
