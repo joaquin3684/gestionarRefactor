@@ -53,7 +53,9 @@ class LoginController extends Controller
         }
         // all good so return the token
         $afiliado = Afiliado::find($user->afiliado->ID);
-        $afiliado->fill(['IDNOTIF'=>$credentials['idnotificacion']]);
+        if($credentials['idnotificacion'] != null) {
+            $afiliado->fill(['IDNOTIF'=>$credentials['idnotificacion']]);
+        }
         $afiliado->save();
         return response()->json(['success' => true, 'data'=> [ 'token' => $token ]]);
     }
