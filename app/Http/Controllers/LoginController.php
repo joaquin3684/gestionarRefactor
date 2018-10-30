@@ -52,8 +52,8 @@ class LoginController extends Controller
             return response()->json(['success' => false, 'error' => 'Failed to login, please try again.'], 500);
         }
         // all good so return the token
-        $afiliado = Afiliado::find($user->afiliado->ID);
         if($credentials['idnotificacion'] != null) {
+            $afiliado = Afiliado::find($user->afiliado->ID);
             $afiliado->fill(['IDNOTIF'=>$credentials['idnotificacion']]);
         }
         $afiliado->save();
