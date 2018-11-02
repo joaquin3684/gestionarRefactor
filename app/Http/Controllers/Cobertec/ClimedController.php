@@ -43,7 +43,7 @@ class ClimedController extends Controller
     {
         return DB::select(DB::raw("SELECT Farmacias.* FROM Farmacias
            INNER JOIN Farmacia_obra_social ON Farmacias.ID = Farmacia_obra_social.id_farmacia
-            WHERE Farmacia_obra_social.id_obra_social = 1 AND Farmacia.deleted_at IS NULL
+            WHERE Farmacia_obra_social.id_obra_social = 1 AND Farmacias.deleted_at IS NULL
             ORDER BY Farmacias.NOMBRE"));
     }
 
