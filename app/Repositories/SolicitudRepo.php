@@ -121,7 +121,19 @@ class SolicitudRepo extends Repositorio
 
     public function solicitudesEnProceso()
     {
-        return 'ok';
+        $obj = $this->gateway->with(['turnos', 'climed', 'especialidad', 'afiliado' => function($q){
+            $q->with('obraSocial')
+                ->with('familiares');
+        }])
+            ->whereHas('afiliado', function($query){
+                $query->whereIn('IDOBRASOCIAL', $this->obsUser->toArray());
+            })
+            ->where(function ($query){
+                $query->where('ESTADO', '<>','Confirmado')
+                    ->where('ESTADO', '<>', 'Rechazado')
+                    ->where('TIPO', '1');
+            })->get();
+        return $this->mapper->map($obj);
     }
 
     public function solicitudesParaAuditar()
@@ -158,6 +170,14 @@ class SolicitudRepo extends Repositorio
 
     public function historialCompleto()
     {
-        return 'ok';
+        $obj = $this->gateway->with(['climed', 'especialidad', 'afiliado' => function($q){
+            $q->with('obraSocial')
+                ->with('familiares');
+        }])
+            ->whereHas('afiliado', function($query){
+                $query->whereIn('IDOBRASOCIAL', $this->obsUser->toArray());
+            })
+            ->get();
+        return $this->mapper->map($obj);
     }
 }
