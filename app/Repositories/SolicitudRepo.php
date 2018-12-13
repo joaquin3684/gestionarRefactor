@@ -121,30 +121,7 @@ class SolicitudRepo extends Repositorio
 
     public function solicitudesEnProceso()
     {
-        $obj = $this->gateway->with(['turnos', 'climed', 'especialidad', 'afiliado' => function($q){
-            $q->with('obraSocial')
-                ->with('familiares');
-        }])
-            ->whereHas('afiliado', function($query){
-                $query->whereIn('IDOBRASOCIAL', $this->obsUser->toArray());
-            })
-            ->where(function ($query){
-                $query->where('ESTADO', '<>','Confirmado')
-                    ->where('ESTADO', '<>', 'Rechazado')
-                    ->where('TIPO', '1');
-            })
-
-            ->orWhere(function ($query) {
-                $query->where('ESTADO', '<>','Confirmado')
-                    ->where('ESTADO', '<>', 'Rechazado')
-                    ->where('REVISADO', '1')
-                    ->where(function ($q){
-                        $q->where('ASIGNADO', null)
-                            ->orWhere('ASIGNADO', $this->user->id);
-
-                    });
-            })->get();
-        return $this->mapper->map($obj);
+        return 'ok';
     }
 
     public function solicitudesParaAuditar()
