@@ -181,13 +181,14 @@ class SolicitudRepo extends Repositorio
 
     public function historialCompleto()
     {
-        $obj = $this->gateway->with(['turnos', 'climed', 'especialidad', 'afiliado' => function($q){
+        $obj = $this->gateway->with(['climed', 'especialidad', 'afiliado' => function($q){
             $q->with('obraSocial')
                 ->with('familiares');
         }])
             ->whereHas('afiliado', function($query){
                 $query->whereIn('IDOBRASOCIAL', $this->obsUser->toArray());
-            })->get();
+            })
+            ->get();
         return $this->mapper->map($obj);
     }
 }
