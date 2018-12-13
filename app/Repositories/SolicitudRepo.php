@@ -181,7 +181,7 @@ class SolicitudRepo extends Repositorio
 
     public function historialCompleto()
     {
-        $obj = $this->gateway->with(['climed', 'especialidad', 'afiliado' => function($q){
+        $obj = $this->gateway->with(['climed', 'especialidad', 'afiliado', 'turnos' => function($q){
             $q->with('obraSocial')
                 ->with('familiares');
         }])
