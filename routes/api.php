@@ -100,7 +100,7 @@ Route::post('solicitud/actualizarClinica', 'SolicitudController@actualizarClinic
 Route::get('solicitud/solicitudesEnProceso', 'SolicitudController@solicitudesEnProceso');
 Route::get('solicitud/solicitudesParaAuditar', 'SolicitudController@solicitudesParaAuditar');
 Route::get('solicitud/historialAuditoria', 'SolicitudController@historialAuditoria');
-    Route::get('solicitud/historialCompleto', 'SolicitudController@historialCompleto');
+Route::get('solicitud/historialCompleto', 'SolicitudController@historialCompleto');
 
 //---------------------- TURNO ------------------------
 
