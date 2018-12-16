@@ -177,6 +177,8 @@ class SolicitudRepo extends Repositorio
             ->whereHas('afiliado', function($query){
                 $query->whereIn('IDOBRASOCIAL', $this->obsUser->toArray());
             })
+            ->where('ESTADO', '<>', 'Pendiente')
+            ->where('ESTADO', '<>', 'En Espera')
             ->get();
         return $this->mapper->map($obj);
     }
