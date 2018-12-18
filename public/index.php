@@ -4,7 +4,7 @@
  * Laravel - A PHP Framework For Web Artisans
  *
  * @package  Laravel
- * @author   Taylor Osstwell <taylor@laravel.com>
+ * @author   Taylor Ossstwell <taylor@laravel.com>
  */
 
 /*
