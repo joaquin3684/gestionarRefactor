@@ -132,6 +132,12 @@ class SolicitudRepo extends Repositorio
                 $query->where('ESTADO', '<>','Confirmado')
                     ->where('ESTADO', '<>', 'Rechazado')
                     ->where('TIPO', '1');
+            })
+            ->orWhere(function ($query) {
+                $query->where('ESTADO', '<>', 'Confirmado')
+                    ->where('ESTADO', '<>', 'Rechazado')
+                    ->where('TIPO', '=', '3')
+                    ->where('REVISADO', '1');
             })->get();
         return $this->mapper->map($obj);
     }
