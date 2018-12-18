@@ -132,7 +132,7 @@ class SolicitudRepo extends Repositorio
                 $query->where('ESTADO', '<>','Confirmado')
                     ->where('ESTADO', '<>', 'Rechazado')
                     ->where('TIPO', '1')
-                    ->whereColumn([
+                    ->where([
                         ['TIPO', '=', '3'],
                         ['REVISADO', '=', '1']
                     ]);
