@@ -185,7 +185,7 @@ class SolicitudRepo extends Repositorio
             })
             ->where('ESTADO', '<>', 'Pendiente')
             ->where('ESTADO', '<>', 'En Espera')
-            ->orderBy('FECHAS', 'asc')
+            ->orderBy('FECHAS', 'desc')
             ->get();
         return $this->mapper->map($obj);
     }
