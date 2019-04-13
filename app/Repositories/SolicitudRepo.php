@@ -170,6 +170,7 @@ class SolicitudRepo extends Repositorio
             })
             ->where('TIPO', '<>', 1)
             ->where('REVISADO', '<>', 0)
+            ->orderBy('FECHAS', 'desc')
             ->get();
         return $this->mapper->map($obj);
     }
