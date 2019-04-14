@@ -11,7 +11,7 @@ class Turno extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'IDSOLICITUD', 'FECHAT', 'HORAT', 'CONFIRMACION', 'MEDICOASIGNADO', 'MOTIVOT', 'FECHACREACION', 'OBS'
+        'IDSOLICITUD', 'FECHAT', 'HORAT', 'CONFIRMACION', 'MEDICOASIGNADO', 'MOTIVOT', 'FECHACREACION', 'OBS', 'FILEAUTORIZACION'
     ];
 
 
