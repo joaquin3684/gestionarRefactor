@@ -19,9 +19,9 @@ use Illuminate\Http\Request;
 
 Route::get('urlAmbiente', function(){
 // IF PRD, http://www.gestionarturnos.com
-//return 'http://www.gestionarturnos.com';
+return 'http://www.gestionarturnos.com';
 // IF DES, http://des.gestionarturnos.com
-return 'http://des.gestionarturnos.com';
+//return 'http://des.gestionarturnos.com';
 });
 
 
