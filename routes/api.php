@@ -19,7 +19,7 @@ use Illuminate\Http\Request;
 
 Route::get('prueba', function(){
 
-return 'juan puto';
+return 'juan puto esto es una fiesta';
 });
 
 
