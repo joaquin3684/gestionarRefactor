@@ -64,7 +64,7 @@ class AppClimedController extends Controller
     {
         return Climed::whereHas('obrasSociales', function($query){
             $query->whereIn('IDOBRASOCIAL', $this->obsUser->toArray());
-        })->where('PARTICULAR', 0)->with('especialidades')->get();
+        })->where('PARTICULAR', 0)->whereHas('especialidades')->get();
       // return Climed::all();
     }
 
