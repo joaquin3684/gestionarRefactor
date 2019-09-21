@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as F;
+use factories\AfiliadoFactory as AF;
 use Illuminate\Support\Facades\DB;
 
 class SecuritySeed extends Seeder
@@ -23,7 +24,7 @@ class SecuritySeed extends Seeder
         $perfilAuditor = factory(\App\Perfil::class)->create(['nombre' => 'auditorMedico']);
         $perfilOperador = factory(\App\Perfil::class)->create(['nombre' => 'operador']);
 
-        $usuario = factory(\App\User::class)->create(['name' => 1, 'id_perfil' => $perfil->id, 'email' => 1]);
+        $usuario = factory(\App\User::class)->create(['name' => 1, 'id_perfil' => $perfil->id, 'email' => 1, 'password' => \Illuminate\Support\Facades\Hash::make("1")]);
         $usuarioAuditor = factory(\App\User::class)->create(['name' => 'auditor', 'id_perfil' => $perfilAuditor->id, 'email' => 1]);
         $usuarioAfiliado = factory(\App\User::class)->create(['name' => "afiliado", 'id_perfil' => $perfilAfiliado->id, 'email' => 2]);
         $usuarioOperador = factory(\App\User::class)->create(['name' => 'operador', 'id_perfil' => $perfilOperador->id, 'email' => 3]);
@@ -46,8 +47,10 @@ class SecuritySeed extends Seeder
         $pantalla8 = factory(\App\Pantalla::class)->create(['nombre' => 'auditoria']);
         $pantalla9 = factory(\App\Pantalla::class)->create(['nombre' => 'recomendacion']);
         $pantalla10 = factory(\App\Pantalla::class)->create(['nombre' => 'reporteSolicitudes']);
+        $pantalla11 = factory(\App\Pantalla::class)->create(['nombre' => 'historialCompleto']);
+        $pantalla12 = factory(\App\Pantalla::class)->create(['nombre' => 'hauditoria']);
 
-        $idsPantallas = array($pantalla1->id, $pantalla2->id, $pantalla3->id, $pantalla4->id, $pantalla5->id, $pantalla6->id, $pantalla7->id, $pantalla8->id, $pantalla9->id, $pantalla10->id);
+        $idsPantallas = array($pantalla1->id, $pantalla2->id, $pantalla3->id, $pantalla4->id, $pantalla5->id, $pantalla6->id, $pantalla7->id, $pantalla8->id, $pantalla9->id, $pantalla10->id, $pantalla11->id, $pantalla12->id);
 
         $perfilAfiliado->pantallas()->attach($pantalla9->id);
         $perfil->pantallas()->attach($idsPantallas);

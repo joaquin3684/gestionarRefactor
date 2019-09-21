@@ -26,6 +26,8 @@ class CreateTurnoReposTable extends Migration
             $table->integer('CONFIRMACION');
             $table->string('MOTIVOT')->nullable();
             $table->string('MEDICOASIGNADO');
+            $table->string('OBS')->nullable();
+            $table->string('FILEAUTORIZACION')->nullable();
             $table->timestamps();
         });
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');

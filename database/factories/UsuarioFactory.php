@@ -10,7 +10,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
-        'password' => \Illuminate\Support\Facades\Hash::make("1"),
+        'password' => \Illuminate\Support\Facades\Hash::make("admin"),
         'id_perfil' => 1,
     ];
 });

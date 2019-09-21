@@ -21,9 +21,11 @@ class Usuario extends Migration
             $table->char('name', 100)->unique();
             $table->string('email');
             $table->text('password');
+            $table->string('remember_token')->nullable();
             $table->integer('id_perfil')->unsigned();
             $table->foreign('id_perfil')->references('id')->on('Perfiles');
             $table->timestamps();
+            $table->timestamp('deleted_at')->nullable();
         });
 
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');

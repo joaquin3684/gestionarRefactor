@@ -18,6 +18,7 @@ class CreateEspecialidadReposTable extends Migration
             $table->increments('IDESPECIALIDAD');
             $table->string('NOMBRE');
             $table->integer('ESTUDIO');
+            $table->integer('DIRECTO');
             $table->softDeletes();
 
             $table->timestamps();

@@ -21,7 +21,7 @@ class CreateAfiliadoReposTable extends Migration
             $table->integer('DNI')->unique();
             $table->string('NOMBRE');
             $table->string('APELLIDO');
-            $table->string('EMAIL');
+            $table->string('EMAIL')->nullable();
             $table->integer('TELEFONO');
             $table->integer('CELULAR');
             $table->string('DIRECCION');
@@ -31,9 +31,10 @@ class CreateAfiliadoReposTable extends Migration
             $table->bigInteger('CUIL');
             $table->integer('GRUPOF')->nullable();
             $table->string('NAFILIADO');
-            $table->string('LOCALIDAD');
-            $table->string('CP');
-            $table->string('PLAN');
+            $table->string('LOCALIDAD')->nullable();
+            $table->string('CP')->nullable();
+            $table->string('IDNOTIF')->nullable();
+            $table->string('PLAN')->nullable();
             $table->integer('IDOBRASOCIAL')->unsigned();
             $table->foreign('IDOBRASOCIAL')->references('ID')->on('obras_sociales');
             $table->integer('id_usuario')->unsigned()->nullable();

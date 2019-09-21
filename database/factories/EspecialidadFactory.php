@@ -10,5 +10,6 @@ $factory->define(App\Especialidad::class, function (Faker\Generator $faker) {
     return [
         'NOMBRE' => $faker->name,
         'ESTUDIO' => 0,
+        'DIRECTO' => 0
     ];
 });

@@ -21,9 +21,9 @@ class CreateClimedReposTable extends Migration
             $table->string('LOCALIDAD');
             $table->string('ZONA');
             $table->integer('PARTICULAR');
-            $table->double('latitude');
-            $table->double('longitude');
-            $table->integer('TELEFONO');
+            $table->string('TELEFONO')->nullable();
+            $table->double('latitude')->nullable();
+            $table->double('longitude')->nullable();
             $table->softDeletes();
 
             $table->timestamps();
