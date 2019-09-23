@@ -35,6 +35,8 @@ class CreateSolicitudReposTable extends Migration
             $table->string('EQUIVALENCIA')->nullable();
             $table->integer('REVISADO')->default(0);
             $table->string('OBS')->nullable();
+            $table->string('RANGO')->nullable();
+            $table->string('OBSFAMILIAR')->nullable();
             $table->timestamps();
         });
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');

@@ -21,7 +21,7 @@ class CreateFamiliarReposTable extends Migration
             $table->string('nombre');
             $table->string('apellido');
             $table->date('nacimiento');
-            $table->bigInteger('cuil');
+            $table->bigInteger('cuil')->nullable();
             $table->string('nafiliado');
             $table->integer('dni');
             $table->integer('id_afiliado')->unsigned();

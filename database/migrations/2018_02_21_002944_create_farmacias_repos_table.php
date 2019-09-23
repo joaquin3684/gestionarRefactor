@@ -22,9 +22,10 @@ class CreateFarmaciasReposTable extends Migration
             $table->string('DIRECCION');
             $table->string('LOCALIDAD');
             $table->string('ZONA');
-            $table->double('latitude');
-            $table->double('longitude');
-            $table->string('TELEFONO');
+            $table->double('latitude')->nullable();
+            $table->double('longitude')->nullable();
+            $table->string('TELEFONO')->nullable();
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');

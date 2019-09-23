@@ -22,8 +22,8 @@ class CreateAfiliadoReposTable extends Migration
             $table->string('NOMBRE');
             $table->string('APELLIDO');
             $table->string('EMAIL')->nullable();
-            $table->integer('TELEFONO');
-            $table->integer('CELULAR');
+            $table->string('TELEFONO')->nullable();
+            $table->string('CELULAR')->nullable();
             $table->string('DIRECCION');
             $table->string('PISO')->nullable();
             $table->string('DEPARTAMENTO')->nullable();
